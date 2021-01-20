@@ -1,13 +1,6 @@
-//
-//  ViewController.swift
-//  InstaExt
-//
-//  Created by sagano hikaru on 2021/01/20.
-//
-
 import UIKit
 
-class ViewController: UIViewController {
+class EditorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
