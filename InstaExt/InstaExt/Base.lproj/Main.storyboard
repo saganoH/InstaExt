@@ -41,10 +41,16 @@
                             <constraint firstItem="cqD-4E-0Ij" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="u4v-wY-SqE"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="xWS-Hb-mwf"/>
+                    <navigationItem key="navigationItem" id="xWS-Hb-mwf">
+                        <barButtonItem key="leftBarButtonItem" title="画像取り込み" id="d1e-vh-XFH">
+                            <connections>
+                                <action selector="takeInPhoto:" destination="BYZ-38-t0r" id="g4v-Eg-ikv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="initialLabel" destination="1UD-p0-RBn" id="JN0-sJ-ruq"/>
-                        <outlet property="mainImage" destination="cqD-4E-0Ij" id="1IZ-do-xlJ"/>
+                        <outlet property="mainImageView" destination="cqD-4E-0Ij" id="2eL-xc-UgN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
