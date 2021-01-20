@@ -1,0 +1,112 @@
+@startuml
+title "クラス図"
+
+class  メイン画面{
+@IBOutlet イメージビュー: UIImageView
+@IBOutlet コレクションビュー: UICollectionView
+画像: UIImage
+画像形式: String
+@IBAction 画像取り込みボタン()
+@IBAction 保存ボタン()
+@IBAction インスタ連携ボタン()
+UICollectionViewDelegate collectionView()
+}
+
+class  編集画面{
+@IBOutlet　イメージビュー: UIImageView
+@IBOutlet　編集ツール用のビュー: UIView
+@IBOutlet　スライダ: UISlider
+編集中画像: UIImage
+編集機能名: String
+マスク画像: UIImage
+フィルタ画像: UIImage
+@IBAction　完了ボタン()
+@IBAction　キャンセルボタン()
+編集機能名に対応するクラスのメソッドを実行する(編集機能名: String)
+編集中画像を更新する()
+}
+
+class マスク画像クラス{
+マスク画像をなぞった形に編集する(マスク画像: UIImage) -> UIImage
+マスク画像を合成する(マスク画像: UIImage, 編集中画像: UIImage, フィルタ画像: UIImage) -> UIImage
+}
+
+class デバイスクラス{
+画像を取り込む()
+カメラロールに保存する(画像: UIImage)
+写真追加権限のチェック()
+設定誘導アラートの作成() -> UIAlertContrller
+保存成否アラートの作成(NSError) -> UIAlertContrller
+}
+
+class インスタクラス{
+インスタに画像を受け渡す(画像: UIImage)
+連携成否アラートの作成(NSError) -> UIAlertContrller
+}
+
+class 画像形式クラス{
+画像形式判別(URL: String) -> 画像形式: String
+保存用画像形式変換(画像: UIImage, 画像形式: String) -> 画像: UIImage
+インスタ用画像形式変換(画像: UIImage) -> jpeg画像: UIImage
+}
+
+package フィルタ画像生成クラス {
+class ぼかしクラス{
+元画像からぼかし画像を作る(ぼかし度合い：CGFloat, 元画像: UIImage) -> UIImage
+}
+
+class モザイククラス{
+元画像からモザイク画像を作る(モザイク度合い：CGFloat, 元画像: UIImage) -> UIImage
+}
+
+class モノクロクラス{
+元画像からモノクロ画像を作る(モノクロ度合い：CGFloat, 元画像: UIImage) -> UIImage
+}
+}
+note bottom
+  フィルタ画像のみを生成、この画像をマスクレイヤと重ねる
+end note
+
+
+class ペイントクラス{
+描画ビュー: PKCanvasView
+PencilKitで描画する() - > UIImage
+}
+
+メイン画面--編集画面
+note left on link
+  画像(UIImage)、編集機能名(String)
+end note
+
+メイン画面--デバイスクラス
+note left on link
+  画像(UIImage)
+end note
+
+メイン画面--インスタクラス
+note left on link
+  画像(UIImage)
+end note
+
+デバイスクラス--画像形式クラス
+インスタクラス--画像形式クラス
+
+マスク画像クラス--編集画面
+
+編集画面--ぼかしクラス
+note left on link
+  画像、スライダの値(CGFloat)
+end note
+
+編集画面--モザイククラス
+note left on link
+  画像、スライダの値(CGFloat)
+end note
+
+編集画面--モノクロクラス
+note left on link
+  画像、スライダの値(CGFloat)
+end note
+
+編集画面--ペイントクラス
+@enduml
