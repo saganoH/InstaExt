@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "launchScreenIcon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "スプラッシュ画面用アイコン.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
