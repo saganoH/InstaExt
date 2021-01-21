@@ -1,28 +1,25 @@
+
 import PhotosUI
 
-class Device {
+class ImageDelivery {
     
     var delegate: DeviceDelegate?
     
     func takeInPhoto() {
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
 
-        // 画像のみ選択可能に設定
         config.filter = .images
-        // 選択できる数を指定
         config.selectionLimit = 1
 
-        // configを渡して初期化
         let phPicker = PHPickerViewController(configuration: config)
         phPicker.delegate = self
 
         self.delegate?.showPHPicker(phPicker: phPicker)
     }
-    
 }
 
-extension Device: PHPickerViewControllerDelegate {
-    // Pickerで選択したときにコールされる
+extension ImageDelivery: PHPickerViewControllerDelegate {
+
     public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         
@@ -31,15 +28,23 @@ extension Device: PHPickerViewControllerDelegate {
             image.itemProvider.loadObject(ofClass: UIImage.self) { (selectedImage, error) in
                 if let error = error {
                     print("error: \(error.localizedDescription)")
+                    self.delegate?.showAlert(alert: self.makePickerAlert())
                     return
                 }
-                // UIImageに変換
+
                 guard let wrapImage = selectedImage as? UIImage else {
-                    print("wrap error")
+                    self.delegate?.showAlert(alert: self.makePickerAlert())
                     return
                 }
                 self.delegate?.didGetImage(gotImage: wrapImage)
             }
         }
+    }
+    
+    private func makePickerAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "その画像は読み込めません", message: "ファイルが破損している可能性があります", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        return alert
     }
 }

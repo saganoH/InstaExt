@@ -16,7 +16,7 @@
 		C6886FC125B7B83400CA7781 /* InstaExtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FC025B7B83400CA7781 /* InstaExtTests.swift */; };
 		C6886FCC25B7B83400CA7781 /* InstaExtUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FCB25B7B83400CA7781 /* InstaExtUITests.swift */; };
 		C6886FE325B7C4F900CA7781 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FE225B7C4F900CA7781 /* EditorViewController.swift */; };
-		C688703325B7FE8E00CA7781 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688703225B7FE8E00CA7781 /* Device.swift */; };
+		C688703325B7FE8E00CA7781 /* ImageDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688703225B7FE8E00CA7781 /* ImageDelivery.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,7 @@
 		C6886FCB25B7B83400CA7781 /* InstaExtUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaExtUITests.swift; sourceTree = "<group>"; };
 		C6886FCD25B7B83400CA7781 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6886FE225B7C4F900CA7781 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
-		C688703225B7FE8E00CA7781 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		C688703225B7FE8E00CA7781 /* ImageDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDelivery.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +111,7 @@
 				C6886FAF25B7B83200CA7781 /* Main.storyboard */,
 				C6886FAD25B7B83200CA7781 /* MainViewController.swift */,
 				C6886FE225B7C4F900CA7781 /* EditorViewController.swift */,
-				C688703225B7FE8E00CA7781 /* Device.swift */,
+				C688703225B7FE8E00CA7781 /* ImageDelivery.swift */,
 			);
 			path = InstaExt;
 			sourceTree = "<group>";
@@ -268,7 +268,7 @@
 				C6886FAA25B7B83200CA7781 /* AppDelegate.swift in Sources */,
 				C6886FAC25B7B83200CA7781 /* SceneDelegate.swift in Sources */,
 				C6886FE325B7C4F900CA7781 /* EditorViewController.swift in Sources */,
-				C688703325B7FE8E00CA7781 /* Device.swift in Sources */,
+				C688703325B7FE8E00CA7781 /* ImageDelivery.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
