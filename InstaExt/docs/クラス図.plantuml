@@ -4,12 +4,12 @@ title "クラス図"
 class  メイン画面{
 @IBOutlet イメージビュー: UIImageView
 @IBOutlet コレクションビュー: UICollectionView
+@IBOutlet 初期テキストラベル: UILabel
 画像: UIImage
 画像形式: String
 @IBAction 画像取り込みボタン()
 @IBAction 保存ボタン()
 @IBAction インスタ連携ボタン()
-UICollectionViewDelegate collectionView()
 }
 
 class  編集画面{
