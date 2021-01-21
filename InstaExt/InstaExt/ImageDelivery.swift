@@ -25,7 +25,9 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
         
         for image in results {
             // PHPickerResultからImageを読み込む
-            image.itemProvider.loadObject(ofClass: UIImage.self) { (selectedImage, error) in
+            image.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (selectedImage, error) in
+                guard let self = self else { return }
+                
                 if let error = error {
                     print("error: \(error.localizedDescription)")
                     self.delegate?.showAlert(alert: self.makePickerAlert())
@@ -41,10 +43,10 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
         }
     }
     
-    private func makePickerAlert() -> UIAlertController {
+    private func makePickerAlert() -> UIAlertController { 
         let alert = UIAlertController(title: "その画像は読み込めません", message: "ファイルが破損している可能性があります", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
         return alert
+
     }
 }
