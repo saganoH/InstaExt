@@ -5,25 +5,35 @@ class MainViewController: UIViewController {
 
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var initialLabel: UILabel!
-    static var mainImage: UIImage = UIImage(named: "transparentImage")!
-    let deviceC = Device()
+    private var mainImage: UIImage = UIImage(named: "transparentImage")!
+    private let deviceC = Device()
     
     override func viewWillAppear(_ animated: Bool) {
-       
+        deviceC.delegate = self
     }
     
     @IBAction func takeInAction(_ sender: Any) {
         deviceC.takeInPhoto()
-        mainImageView.image = MainViewController.mainImage
     }
 }
 
 protocol DeviceDelegate {
     func showPHPicker(phPicker: PHPickerViewController)
+    func didGetImage(gotImage: UIImage)
 }
 
 extension MainViewController: DeviceDelegate {
     func showPHPicker(phPicker: PHPickerViewController) {
-        present(phPicker, animated: true)
+        DispatchQueue.main.async {
+            self.present(phPicker, animated: true)
+        }
+    }
+    
+    func didGetImage(gotImage: UIImage) {
+        mainImage = gotImage
+        DispatchQueue.main.async {
+            self.mainImageView.image = self.mainImage
+            self.initialLabel.isHidden = true
+        }
     }
 }

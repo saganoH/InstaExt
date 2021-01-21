@@ -2,7 +2,7 @@ import PhotosUI
 
 class Device {
     
-    private var delegate: DeviceDelegate?
+    var delegate: DeviceDelegate?
     
     func takeInPhoto() {
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
@@ -14,18 +14,18 @@ class Device {
 
         // configを渡して初期化
         let phPicker = PHPickerViewController(configuration: config)
-        // delegateをセット
         phPicker.delegate = self
 
-        // 表示
         self.delegate?.showPHPicker(phPicker: phPicker)
     }
     
 }
 
 extension Device: PHPickerViewControllerDelegate {
-    // Pickerを閉じたときにコールされる
+    // Pickerで選択したときにコールされる
     public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
         for image in results {
             // PHPickerResultからImageを読み込む
             image.itemProvider.loadObject(ofClass: UIImage.self) { (selectedImage, error) in
@@ -38,8 +38,7 @@ extension Device: PHPickerViewControllerDelegate {
                     print("wrap error")
                     return
                 }
-                
-                MainViewController.mainImage = wrapImage
+                self.delegate?.didGetImage(gotImage: wrapImage)
             }
         }
     }

@@ -44,7 +44,7 @@
                     <navigationItem key="navigationItem" id="xWS-Hb-mwf">
                         <barButtonItem key="leftBarButtonItem" title="画像取り込み" id="d1e-vh-XFH">
                             <connections>
-                                <action selector="takeInPhoto:" destination="BYZ-38-t0r" id="g4v-Eg-ikv"/>
+                                <action selector="takeInAction:" destination="BYZ-38-t0r" id="08N-pg-W3a"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
