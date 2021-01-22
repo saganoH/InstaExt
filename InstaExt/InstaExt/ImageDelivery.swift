@@ -1,4 +1,3 @@
-
 import PhotosUI
 
 class ImageDelivery {
@@ -7,46 +6,46 @@ class ImageDelivery {
     
     func takeInPhoto() {
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
-
+        
         config.filter = .images
         config.selectionLimit = 1
-
+        
         let phPicker = PHPickerViewController(configuration: config)
         phPicker.delegate = self
-
+        
         self.delegate?.showPHPicker(phPicker: phPicker)
     }
 }
 
 extension ImageDelivery: PHPickerViewControllerDelegate {
-
+    
     public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         
         for image in results {
             // PHPickerResultからImageを読み込む
-            image.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (selectedImage, error) in
+            image.itemProvider.loadObject(ofClass: UIImage.self, completionHandler: { [weak self] (selectedImage, error) in
                 guard let self = self else { return }
                 
-                if let error = error {
-                    print("error: \(error.localizedDescription)")
-                    self.delegate?.showAlert(alert: self.makePickerAlert())
+                if error != nil {
+                    self.makePickerAlert(completion: { (alert) in self.delegate?.showAlert(alert: alert) })
                     return
                 }
-
+                
                 guard let wrapImage = selectedImage as? UIImage else {
-                    self.delegate?.showAlert(alert: self.makePickerAlert())
+                    self.makePickerAlert(completion: { (alert) in self.delegate?.showAlert(alert: alert) })
                     return
                 }
-                self.delegate?.didGetImage(gotImage: wrapImage)
-            }
+                self.delegate?.didGetImage(image: wrapImage)
+            })
         }
     }
     
-    private func makePickerAlert() -> UIAlertController { 
-        let alert = UIAlertController(title: "その画像は読み込めません", message: "ファイルが破損している可能性があります", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        return alert
-
+    private func makePickerAlert(completion: @escaping (UIAlertController) -> Void) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "その画像は読み込めません", message: "ファイルが破損している可能性があります", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            completion(alert)
+        }
     }
 }

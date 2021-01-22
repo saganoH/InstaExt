@@ -18,7 +18,7 @@ class MainViewController: UIViewController {
 
 protocol DeviceDelegate {
     func showPHPicker(phPicker: PHPickerViewController)
-    func didGetImage(gotImage: UIImage)
+    func didGetImage(image: UIImage)
     func showAlert(alert: UIAlertController)
 }
 
@@ -29,9 +29,9 @@ extension MainViewController: DeviceDelegate {
         }
     }
     
-    func didGetImage(gotImage: UIImage) {
+    func didGetImage(image: UIImage) {
         DispatchQueue.main.async {
-            self.mainImageView.image = gotImage
+            self.mainImageView.image = image
             self.initialLabel.isHidden = true
         }
     }
