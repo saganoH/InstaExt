@@ -47,6 +47,11 @@
                                 <action selector="takeInAction:" destination="BYZ-38-t0r" id="08N-pg-W3a"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="保存" id="Rct-MW-QDL">
+                            <connections>
+                                <action selector="saveAction:" destination="BYZ-38-t0r" id="y8X-V0-RMW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="initialLabel" destination="1UD-p0-RBn" id="JN0-sJ-ruq"/>

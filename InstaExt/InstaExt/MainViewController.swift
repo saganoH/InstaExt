@@ -14,6 +14,12 @@ class MainViewController: UIViewController {
     @IBAction func takeInAction(_ sender: Any) {
         imageDelivery.takeInPhoto()
     }
+    
+    @IBAction func saveAction(_ sender: Any) {
+        if let image = mainImageView.image {
+            imageDelivery.savePhoto(image: image, completion: { (alert) in self.showAlert(alert: alert) })
+        }
+    }
 }
 
 protocol DeviceDelegate {

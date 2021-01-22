@@ -15,6 +15,37 @@ class ImageDelivery {
         
         self.delegate?.showPHPicker(phPicker: phPicker)
     }
+    
+    func savePhoto(image: UIImage, completion: @escaping (UIAlertController) -> Void) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "保存", message: "この画像を保存しますか？", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { (ok) in
+                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.showResultOfSaveImage( _:didFinishSavingWithError:)), nil)
+            }
+            let cancelAction = UIAlertAction(title: "CANCEL", style: .default) { (cancel) in
+                alert.dismiss(animated: true, completion: nil)
+            }
+            alert.addAction(cancelAction)
+            alert.addAction(okAction)
+            completion(alert)
+        }
+    }
+    
+    @objc func showResultOfSaveImage(_ image: UIImage, didFinishSavingWithError error: NSError!) {
+        DispatchQueue.main.async {
+            var title = "保存完了"
+            var message = "カメラロールに保存しました"
+            
+            if error != nil {
+                title = "エラー"
+                message = "保存に失敗しました"
+            }
+            
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.delegate?.showAlert(alert: alert)
+        }
+    }
 }
 
 extension ImageDelivery: PHPickerViewControllerDelegate {
