@@ -27,12 +27,7 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
             image.itemProvider.loadObject(ofClass: UIImage.self, completionHandler: { [weak self] (selectedImage, error) in
                 guard let self = self else { return }
                 
-                if error != nil {
-                    self.makePickerAlert(completion: { (alert) in self.delegate?.showAlert(alert: alert) })
-                    return
-                }
-                
-                guard let wrapImage = selectedImage as? UIImage else {
+                guard error == nil, let wrapImage = selectedImage as? UIImage else {
                     self.makePickerAlert(completion: { (alert) in self.delegate?.showAlert(alert: alert) })
                     return
                 }
