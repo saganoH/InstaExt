@@ -1,6 +1,6 @@
 import PhotosUI
 
-class ImageDelivery {
+class ImageDelivery: NSObject {
     
     var delegate: DeviceDelegate?
     
@@ -20,7 +20,7 @@ class ImageDelivery {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "保存", message: "この画像を保存しますか？", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default) { (ok) in
-                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.showResultOfSaveImage( _:didFinishSavingWithError:)), nil)
+                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.showResultOfSaveImage( _:didFinishSavingWithError:contextInfo:)), nil)
             }
             let cancelAction = UIAlertAction(title: "CANCEL", style: .default) { (cancel) in
                 alert.dismiss(animated: true, completion: nil)
@@ -31,7 +31,7 @@ class ImageDelivery {
         }
     }
     
-    @objc func showResultOfSaveImage(_ image: UIImage, didFinishSavingWithError error: NSError!) {
+    @objc func showResultOfSaveImage(_ image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutableRawPointer) {
         DispatchQueue.main.async {
             var title = "保存完了"
             var message = "カメラロールに保存しました"
