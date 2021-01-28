@@ -33,13 +33,7 @@ class MainViewController: UIViewController {
 
 // MARK: - DeviceクラスのDelegate
 
-protocol DeviceDelegate {
-    func showPHPicker(phPicker: PHPickerViewController)
-    func didGetImage(image: UIImage)
-    func showAlert(alert: UIAlertController)
-}
-
-extension MainViewController: DeviceDelegate {
+extension MainViewController: ImageDeliveryDelegate {
     func showPHPicker(phPicker: PHPickerViewController) {
         DispatchQueue.main.async {
             self.present(phPicker, animated: true)

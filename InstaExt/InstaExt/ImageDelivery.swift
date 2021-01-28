@@ -2,7 +2,7 @@ import PhotosUI
 
 class ImageDelivery: NSObject {
     
-    var delegate: DeviceDelegate?
+    var delegate: ImageDeliveryDelegate?
     
     func takeInPhoto() {
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
@@ -18,13 +18,17 @@ class ImageDelivery: NSObject {
     
     func savePhoto(image: UIImage, completion: @escaping (UIAlertController) -> Void) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "保存", message: "この画像を保存しますか？", preferredStyle: .alert)
+            let alert = UIAlertController(title: "保存",
+                                          message: "この画像を保存しますか？",
+                                          preferredStyle: .alert)
+            
             let okAction = UIAlertAction(title: "OK", style: .default) { (ok) in
                 UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.showResultOfSaveImage( _:didFinishSavingWithError:contextInfo:)), nil)
             }
             let cancelAction = UIAlertAction(title: "CANCEL", style: .default) { (cancel) in
                 alert.dismiss(animated: true, completion: nil)
             }
+            
             alert.addAction(cancelAction)
             alert.addAction(okAction)
             completion(alert)
@@ -33,10 +37,9 @@ class ImageDelivery: NSObject {
     
     func showPrivacyAlert() {
         DispatchQueue.main.async {
-            let alert = UIAlertController(
-                title: "写真の追加権限がありません",
-                message: "カメラロールへの追加を許可してください",
-                preferredStyle: .alert)
+            let alert = UIAlertController(title: "写真の追加権限がありません",
+                                          message: "カメラロールへの追加を許可してください",
+                                          preferredStyle: .alert)
             
             let settingsAction = UIAlertAction(
                 title: "設定",
@@ -48,10 +51,9 @@ class ImageDelivery: NSObject {
                     UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
                 })
             
-            let closeAction: UIAlertAction = UIAlertAction(
-                title: "キャンセル",
-                style: .cancel,
-                handler: nil)
+            let closeAction: UIAlertAction = UIAlertAction(title: "キャンセル",
+                                                           style: .cancel,
+                                                           handler: nil)
             
             alert.addAction(settingsAction)
             alert.addAction(closeAction)
@@ -99,12 +101,19 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
     
     private func makePickerAlert(completion: @escaping (UIAlertController) -> Void) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(
-                title: "その画像は読み込めません",
-                message: "ファイルが破損している可能性があります",
-                preferredStyle: .alert)
+            let alert = UIAlertController(title: "その画像は読み込めません",
+                                          message: "ファイルが破損している可能性があります",
+                                          preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             completion(alert)
         }
     }
+}
+
+// MARK: - ImageDeliveryDelegate protocol
+
+protocol ImageDeliveryDelegate {
+    func showPHPicker(phPicker: PHPickerViewController)
+    func didGetImage(image: UIImage)
+    func showAlert(alert: UIAlertController)
 }
