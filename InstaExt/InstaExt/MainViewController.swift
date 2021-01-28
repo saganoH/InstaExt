@@ -8,8 +8,17 @@ class MainViewController: UIViewController {
     private let imageDelivery = ImageDelivery()
     
     override func viewWillAppear(_ animated: Bool) {
+        if PHPhotoLibrary.authorizationStatus(for: .addOnly) != .authorized {
+            PHPhotoLibrary.requestAuthorization { status in
+                if status == .denied {
+                    self.imageDelivery.showPrivacyAlert()
+                }
+            }
+        }
         imageDelivery.delegate = self
     }
+    
+    // MARK: - @IBAction
     
     @IBAction func takeInAction(_ sender: Any) {
         imageDelivery.takeInPhoto()
@@ -21,6 +30,8 @@ class MainViewController: UIViewController {
         }
     }
 }
+
+// MARK: - DeviceクラスのDelegate
 
 protocol DeviceDelegate {
     func showPHPicker(phPicker: PHPickerViewController)

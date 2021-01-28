@@ -31,6 +31,34 @@ class ImageDelivery: NSObject {
         }
     }
     
+    func showPrivacyAlert() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(
+                title: "写真の追加権限がありません",
+                message: "カメラロールへの追加を許可してください",
+                preferredStyle: .alert)
+            
+            let settingsAction = UIAlertAction(
+                title: "設定",
+                style: .default,
+                handler: { (_) -> Void in
+                    guard let settingsURL = URL(string: UIApplication.openSettingsURLString ) else {
+                        return
+                    }
+                    UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                })
+            
+            let closeAction: UIAlertAction = UIAlertAction(
+                title: "キャンセル",
+                style: .cancel,
+                handler: nil)
+            
+            alert.addAction(settingsAction)
+            alert.addAction(closeAction)
+            self.delegate?.showAlert(alert: alert)
+        }
+    }
+    
     @objc func showResultOfSaveImage(_ image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutableRawPointer) {
         DispatchQueue.main.async {
             var title = "保存完了"
@@ -47,6 +75,8 @@ class ImageDelivery: NSObject {
         }
     }
 }
+
+// MARK: - PHPickerViewControllerDelegate
 
 extension ImageDelivery: PHPickerViewControllerDelegate {
     
@@ -69,7 +99,10 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
     
     private func makePickerAlert(completion: @escaping (UIAlertController) -> Void) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "その画像は読み込めません", message: "ファイルが破損している可能性があります", preferredStyle: .alert)
+            let alert = UIAlertController(
+                title: "その画像は読み込めません",
+                message: "ファイルが破損している可能性があります",
+                preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             completion(alert)
         }
