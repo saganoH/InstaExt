@@ -35,40 +35,14 @@ class ImageDelivery: NSObject {
         }
     }
     
-    func showPrivacyAlert() {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: "写真の追加権限がありません",
-                                          message: "カメラロールへの追加を許可してください",
-                                          preferredStyle: .alert)
-            
-            let settingsAction = UIAlertAction(
-                title: "設定",
-                style: .default,
-                handler: { (_) -> Void in
-                    guard let settingsURL = URL(string: UIApplication.openSettingsURLString ) else {
-                        return
-                    }
-                    UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
-                })
-            
-            let closeAction: UIAlertAction = UIAlertAction(title: "キャンセル",
-                                                           style: .cancel,
-                                                           handler: nil)
-            
-            alert.addAction(settingsAction)
-            alert.addAction(closeAction)
-            self.delegate?.showAlert(alert: alert)
-        }
-    }
-    
     @objc func showResultOfSaveImage(_ image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutableRawPointer) {
         DispatchQueue.main.async {
             var title = "保存完了"
             var message = "カメラロールに保存しました"
             
             if error != nil {
-                title = "エラー"
-                message = "保存に失敗しました"
+                title = "保存エラー"
+                message = "写真の追加権限を確認してください"
             }
             
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

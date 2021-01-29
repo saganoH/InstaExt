@@ -8,13 +8,6 @@ class MainViewController: UIViewController {
     private let imageDelivery = ImageDelivery()
     
     override func viewWillAppear(_ animated: Bool) {
-        if PHPhotoLibrary.authorizationStatus(for: .addOnly) != .authorized {
-            PHPhotoLibrary.requestAuthorization { status in
-                if status == .denied {
-                    self.imageDelivery.showPrivacyAlert()
-                }
-            }
-        }
         imageDelivery.delegate = self
     }
     
