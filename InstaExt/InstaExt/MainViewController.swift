@@ -19,7 +19,9 @@ class MainViewController: UIViewController {
     
     @IBAction func saveAction(_ sender: Any) {
         if let image = mainImageView.image {
-            imageDelivery.savePhoto(image: image, completion: { (alert) in self.showAlert(alert: alert) })
+            imageDelivery.savePhoto(image: image, completion: { [weak self] (alert) in
+                                        guard let self = self else { return }
+                                        self.showAlert(alert: alert) })
         }
     }
 }

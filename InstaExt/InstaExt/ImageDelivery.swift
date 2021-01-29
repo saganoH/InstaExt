@@ -22,7 +22,8 @@ class ImageDelivery: NSObject {
                                           message: "この画像を保存しますか？",
                                           preferredStyle: .alert)
             
-            let okAction = UIAlertAction(title: "OK", style: .default) { (ok) in
+            let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] (ok) in
+                guard let self = self else { return }
                 UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.showResultOfSaveImage( _:didFinishSavingWithError:contextInfo:)), nil)
             }
             let cancelAction = UIAlertAction(title: "CANCEL", style: .default) { (cancel) in
