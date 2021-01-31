@@ -30,20 +30,23 @@ class MainViewController: UIViewController {
 
 extension MainViewController: ImageDeliveryDelegate {
     func showPHPicker(phPicker: PHPickerViewController) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.present(phPicker, animated: true)
         }
     }
     
     func didGetImage(image: UIImage) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.mainImageView.image = image
             self.initialLabel.isHidden = true
         }
     }
     
     func showAlert(alert: UIAlertController) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.present(alert, animated: true)
         }
     }
