@@ -5,7 +5,6 @@ class  メイン画面{
 @IBOutlet イメージビュー: UIImageView
 @IBOutlet コレクションビュー: UICollectionView
 @IBOutlet 初期テキストラベル: UILabel
-画像: UIImage
 画像形式: String
 @IBAction 画像取り込みボタン()
 @IBAction 保存ボタン()
@@ -33,10 +32,9 @@ class マスク画像クラス{
 
 class デバイスクラス{
 画像を取り込む()
-カメラロールに保存する(画像: UIImage)
-写真追加権限のチェック()
-設定誘導アラートの作成() -> UIAlertContrller
-保存成否アラートの作成(NSError) -> UIAlertContrller
+カメラロールに保存する(画像: UIImage, アラートを返すクロージャ)
+写真追加権限のアラート表示()
+保存成否アラートの表示(UIImage, NSError, UnsafeMutableRawPointer)
 }
 
 class インスタクラス{

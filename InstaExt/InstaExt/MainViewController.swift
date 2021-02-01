@@ -11,33 +11,42 @@ class MainViewController: UIViewController {
         imageDelivery.delegate = self
     }
     
+    // MARK: - @IBAction
+    
     @IBAction func takeInAction(_ sender: Any) {
         imageDelivery.takeInPhoto()
     }
+    
+    @IBAction func saveAction(_ sender: Any) {
+        if let image = mainImageView.image {
+            imageDelivery.savePhoto(image: image, completion: { [weak self] (alert) in
+                                        guard let self = self else { return }
+                                        self.showAlert(alert: alert) })
+        }
+    }
 }
 
-protocol DeviceDelegate {
-    func showPHPicker(phPicker: PHPickerViewController)
-    func didGetImage(image: UIImage)
-    func showAlert(alert: UIAlertController)
-}
+// MARK: - DeviceクラスのDelegate
 
-extension MainViewController: DeviceDelegate {
+extension MainViewController: ImageDeliveryDelegate {
     func showPHPicker(phPicker: PHPickerViewController) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.present(phPicker, animated: true)
         }
     }
     
     func didGetImage(image: UIImage) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.mainImageView.image = image
             self.initialLabel.isHidden = true
         }
     }
     
     func showAlert(alert: UIAlertController) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.present(alert, animated: true)
         }
     }
