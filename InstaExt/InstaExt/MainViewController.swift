@@ -5,6 +5,7 @@ class MainViewController: UIViewController {
 
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var initialLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     private let imageDelivery = ImageDelivery()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,5 +50,34 @@ extension MainViewController: ImageDeliveryDelegate {
             guard let self = self else { return }
             self.present(alert, animated: true)
         }
+    }
+}
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let bokashiCell = collectionView.dequeueReusableCell(withReuseIdentifier: "bokashi", for: indexPath)
+        bokashiCell.backgroundColor = UIColor.black
+        return bokashiCell
+    }
+    
+    // 編集機能の選択時に呼ばれる
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard = self.storyboard!
+        let editorViewController = storyboard.instantiateViewController(identifier: "editorViewController") as! EditorViewController
+        // editorViewController.selectedEditorName =
+        switch indexPath.hashValue {
+        case 0:
+            editorViewController.selectedEditorName = "bokashi"
+        default:
+            print(indexPath.hashValue)
+        }
+        
+        self.present(editorViewController, animated: true)
     }
 }

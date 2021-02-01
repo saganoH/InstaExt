@@ -29,12 +29,43 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </navigationBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1j7-AO-rXQ">
+                                <rect key="frame" x="0.0" y="742" width="700" height="120"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="700" id="JhC-n0-q7n"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Isz-qb-s7g">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="bokashi" id="Mx7-C3-Gww">
+                                        <rect key="frame" x="0.0" y="-4" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                        <size key="customSize" width="128" height="128"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Lsf-PR-5pm"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="9w5-JQ-Prv"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="1j7-AO-rXQ" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="5AF-cZ-UPS"/>
                             <constraint firstItem="1UD-p0-RBn" firstAttribute="centerX" secondItem="cqD-4E-0Ij" secondAttribute="centerX" id="5LE-76-FXE"/>
+                            <constraint firstItem="1j7-AO-rXQ" firstAttribute="top" secondItem="cqD-4E-0Ij" secondAttribute="bottom" id="7id-OW-7L2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cqD-4E-0Ij" secondAttribute="trailing" id="D0h-Ie-gHu"/>
+                            <constraint firstItem="1j7-AO-rXQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="NTq-EU-u1a"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="cqD-4E-0Ij" secondAttribute="bottom" constant="120" id="Pes-Jc-uvD"/>
                             <constraint firstItem="1UD-p0-RBn" firstAttribute="centerY" secondItem="cqD-4E-0Ij" secondAttribute="centerY" id="cXe-dp-8Pn"/>
                             <constraint firstItem="cqD-4E-0Ij" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="rg6-29-uxa"/>
@@ -54,6 +85,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionView" destination="1j7-AO-rXQ" id="upK-Bp-6WQ"/>
                         <outlet property="initialLabel" destination="1UD-p0-RBn" id="JN0-sJ-ruq"/>
                         <outlet property="mainImageView" destination="cqD-4E-0Ij" id="2eL-xc-UgN"/>
                     </connections>
@@ -79,6 +111,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PRX-CH-93H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-214.49275362318843" y="79.6875"/>
+        </scene>
+        <!--Editor View Controller-->
+        <scene sceneID="X4R-FY-TGW">
+            <objects>
+                <viewController storyboardIdentifier="editorViewController" id="K3Q-8D-0nV" customClass="EditorViewController" customModule="InstaExt" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Twi-B6-ugR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Kxh-i4-CgM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Ut-0E-nx0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1480" y="80"/>
         </scene>
     </scenes>
     <resources>

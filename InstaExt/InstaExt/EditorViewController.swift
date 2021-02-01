@@ -2,9 +2,11 @@ import UIKit
 
 class EditorViewController: UIViewController {
 
+    var selectedEditorName: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        print(selectedEditorName as Any)
     }
 
 
