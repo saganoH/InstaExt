@@ -55,7 +55,7 @@ extension MainViewController: ImageDeliveryDelegate {
     }
 }
 
-// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -75,6 +75,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let editorViewController = storyboard.instantiateViewController(identifier: "editorViewController") as! EditorViewController
         editorViewController.selectedEditorName = editorNames[indexPath.item]
         editorViewController.modalPresentationStyle = .fullScreen
-        self.present(editorViewController, animated: true)
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "キャンセル", style: .plain, target: nil, action: nil)
+        self.navigationController?.pushViewController(editorViewController, animated: true)
     }
 }
