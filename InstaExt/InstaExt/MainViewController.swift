@@ -6,7 +6,9 @@ class MainViewController: UIViewController {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var initialLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    
     private let imageDelivery = ImageDelivery()
+    private let editorNames: [String] = ["bokashi", "mozaiku", "monokuro"]
     
     override func viewWillAppear(_ animated: Bool) {
         imageDelivery.delegate = self
@@ -53,31 +55,26 @@ extension MainViewController: ImageDeliveryDelegate {
     }
 }
 
-// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
     
+    // cell情報
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let bokashiCell = collectionView.dequeueReusableCell(withReuseIdentifier: "bokashi", for: indexPath)
-        bokashiCell.backgroundColor = UIColor.black
-        return bokashiCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        cell.backgroundColor = UIColor.black
+        return cell
     }
     
     // 編集機能の選択時に呼ばれる
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = self.storyboard!
         let editorViewController = storyboard.instantiateViewController(identifier: "editorViewController") as! EditorViewController
-        // editorViewController.selectedEditorName =
-        switch indexPath.hashValue {
-        case 0:
-            editorViewController.selectedEditorName = "bokashi"
-        default:
-            print(indexPath.hashValue)
-        }
-        
+        editorViewController.selectedEditorName = editorNames[indexPath.item]
+        editorViewController.modalPresentationStyle = .fullScreen
         self.present(editorViewController, animated: true)
     }
 }
