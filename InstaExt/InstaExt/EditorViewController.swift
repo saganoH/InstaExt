@@ -8,6 +8,7 @@ class EditorViewController: UIViewController {
     
     var selectedEditorName: String?
     var editingImage: UIImage!
+    
     private var filteringImage: UIImage!
     private let mainViewController = MainViewController()
     private let bokashi = Bokashi()
@@ -24,6 +25,7 @@ class EditorViewController: UIViewController {
         switch selectedEditorName {
         case Optional("bokashi"):
             filteringImage = bokashi.makeBokashi(value: CGFloat(toolSlider.value), image: editingImage)
+            // 動きが見えるように一旦viewにセットしている
             editingImageView.image = filteringImage
             
         case Optional("mozaiku"):
