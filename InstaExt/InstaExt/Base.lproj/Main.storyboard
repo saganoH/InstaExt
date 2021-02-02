@@ -27,11 +27,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1j7-AO-rXQ">
-                                <rect key="frame" x="0.0" y="742" width="700" height="120"/>
+                                <rect key="frame" x="0.0" y="742" width="414" height="120"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="700" id="JhC-n0-q7n"/>
-                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Isz-qb-s7g">
                                     <size key="itemSize" width="120" height="120"/>
                                     <size key="estimatedItemSize" width="120" height="120"/>
@@ -68,6 +65,7 @@
                             <constraint firstItem="1UD-p0-RBn" firstAttribute="centerY" secondItem="cqD-4E-0Ij" secondAttribute="centerY" id="cXe-dp-8Pn"/>
                             <constraint firstItem="cqD-4E-0Ij" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="rg6-29-uxa"/>
                             <constraint firstItem="cqD-4E-0Ij" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="u4v-wY-SqE"/>
+                            <constraint firstAttribute="trailing" secondItem="1j7-AO-rXQ" secondAttribute="trailing" id="vqM-Je-Z0h"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xWS-Hb-mwf">
@@ -121,18 +119,43 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yzL-yL-pRg">
                                 <rect key="frame" x="0.0" y="44" width="414" height="698"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GmR-4y-fwX">
+                                <rect key="frame" x="0.0" y="742" width="414" height="154"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7iT-WU-nlf">
+                                        <rect key="frame" x="55" y="62" width="304" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="Ic9-6c-Erg"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="sliderAction:" destination="K3Q-8D-0nV" eventType="valueChanged" id="so6-Sg-xEg"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="7iT-WU-nlf" firstAttribute="centerX" secondItem="GmR-4y-fwX" secondAttribute="centerX" id="FHI-ru-o6L"/>
+                                    <constraint firstItem="7iT-WU-nlf" firstAttribute="centerY" secondItem="GmR-4y-fwX" secondAttribute="centerY" id="nNq-oJ-YBc"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kxh-i4-CgM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="GmR-4y-fwX" firstAttribute="leading" secondItem="Kxh-i4-CgM" secondAttribute="leading" id="B0O-Of-6q1"/>
                             <constraint firstItem="Kxh-i4-CgM" firstAttribute="trailing" secondItem="yzL-yL-pRg" secondAttribute="trailing" id="K3G-If-AR5"/>
                             <constraint firstItem="yzL-yL-pRg" firstAttribute="top" secondItem="Kxh-i4-CgM" secondAttribute="top" id="Kmm-vr-UKo"/>
+                            <constraint firstAttribute="bottom" secondItem="GmR-4y-fwX" secondAttribute="bottom" id="LYo-HF-Kxx"/>
+                            <constraint firstItem="Kxh-i4-CgM" firstAttribute="trailing" secondItem="GmR-4y-fwX" secondAttribute="trailing" id="QHe-nb-adq"/>
+                            <constraint firstItem="GmR-4y-fwX" firstAttribute="top" secondItem="yzL-yL-pRg" secondAttribute="bottom" id="XxY-bf-NGl"/>
                             <constraint firstItem="yzL-yL-pRg" firstAttribute="leading" secondItem="Kxh-i4-CgM" secondAttribute="leading" id="oxa-de-0Ty"/>
                             <constraint firstItem="Kxh-i4-CgM" firstAttribute="bottom" secondItem="yzL-yL-pRg" secondAttribute="bottom" constant="120" id="ppt-rB-wv1"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="editingImageView" destination="yzL-yL-pRg" id="8be-bd-30B"/>
+                        <outlet property="toolSlider" destination="7iT-WU-nlf" id="TA5-Ml-FGt"/>
+                        <outlet property="toolView" destination="GmR-4y-fwX" id="76u-Su-QBR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Ut-0E-nx0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
