@@ -122,13 +122,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GmR-4y-fwX">
                                 <rect key="frame" x="0.0" y="742" width="414" height="154"/>
                                 <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7iT-WU-nlf">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.0" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="7iT-WU-nlf">
                                         <rect key="frame" x="55" y="62" width="304" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="300" id="Ic9-6c-Erg"/>
                                         </constraints>
                                         <connections>
-                                            <action selector="sliderAction:" destination="K3Q-8D-0nV" eventType="valueChanged" id="so6-Sg-xEg"/>
+                                            <action selector="sliderAction:" destination="K3Q-8D-0nV" eventType="valueChanged" id="R6Q-3b-vJv"/>
                                         </connections>
                                     </slider>
                                 </subviews>

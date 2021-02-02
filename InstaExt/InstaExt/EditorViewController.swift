@@ -8,34 +8,47 @@ class EditorViewController: UIViewController {
     
     var selectedEditorName: String?
     var editingImage: UIImage!
+    private var filteringImage: UIImage!
     private let mainViewController = MainViewController()
+    private let bokashi = Bokashi()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        toolSlider.isHidden = true
         prepareTool()
     }
     
     @IBAction func sliderAction(_ sender: UISlider) {
-        print(sender)
+        switch selectedEditorName {
+        case Optional("bokashi"):
+            filteringImage = bokashi.makeBokashi(value: CGFloat(toolSlider.value), image: editingImage)
+            editingImageView.image = filteringImage
+            
+        case Optional("mozaiku"):
+            print("モザイクを用意")
+        case Optional("monokuro"):
+            print("モノクロを用意")
+        default:
+            break
+        }
     }
     
     private func prepareTool() {
         editingImageView.image = editingImage
+        toolSlider.minimumValue = 0
+        toolSlider.maximumValue = 20
+        toolSlider.value = 10
+        toolSlider.isContinuous = false
         
         switch selectedEditorName {
         case Optional("bokashi"):
-            toolSlider.isHidden = false
-            print("ぼかしを用意")
+            navigationItem.title = "ぼかし"
         case Optional("mozaiku"):
-            toolSlider.isHidden = false
-            print("モザイクを用意")
+            navigationItem.title = "モザイク"
         case Optional("monokuro"):
-            toolSlider.isHidden = false
-            print("モノクロを用意")
+            navigationItem.title = "モノクロ"
         default:
             break
         }
