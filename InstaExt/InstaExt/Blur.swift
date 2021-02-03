@@ -1,8 +1,40 @@
 import UIKit
 
-class Bokashi {
+enum Filter: String, CaseIterable {
+    case blur = "ぼかし"
+    case mozaiku = "モザイク"
+    case monokuro = "モノクロ"
     
-    func makeBokashi(value: CGFloat, image: UIImage) -> UIImage {
+    func max() -> Float {
+        switch self {
+        case .blur:
+            return 20
+        case .mozaiku:
+            return 20
+        case .monokuro:
+            return 20
+        }
+    }
+    
+    func min() -> Float {
+        switch self {
+        case .blur:
+            return 0
+        case .mozaiku:
+            return 0
+        case .monokuro:
+            return 0
+        }
+    }
+    
+    func mid() -> Float {
+        return (max() + min()) / 2
+    }
+}
+
+class Blur {
+    
+    func process(value: CGFloat, image: UIImage) -> UIImage {
         let orientation = image.imageOrientation
         guard let inputCIImage = CIImage(image: image) else {
             return image

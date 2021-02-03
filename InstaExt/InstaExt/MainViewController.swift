@@ -8,7 +8,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     private let imageDelivery = ImageDelivery()
-    private let editorNames: [String] = ["bokashi", "mozaiku", "monokuro"]
+    private let editorNames = Filter.allCases
     
     override func viewWillAppear(_ animated: Bool) {
         imageDelivery.delegate = self
@@ -73,7 +73,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = self.storyboard!
         let editorViewController = storyboard.instantiateViewController(identifier: "editorViewController") as! EditorViewController
-        editorViewController.selectedEditorName = editorNames[indexPath.item]
+        editorViewController.selectedFilter = editorNames[indexPath.item]
         editorViewController.editingImage = mainImageView.image
         editorViewController.modalPresentationStyle = .fullScreen
         

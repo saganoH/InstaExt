@@ -6,12 +6,12 @@ class EditorViewController: UIViewController {
     @IBOutlet weak var toolView: UIView!
     @IBOutlet weak var toolSlider: UISlider!
     
-    var selectedEditorName: String?
+    var selectedFilter: Filter?
     var editingImage: UIImage!
     
     private var filteringImage: UIImage!
     private let mainViewController = MainViewController()
-    private let bokashi = Bokashi()
+    private let blur = Blur()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,38 +22,34 @@ class EditorViewController: UIViewController {
     }
     
     @IBAction func sliderAction(_ sender: UISlider) {
-        switch selectedEditorName {
-        case Optional("bokashi"):
-            filteringImage = bokashi.makeBokashi(value: CGFloat(toolSlider.value), image: editingImage)
-            // 動きが見えるように一旦viewにセットしている
-            editingImageView.image = filteringImage
-            
-        case Optional("mozaiku"):
-            print("モザイクを用意")
-        case Optional("monokuro"):
-            print("モノクロを用意")
-        default:
-            break
-        }
+        processFilter()
     }
     
     private func prepareTool() {
         editingImageView.image = editingImage
-        toolSlider.minimumValue = 0
-        toolSlider.maximumValue = 20
-        toolSlider.value = 10
         toolSlider.isContinuous = false
+        navigationItem.title = selectedFilter?.rawValue
         
-        switch selectedEditorName {
-        case Optional("bokashi"):
-            navigationItem.title = "ぼかし"
-            filteringImage = bokashi.makeBokashi(value: CGFloat(toolSlider.value), image: editingImage)
+        guard let selectedFilter = selectedFilter else {
+            return
+        }
+        toolSlider.maximumValue = selectedFilter.max()
+        toolSlider.minimumValue = selectedFilter.min()
+        toolSlider.value = selectedFilter.mid()
+              
+        processFilter()
+    }
+    
+    private func processFilter() {
+        switch selectedFilter {
+        case .blur:
+            filteringImage = blur.process(value: CGFloat(toolSlider.value), image: editingImage)
             // 動きが見えるように一旦viewにセットしている
             editingImageView.image = filteringImage
-        case Optional("mozaiku"):
-            navigationItem.title = "モザイク"
-        case Optional("monokuro"):
-            navigationItem.title = "モノクロ"
+        case .mozaiku:
+            print("モザイク")
+        case .monokuro:
+            print("モノクロ")
         default:
             break
         }

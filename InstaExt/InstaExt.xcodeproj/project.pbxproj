@@ -17,7 +17,7 @@
 		C6886FCC25B7B83400CA7781 /* InstaExtUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FCB25B7B83400CA7781 /* InstaExtUITests.swift */; };
 		C6886FE325B7C4F900CA7781 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FE225B7C4F900CA7781 /* EditorViewController.swift */; };
 		C688703325B7FE8E00CA7781 /* ImageDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688703225B7FE8E00CA7781 /* ImageDelivery.swift */; };
-		C6BC134725C8F57A00FD789D /* Bokashi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BC134625C8F57A00FD789D /* Bokashi.swift */; };
+		C6BC134725C8F57A00FD789D /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BC134625C8F57A00FD789D /* Blur.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +54,7 @@
 		C6886FCD25B7B83400CA7781 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6886FE225B7C4F900CA7781 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		C688703225B7FE8E00CA7781 /* ImageDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDelivery.swift; sourceTree = "<group>"; };
-		C6BC134625C8F57A00FD789D /* Bokashi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bokashi.swift; sourceTree = "<group>"; };
+		C6BC134625C8F57A00FD789D /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +114,7 @@
 				C6886FAD25B7B83200CA7781 /* MainViewController.swift */,
 				C6886FE225B7C4F900CA7781 /* EditorViewController.swift */,
 				C688703225B7FE8E00CA7781 /* ImageDelivery.swift */,
-				C6BC134625C8F57A00FD789D /* Bokashi.swift */,
+				C6BC134625C8F57A00FD789D /* Blur.swift */,
 			);
 			path = InstaExt;
 			sourceTree = "<group>";
@@ -270,7 +270,7 @@
 				C6886FAE25B7B83200CA7781 /* MainViewController.swift in Sources */,
 				C6886FAA25B7B83200CA7781 /* AppDelegate.swift in Sources */,
 				C6886FAC25B7B83200CA7781 /* SceneDelegate.swift in Sources */,
-				C6BC134725C8F57A00FD789D /* Bokashi.swift in Sources */,
+				C6BC134725C8F57A00FD789D /* Blur.swift in Sources */,
 				C6886FE325B7C4F900CA7781 /* EditorViewController.swift in Sources */,
 				C688703325B7FE8E00CA7781 /* ImageDelivery.swift in Sources */,
 			);
