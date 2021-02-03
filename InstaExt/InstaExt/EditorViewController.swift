@@ -2,15 +2,17 @@ import UIKit
 
 class EditorViewController: UIViewController {
 
-    @IBOutlet weak var editingImageView: UIImageView!
+    @IBOutlet weak var filterImageView: UIImageView!
     @IBOutlet weak var toolView: UIView!
     @IBOutlet weak var toolSlider: UISlider!
     
     var selectedFilter: FilterType?
     var editingImage: UIImage!
     
-    private var filteringImage: UIImage!
+    private var filterImage: UIImage!
     private let mainViewController = MainViewController()
+    
+    // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +22,16 @@ class EditorViewController: UIViewController {
         prepareTool()
     }
     
+    // MARK: - @IBAction
+    
     @IBAction func sliderAction(_ sender: UISlider) {
         processFilter()
     }
     
+    // MARK: - private
+    
     private func prepareTool() {
-        editingImageView.image = editingImage
+        filterImageView.image = editingImage
         toolSlider.isContinuous = false
         navigationItem.title = selectedFilter?.rawValue
         
@@ -35,14 +41,13 @@ class EditorViewController: UIViewController {
         toolSlider.maximumValue = selectedFilter.max()
         toolSlider.minimumValue = selectedFilter.min()
         toolSlider.value = selectedFilter.mid()
-              
+        
         processFilter()
     }
     
     private func processFilter() {
-            filteringImage = selectedFilter?.filter().process(value: CGFloat(toolSlider.value), image: editingImage)
-            // 動きが見えるように一旦viewにセットしている
-            editingImageView.image = filteringImage
+        filterImage = selectedFilter?.filter().process(value: CGFloat(toolSlider.value), image: editingImage)
+        filterImageView.image = filterImage
     }
 }
 

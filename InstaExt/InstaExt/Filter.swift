@@ -1,17 +1,19 @@
 import UIKit
 
+// MARK: - enum FilterType
+
 enum FilterType: String, CaseIterable {
     case blur = "ぼかし"
-    case mozaiku = "モザイク"
-    case monokuro = "モノクロ"
+    case mosaic = "モザイク"
+    case monochrome = "モノクロ"
     
     func max() -> Float {
         switch self {
         case .blur:
             return 20
-        case .mozaiku:
+        case .mosaic:
             return 20
-        case .monokuro:
+        case .monochrome:
             return 20
         }
     }
@@ -20,9 +22,9 @@ enum FilterType: String, CaseIterable {
         switch self {
         case .blur:
             return 0
-        case .mozaiku:
+        case .mosaic:
             return 0
-        case .monokuro:
+        case .monochrome:
             return 0
         }
     }
@@ -35,17 +37,21 @@ enum FilterType: String, CaseIterable {
         switch self {
         case .blur:
             return Blur()
-        case .mozaiku:
+        case .mosaic:
             return Blur()
-        case .monokuro:
+        case .monochrome:
             return Blur()
         }
     }
 }
 
+// MARK: - protocol Filter
+
 protocol Filter {
     func process(value: CGFloat, image: UIImage) -> UIImage
 }
+
+// MARK: - Blurクラス
 
 class Blur: Filter {
     
