@@ -1,6 +1,6 @@
 import UIKit
 
-enum Filter: String, CaseIterable {
+enum FilterType: String, CaseIterable {
     case blur = "ぼかし"
     case mozaiku = "モザイク"
     case monokuro = "モノクロ"
@@ -30,9 +30,24 @@ enum Filter: String, CaseIterable {
     func mid() -> Float {
         return (max() + min()) / 2
     }
+    
+    func filter() -> Filter {
+        switch self {
+        case .blur:
+            return Blur()
+        case .mozaiku:
+            return Blur()
+        case .monokuro:
+            return Blur()
+        }
+    }
 }
 
-class Blur {
+protocol Filter {
+    func process(value: CGFloat, image: UIImage) -> UIImage
+}
+
+class Blur: Filter {
     
     func process(value: CGFloat, image: UIImage) -> UIImage {
         let orientation = image.imageOrientation

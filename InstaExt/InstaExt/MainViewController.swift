@@ -8,7 +8,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     private let imageDelivery = ImageDelivery()
-    private let editorNames = Filter.allCases
+    private let editorNames = FilterType.allCases
     
     override func viewWillAppear(_ animated: Bool) {
         imageDelivery.delegate = self

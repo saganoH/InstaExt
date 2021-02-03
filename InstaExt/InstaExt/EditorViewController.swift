@@ -6,12 +6,11 @@ class EditorViewController: UIViewController {
     @IBOutlet weak var toolView: UIView!
     @IBOutlet weak var toolSlider: UISlider!
     
-    var selectedFilter: Filter?
+    var selectedFilter: FilterType?
     var editingImage: UIImage!
     
     private var filteringImage: UIImage!
     private let mainViewController = MainViewController()
-    private let blur = Blur()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,18 +40,9 @@ class EditorViewController: UIViewController {
     }
     
     private func processFilter() {
-        switch selectedFilter {
-        case .blur:
-            filteringImage = blur.process(value: CGFloat(toolSlider.value), image: editingImage)
+            filteringImage = selectedFilter?.filter().process(value: CGFloat(toolSlider.value), image: editingImage)
             // 動きが見えるように一旦viewにセットしている
             editingImageView.image = filteringImage
-        case .mozaiku:
-            print("モザイク")
-        case .monokuro:
-            print("モノクロ")
-        default:
-            break
-        }
     }
 }
 
