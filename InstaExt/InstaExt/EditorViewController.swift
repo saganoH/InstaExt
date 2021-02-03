@@ -47,6 +47,9 @@ class EditorViewController: UIViewController {
         switch selectedEditorName {
         case Optional("bokashi"):
             navigationItem.title = "ぼかし"
+            filteringImage = bokashi.makeBokashi(value: CGFloat(toolSlider.value), image: editingImage)
+            // 動きが見えるように一旦viewにセットしている
+            editingImageView.image = filteringImage
         case Optional("mozaiku"):
             navigationItem.title = "モザイク"
         case Optional("monokuro"):
