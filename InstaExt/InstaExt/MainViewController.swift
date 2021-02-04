@@ -5,7 +5,10 @@ class MainViewController: UIViewController {
 
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var initialLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
+
     private let imageDelivery = ImageDelivery()
+    private let editorNames = FilterType.allCases
     
     override func viewWillAppear(_ animated: Bool) {
         imageDelivery.delegate = self
@@ -26,7 +29,7 @@ class MainViewController: UIViewController {
     }
 }
 
-// MARK: - DeviceクラスのDelegate
+// MARK: - ImageDeliveryクラスのDelegate
 
 extension MainViewController: ImageDeliveryDelegate {
     func showPHPicker(phPicker: PHPickerViewController) {
@@ -49,5 +52,37 @@ extension MainViewController: ImageDeliveryDelegate {
             guard let self = self else { return }
             self.present(alert, animated: true)
         }
+    }
+}
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    // cell情報
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        cell.backgroundColor = UIColor.systemGray
+        
+        let functionLabel = UILabel(frame: cell.bounds)
+        functionLabel.textAlignment = .center
+        functionLabel.text = editorNames[indexPath.item].rawValue
+        cell.contentView.addSubview(functionLabel)
+        return cell
+    }
+    
+    // 編集機能の選択時に呼ばれる
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard = self.storyboard!
+        let editorViewController = storyboard.instantiateViewController(identifier: "editorViewController") as! EditorViewController
+        editorViewController.selectedFilter = editorNames[indexPath.item]
+        editorViewController.editingImage = mainImageView.image
+        editorViewController.modalPresentationStyle = .fullScreen
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "キャンセル", style: .plain, target: nil, action: nil)
+        self.navigationController?.pushViewController(editorViewController, animated: true)
     }
 }
