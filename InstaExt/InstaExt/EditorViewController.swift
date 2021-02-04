@@ -10,7 +10,6 @@ class EditorViewController: UIViewController {
     var editingImage: UIImage!
     
     private var filterImage: UIImage!
-    private let mainViewController = MainViewController()
     
     // MARK: - Life cycle
     
@@ -20,6 +19,7 @@ class EditorViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         prepareTool()
+        processFilter()
     }
     
     // MARK: - @IBAction
@@ -31,18 +31,17 @@ class EditorViewController: UIViewController {
     // MARK: - private
     
     private func prepareTool() {
-        filterImageView.image = editingImage
-        toolSlider.isContinuous = false
-        navigationItem.title = selectedFilter?.rawValue
-        
         guard let selectedFilter = selectedFilter else {
             return
         }
+        
+        filterImageView.image = editingImage
+        navigationItem.title = selectedFilter.rawValue
+        
+        toolSlider.isContinuous = false
         toolSlider.maximumValue = selectedFilter.max()
         toolSlider.minimumValue = selectedFilter.min()
         toolSlider.value = selectedFilter.mid()
-        
-        processFilter()
     }
     
     private func processFilter() {

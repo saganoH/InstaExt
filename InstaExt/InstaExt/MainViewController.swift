@@ -6,7 +6,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var initialLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
     private let imageDelivery = ImageDelivery()
     private let editorNames = FilterType.allCases
     
@@ -29,7 +29,7 @@ class MainViewController: UIViewController {
     }
 }
 
-// MARK: - DeviceクラスのDelegate
+// MARK: - ImageDeliveryクラスのDelegate
 
 extension MainViewController: ImageDeliveryDelegate {
     func showPHPicker(phPicker: PHPickerViewController) {
@@ -66,6 +66,11 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.backgroundColor = UIColor.systemGray
+        
+        let functionLabel = UILabel(frame: cell.bounds)
+        functionLabel.textAlignment = .center
+        functionLabel.text = editorNames[indexPath.item].rawValue
+        cell.contentView.addSubview(functionLabel)
         return cell
     }
     

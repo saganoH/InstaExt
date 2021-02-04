@@ -78,8 +78,7 @@ class Blur: Filter {
         cropFilter.setValue(bluredImage, forKey: "inputImage")
         cropFilter.setValue(inputCIImage.extent, forKey: "inputRectangle")
         guard let croppedImage = cropFilter.outputImage,
-              let cgImage = CIContext().createCGImage(croppedImage, from: croppedImage.extent)
-        else { return image }
+              let cgImage = CIContext().createCGImage(croppedImage, from: croppedImage.extent) else { return image }
         
         let resultImage = UIImage(cgImage: cgImage, scale: 0, orientation: orientation)
         return resultImage
