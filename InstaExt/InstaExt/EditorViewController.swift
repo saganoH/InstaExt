@@ -2,6 +2,7 @@ import UIKit
 
 class EditorViewController: UIViewController {
 
+    @IBOutlet weak var editingImageView: UIImageView!
     @IBOutlet weak var filterImageView: UIImageView!
     @IBOutlet weak var toolView: UIView!
     @IBOutlet weak var toolSlider: UISlider!
@@ -15,6 +16,8 @@ class EditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        MaskView.process(to: filterImageView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,7 +38,7 @@ class EditorViewController: UIViewController {
             return
         }
         
-        filterImageView.image = editingImage
+        editingImageView.image = editingImage
         navigationItem.title = selectedFilter.rawValue
         
         toolSlider.isContinuous = false
