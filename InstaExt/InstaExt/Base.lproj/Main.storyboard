@@ -160,7 +160,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="editingImageView" destination="yzL-yL-pRg" id="34G-4S-cHv"/>
+                        <outlet property="editingImageView" destination="Xgh-FB-gQP" id="9hf-gy-IBy"/>
                         <outlet property="filterImageView" destination="yzL-yL-pRg" id="8be-bd-30B"/>
                         <outlet property="toolSlider" destination="7iT-WU-nlf" id="TA5-Ml-FGt"/>
                         <outlet property="toolView" destination="GmR-4y-fwX" id="76u-Su-QBR"/>

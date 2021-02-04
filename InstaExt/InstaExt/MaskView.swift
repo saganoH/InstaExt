@@ -3,8 +3,7 @@ import UIKit
 class MaskView: UIView {
     
     static func process(to: UIView) {
-        let maskView = MaskView()
-        maskView.frame = to.bounds
+        let maskView = MaskView(frame: to.frame)
         maskView.imageView.frame = to.bounds
         to.superview?.addSubview(maskView)
         to.mask = maskView.imageView
