@@ -79,7 +79,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let storyboard = self.storyboard!
         let editorViewController = storyboard.instantiateViewController(identifier: "editorViewController") as! EditorViewController
         editorViewController.selectedFilter = editorNames[indexPath.item]
-        editorViewController.editingImage = mainImageView.image
+        editorViewController.sourceImage = mainImageView.image
         editorViewController.modalPresentationStyle = .fullScreen
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "キャンセル", style: .plain, target: nil, action: nil)

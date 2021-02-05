@@ -8,7 +8,7 @@ class EditorViewController: UIViewController {
     @IBOutlet weak var toolSlider: UISlider!
     
     var selectedFilter: FilterType?
-    var editingImage: UIImage!
+    var sourceImage: UIImage!
     
     private var filterImage: UIImage!
     
@@ -40,7 +40,7 @@ class EditorViewController: UIViewController {
             return
         }
         
-        sourceImageView.image = editingImage
+        sourceImageView.image = sourceImage
         navigationItem.title = selectedFilter.rawValue
         
         toolSlider.isContinuous = false
@@ -50,7 +50,7 @@ class EditorViewController: UIViewController {
     }
     
     private func processFilter() {
-        filterImage = selectedFilter?.filter().process(value: CGFloat(toolSlider.value), image: editingImage)
+        filterImage = selectedFilter?.filter().process(value: CGFloat(toolSlider.value), image: sourceImage)
         filterImageView.image = filterImage
     }
 }

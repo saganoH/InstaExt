@@ -4,10 +4,9 @@ class MaskView: UIView {
     
     static func process(to: UIView) {
         let maskView = MaskView(frame: to.frame)
-        maskView.imageView.frame = to.bounds
+        maskView.maskImageView.frame = to.bounds
         to.superview?.addSubview(maskView)
-        to.mask = maskView.imageView
-        print(maskView.frame)
+        to.mask = maskView.maskImageView
     }
     
     override init(frame: CGRect) {
@@ -19,7 +18,7 @@ class MaskView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var imageView = UIImageView()
+    private var maskImageView = UIImageView()
     private var maskImage = UIImage()
     
     private lazy var panGesture: UIPanGestureRecognizer = {
@@ -29,7 +28,6 @@ class MaskView: UIView {
     private var previousPosition: CGPoint = .zero
     
     @objc func panAction(_ sender: UIPanGestureRecognizer) {
-        
         let currentPosition = sender.location(in: sender.view)
         
         if sender.state == .began {
@@ -43,34 +41,34 @@ class MaskView: UIView {
     }
     
     func drawLine(from: CGPoint, to: CGPoint){
-        let lineWidth: CGFloat = 40
+        let lineWidth: CGFloat = 30
         
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
 
-        if let ctx = UIGraphicsGetCurrentContext() {
+        if let context = UIGraphicsGetCurrentContext() {
             maskImage.draw(at: .zero)
-            ctx.setLineWidth(lineWidth)
-            ctx.setLineCap(.round)
-            ctx.setStrokeColor(UIColor.green.cgColor)
+            context.setLineWidth(lineWidth)
+            context.setLineCap(.round)
+            context.setStrokeColor(UIColor.white.cgColor)
             
-            ctx.move(to: from)
-            ctx.addLine(to: to)
-            ctx.strokePath()
+            context.move(to: from)
+            context.addLine(to: to)
+            context.strokePath()
             maskImage = UIGraphicsGetImageFromCurrentImageContext()!
         }
+        
         UIGraphicsEndImageContext()
-        imageView.image = maskToAlpha(maskImage)
+        maskImageView.image = maskToAlpha(maskImage)
     }
     
     func maskToAlpha(_ image: UIImage) -> UIImage {
-        
         guard let cgImage = image.cgImage else {
             return UIImage()
         }
         
         let inputImage = CIImage(cgImage: cgImage)
-        let filter = CIFilter(name: "CIMaskToAlpha")!
-        filter.setValue(inputImage, forKeyPath: "inputImage")
-        return UIImage(ciImage: filter.outputImage!)
+        let alphaFilter = CIFilter(name: "CIMaskToAlpha")!
+        alphaFilter.setValue(inputImage, forKeyPath: "inputImage")
+        return UIImage(ciImage: alphaFilter.outputImage!)
     }
 }
