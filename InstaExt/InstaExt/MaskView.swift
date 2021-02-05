@@ -2,12 +2,14 @@ import UIKit
 
 class MaskView: UIView {
     
-    static func process(to: UIView) {
-        let maskView = MaskView(frame: to.frame)
-        maskView.maskImageView.frame = to.bounds
-        to.superview?.addSubview(maskView)
-        to.mask = maskView.maskImageView
-    }
+    private(set) var maskImageView = UIImageView()
+    private var maskImage = UIImage()
+    
+    private lazy var panGesture: UIPanGestureRecognizer = {
+        return UIPanGestureRecognizer(target: self, action: #selector(panAction))
+    }()
+    
+    private var previousPosition: CGPoint = .zero
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -17,15 +19,6 @@ class MaskView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private var maskImageView = UIImageView()
-    private var maskImage = UIImage()
-    
-    private lazy var panGesture: UIPanGestureRecognizer = {
-        return UIPanGestureRecognizer(target: self, action: #selector(panAction))
-    }()
-    
-    private var previousPosition: CGPoint = .zero
    
     // MARK: - @objc
     
