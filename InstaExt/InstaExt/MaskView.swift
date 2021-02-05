@@ -4,16 +4,11 @@ class MaskView: UIView {
     
     private(set) var maskImageView = UIImageView()
     private var maskImage = UIImage()
-    
-    private lazy var panGesture: UIPanGestureRecognizer = {
-        return UIPanGestureRecognizer(target: self, action: #selector(panAction))
-    }()
-    
     private var previousPosition: CGPoint = .zero
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addGestureRecognizer(panGesture)
+        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panAction)))
     }
     
     required init?(coder aDecoder: NSCoder) {

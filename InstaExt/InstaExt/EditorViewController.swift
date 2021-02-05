@@ -53,10 +53,11 @@ class EditorViewController: UIViewController {
     }
     
     private func processFilter() {
-        guard let sourceImage = sourceImage else {
+        guard let sourceImage = sourceImage, let selectedFilter = selectedFilter else {
             return
         }
-        filterImage = selectedFilter?.filter().process(value: CGFloat(toolSlider.value), image: sourceImage)
+        filterImage = selectedFilter.filter().process(value: CGFloat(toolSlider.value),
+                                                      image: sourceImage)
         filterImageView.image = filterImage
     }
 }
