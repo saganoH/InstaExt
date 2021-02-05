@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C634C0C125CBBBB900AA0CF1 /* MaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C634C0C025CBBBB900AA0CF1 /* MaskView.swift */; };
 		C6886FAA25B7B83200CA7781 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FA925B7B83200CA7781 /* AppDelegate.swift */; };
 		C6886FAC25B7B83200CA7781 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FAB25B7B83200CA7781 /* SceneDelegate.swift */; };
 		C6886FAE25B7B83200CA7781 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FAD25B7B83200CA7781 /* MainViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C634C0C025CBBBB900AA0CF1 /* MaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskView.swift; sourceTree = "<group>"; };
 		C6886FA625B7B83200CA7781 /* InstaExt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaExt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6886FA925B7B83200CA7781 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6886FAB25B7B83200CA7781 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				C6886FE225B7C4F900CA7781 /* EditorViewController.swift */,
 				C688703225B7FE8E00CA7781 /* ImageDelivery.swift */,
 				C6BC134625C8F57A00FD789D /* Filter.swift */,
+				C634C0C025CBBBB900AA0CF1 /* MaskView.swift */,
 			);
 			path = InstaExt;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				C6886FAC25B7B83200CA7781 /* SceneDelegate.swift in Sources */,
 				C6BC134725C8F57A00FD789D /* Filter.swift in Sources */,
 				C6886FE325B7C4F900CA7781 /* EditorViewController.swift in Sources */,
+				C634C0C125CBBBB900AA0CF1 /* MaskView.swift in Sources */,
 				C688703325B7FE8E00CA7781 /* ImageDelivery.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

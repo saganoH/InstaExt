@@ -2,14 +2,15 @@ import UIKit
 
 class EditorViewController: UIViewController {
 
+    @IBOutlet weak var sourceImageView: UIImageView!
     @IBOutlet weak var filterImageView: UIImageView!
     @IBOutlet weak var toolView: UIView!
     @IBOutlet weak var toolSlider: UISlider!
     
     var selectedFilter: FilterType?
-    var editingImage: UIImage!
+    var sourceImage: UIImage?
     
-    private var filterImage: UIImage!
+    private var filterImage: UIImage?
     
     // MARK: - Life cycle
     
@@ -20,6 +21,13 @@ class EditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         prepareTool()
         processFilter()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        let maskView = MaskView(frame: filterImageView.frame)
+        maskView.maskImageView.frame = filterImageView.bounds
+        self.view.addSubview(maskView)
+        filterImageView.mask = maskView.maskImageView
     }
     
     // MARK: - @IBAction
@@ -35,7 +43,7 @@ class EditorViewController: UIViewController {
             return
         }
         
-        filterImageView.image = editingImage
+        sourceImageView.image = sourceImage
         navigationItem.title = selectedFilter.rawValue
         
         toolSlider.isContinuous = false
@@ -45,7 +53,11 @@ class EditorViewController: UIViewController {
     }
     
     private func processFilter() {
-        filterImage = selectedFilter?.filter().process(value: CGFloat(toolSlider.value), image: editingImage)
+        guard let sourceImage = sourceImage, let selectedFilter = selectedFilter else {
+            return
+        }
+        filterImage = selectedFilter.filter().process(value: CGFloat(toolSlider.value),
+                                                      image: sourceImage)
         filterImageView.image = filterImage
     }
 }
