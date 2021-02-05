@@ -12,21 +12,20 @@ class  メイン画面{
 }
 
 class  編集画面{
-@IBOutlet　イメージビュー: UIImageView
+@IBOutlet　編集画像イメージビュー: UIImageView
+@IBOutlet　フィルタ画像イメージビュー: UIImageView
 @IBOutlet　編集ツール用のビュー: UIView
-@IBOutlet　スライダ: UISlider
-編集中画像: UIImage
-編集機能名: String
-マスク画像: UIImage
-フィルタ画像: UIImage
+@IBOutlet　編集ツール用のスライダ: UISlider
+編集対象画像: UIImage
+編集機能名: FilterType(enumで定義)
+@IBAction スライダアクション(sender: UISlider)
 @IBAction　完了ボタン()
 @IBAction　キャンセルボタン()
-編集機能名に対応するクラスのメソッドを実行する(編集機能名: String)
-編集中画像を更新する()
 }
 
 class マスク画像クラス{
-マスク画像をなぞった形に編集する(マスク画像: UIImage) -> UIImage
+static マスク処理を行う(フィルタ画像view: UIView)
+@objc なぞった部分に線を引く(sender: UIPanGestureRecognizer)
 マスク画像を合成する(マスク画像: UIImage, 編集中画像: UIImage, フィルタ画像: UIImage) -> UIImage
 }
 

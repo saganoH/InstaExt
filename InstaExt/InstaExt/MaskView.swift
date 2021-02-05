@@ -26,6 +26,8 @@ class MaskView: UIView {
     }()
     
     private var previousPosition: CGPoint = .zero
+   
+    // MARK: - @objc
     
     @objc func panAction(_ sender: UIPanGestureRecognizer) {
         let currentPosition = sender.location(in: sender.view)
@@ -40,7 +42,9 @@ class MaskView: UIView {
         previousPosition = currentPosition
     }
     
-    func drawLine(from: CGPoint, to: CGPoint){
+    // MARK: - private
+    
+    private func drawLine(from: CGPoint, to: CGPoint){
         let lineWidth: CGFloat = 30
         
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
@@ -61,7 +65,7 @@ class MaskView: UIView {
         maskImageView.image = maskToAlpha(maskImage)
     }
     
-    func maskToAlpha(_ image: UIImage) -> UIImage {
+    private func maskToAlpha(_ image: UIImage) -> UIImage {
         guard let cgImage = image.cgImage else {
             return UIImage()
         }
