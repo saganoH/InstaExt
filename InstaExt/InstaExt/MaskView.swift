@@ -7,6 +7,7 @@ class MaskView: UIView {
         maskView.imageView.frame = to.bounds
         to.superview?.addSubview(maskView)
         to.mask = maskView.imageView
+        print(maskView.frame)
     }
     
     override init(frame: CGRect) {
