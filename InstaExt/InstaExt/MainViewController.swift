@@ -65,7 +65,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     // cell情報
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = UIColor.systemGray
+        cell.backgroundColor = UIColor.systemGray4
+        cell.layer.cornerRadius = cell.frame.size.width * 0.5
+        cell.clipsToBounds = true
         
         let functionLabel = UILabel(frame: cell.bounds)
         functionLabel.textAlignment = .center
