@@ -75,7 +75,7 @@
                                 <action selector="takeInAction:" destination="BYZ-38-t0r" id="08N-pg-W3a"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="保存" image="arrow.down.to.line" catalog="system" id="Rct-MW-QDL">
+                        <barButtonItem key="rightBarButtonItem" title="保存" image="square.and.arrow.down" catalog="system" id="Rct-MW-QDL">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>
                                 <action selector="saveAction:" destination="BYZ-38-t0r" id="y8X-V0-RMW"/>
@@ -174,8 +174,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.down.to.line" catalog="system" width="128" height="128"/>
         <image name="photo.on.rectangle" catalog="system" width="128" height="96"/>
+        <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
