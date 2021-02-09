@@ -32,6 +32,12 @@ class EditorViewController: UIViewController {
         processFilter()
     }
     
+    // MARK: - @objc
+    
+    @objc func backMain() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     // MARK: - private
     
     private func prepareTool() {
@@ -42,7 +48,16 @@ class EditorViewController: UIViewController {
         sourceImageView.image = sourceImage
         navigationItem.title = selectedFilter.rawValue
         
+        let cancelButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(backMain))
+        cancelButtonItem.tintColor = .label
+        navigationItem.setLeftBarButton(cancelButtonItem, animated: true)
+        
+        let doneButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(backMain))
+        doneButtonItem.tintColor = .label
+        navigationItem.setRightBarButton(doneButtonItem, animated: true)
+        
         toolSlider.isContinuous = false
+        toolSlider.minimumTrackTintColor = UIColor.systemGray
         toolSlider.maximumValue = selectedFilter.max()
         toolSlider.minimumValue = selectedFilter.min()
         toolSlider.value = selectedFilter.mid()
