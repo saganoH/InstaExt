@@ -9,6 +9,11 @@ class MainViewController: UIViewController {
 
     private let imageDelivery = ImageDelivery()
     private let editorNames = FilterType.allCases
+    private let functionIcons: [UIImage] = [
+        UIImage(named: "blur")!,
+        UIImage(named: "mosaic")!,
+        UIImage(named: "monochrome")!
+    ]
     
     override func viewWillAppear(_ animated: Bool) {
         imageDelivery.delegate = self
@@ -70,11 +75,20 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.layer.borderWidth = 1.0
         cell.layer.cornerRadius = cell.frame.size.width * 0.5
         cell.clipsToBounds = true
+        
+        let functionIconFrame = CGRect(x: cell.frame.height / 2,
+                                       y: cell.frame.height / 2,
+                                       width: cell.frame.height / 2,
+                                       height: cell.frame.height / 2)
+        let functionIcon = UIImageView(frame: functionIconFrame)
+        functionIcon.image = functionIcons[indexPath.item]
+        cell.contentView.addSubview(functionIcon)
 
         let functionLabel = UILabel(frame: cell.bounds)
         functionLabel.textAlignment = .center
         functionLabel.text = editorNames[indexPath.item].rawValue
         cell.contentView.addSubview(functionLabel)
+        
         return cell
     }
     
