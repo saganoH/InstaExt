@@ -11,6 +11,7 @@ class EditorViewController: UIViewController {
     var sourceImage: UIImage?
     
     private var filterImage: UIImage?
+    private let imageComposition = ImageComposition()
     
     // MARK: - Life cycle
     
@@ -39,10 +40,9 @@ class EditorViewController: UIViewController {
     }
     
     @objc func doneAction() {
-        // filterImageを合成した写真にする
-        guard let editoredImage = filterImage else {
-            return
-        }
+        let compositedImage = imageComposition.process(sourceImageView: sourceImageView, filterImageView: filterImageView)
+
+        let editoredImage = compositedImage
         
         let navi = self.navigationController
         let mainViewController = navi?.viewControllers[(navi?.viewControllers.count)!-2] as! MainViewController
