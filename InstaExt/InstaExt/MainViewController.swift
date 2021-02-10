@@ -6,6 +6,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var initialLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    var editoredImage: UIImage?
 
     private let imageDelivery = ImageDelivery()
     private let editorNames = FilterType.allCases
@@ -17,6 +19,11 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         imageDelivery.delegate = self
+        
+        if let editoredImage = editoredImage {
+            mainImageView.image = editoredImage
+            initialLabel.isHidden = true
+        }
     }
     
     // MARK: - @IBAction
@@ -33,6 +40,8 @@ class MainViewController: UIViewController {
         }
     }
 }
+
+    func bluesegue(segue: UIStoryboardSegue) {}
 
 // MARK: - ImageDeliveryクラスのDelegate
 
@@ -94,13 +103,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     // 編集機能の選択時に呼ばれる
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let storyboard = self.storyboard!
-        let editorViewController = storyboard.instantiateViewController(identifier: "editorViewController") as! EditorViewController
+        let editorViewController = self.storyboard!.instantiateViewController(identifier: "editorViewController") as! EditorViewController
         editorViewController.selectedFilter = editorNames[indexPath.item]
-        editorViewController.sourceImage = mainImageView.image
-        editorViewController.modalPresentationStyle = .fullScreen
-        
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "キャンセル", style: .plain, target: nil, action: nil)
+        editorViewController.sourceImage = mainImageView.image        
         self.navigationController?.pushViewController(editorViewController, animated: true)
     }
 }

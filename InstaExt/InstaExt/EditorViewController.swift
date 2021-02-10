@@ -34,7 +34,13 @@ class EditorViewController: UIViewController {
     
     // MARK: - @objc
     
-    @objc func backMain() {
+    @objc func doneAction() {
+        let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "mainViewController") as! MainViewController
+        mainViewController.editoredImage = filterImageView.image
+        self.navigationController?.pushViewController(mainViewController, animated: false)
+    }
+    
+    @objc func cancelAction() {
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -48,11 +54,11 @@ class EditorViewController: UIViewController {
         sourceImageView.image = sourceImage
         navigationItem.title = selectedFilter.rawValue
         
-        let cancelButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(backMain))
+        let cancelButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(cancelAction))
         cancelButtonItem.tintColor = .label
         navigationItem.setLeftBarButton(cancelButtonItem, animated: true)
         
-        let doneButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(backMain))
+        let doneButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(doneAction))
         doneButtonItem.tintColor = .label
         navigationItem.setRightBarButton(doneButtonItem, animated: true)
         
