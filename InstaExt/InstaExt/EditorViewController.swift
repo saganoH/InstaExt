@@ -40,13 +40,15 @@ class EditorViewController: UIViewController {
     }
     
     @objc func doneAction() {
-        let compositedImage = imageComposition.process(sourceImageView: sourceImageView, filterImageView: filterImageView)
-
-        let editoredImage = compositedImage
+        let compositedImage = imageComposition.process(sourceImageView: sourceImageView,
+                                                       filterImageView: filterImageView)
+        guard let resultImage = compositedImage else {
+            return
+        }
         
         let navi = self.navigationController
         let mainViewController = navi?.viewControllers[(navi?.viewControllers.count)!-2] as! MainViewController
-        mainViewController.setEditoredImage(image: editoredImage)
+        mainViewController.setEditoredImage(image: resultImage)
         self.navigationController?.popViewController(animated: true)
     }
     
