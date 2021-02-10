@@ -34,13 +34,19 @@ class EditorViewController: UIViewController {
     
     // MARK: - @objc
     
-    @objc func doneAction() {
-        let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "mainViewController") as! MainViewController
-        mainViewController.editoredImage = filterImageView.image
-        self.navigationController?.pushViewController(mainViewController, animated: false)
+    @objc func cancelAction() {
+        self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func cancelAction() {
+    @objc func doneAction() {
+        // filterImageを合成した写真にする
+        guard let editoredImage = filterImage else {
+            return
+        }
+        
+        let navi = self.navigationController
+        let mainViewController = navi?.viewControllers[(navi?.viewControllers.count)!-2] as! MainViewController
+        mainViewController.setEditoredImage(image: editoredImage)
         self.navigationController?.popViewController(animated: true)
     }
     

@@ -7,8 +7,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var initialLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var editoredImage: UIImage?
-
     private let imageDelivery = ImageDelivery()
     private let editorNames = FilterType.allCases
     private let functionIcons: [UIImage] = [
@@ -19,11 +17,6 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         imageDelivery.delegate = self
-        
-        if let editoredImage = editoredImage {
-            mainImageView.image = editoredImage
-            initialLabel.isHidden = true
-        }
     }
     
     // MARK: - @IBAction
@@ -39,9 +32,14 @@ class MainViewController: UIViewController {
                                         self.showAlert(alert: alert) })
         }
     }
+    
+    // MARK: - public
+    
+    func setEditoredImage(image: UIImage) {
+        mainImageView.image = image
+        initialLabel.isHidden = true
+    }
 }
-
-    func bluesegue(segue: UIStoryboardSegue) {}
 
 // MARK: - ImageDeliveryクラスのDelegate
 
