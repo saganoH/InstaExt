@@ -16,7 +16,7 @@ class ImageComposition {
         UIGraphicsEndImageContext()
         
         // マスク画像の余白を削除
-        let resizedMaskImage = maskedImage.cutout(sourceImage: sourceImage)
+        let resizedMaskImage = maskedImage.cutout(adjustTo: sourceImage)
         
         // 元画像とマスク画像の合成処理
         UIGraphicsBeginImageContext(sourceImage.size)
@@ -33,7 +33,7 @@ class ImageComposition {
 }
 
 extension UIImage {
-    func cutout(sourceImage: UIImage) -> UIImage {
+    func cutout(adjustTo sourceImage: UIImage) -> UIImage {
         let scale: CGFloat
         let resizedImage: UIImage
         let spaceSize: CGFloat
@@ -42,7 +42,7 @@ extension UIImage {
         // 元画像の向きを判断しトリミングエリアを決定
         if sourceImage.size.width > sourceImage.size.height {
             scale = sourceImage.size.width / size.width
-            resizedImage = scaleImage(scaleSize: scale)
+            resizedImage = resize(scale: scale)
             spaceSize = (resizedImage.size.height - sourceImage.size.height ) / 2
             trimmingArea = CGRect(x: 0,
                                   y: spaceSize,
@@ -50,7 +50,7 @@ extension UIImage {
                                   height: sourceImage.size.height)
         } else {
             scale = sourceImage.size.height / size.height
-            resizedImage = scaleImage(scaleSize: scale)
+            resizedImage = resize(scale: scale)
             spaceSize = (resizedImage.size.width - sourceImage.size.width ) / 2
             trimmingArea = CGRect(x: spaceSize,
                                   y: 0,
@@ -60,19 +60,19 @@ extension UIImage {
         return resizedImage.cropping(to: trimmingArea)
     }
     
-    func scaleImage(scaleSize: CGFloat) -> UIImage {
-        let reSize = CGSize(width: size.width * scaleSize, height: size.height * scaleSize)
+    func resize(scale: CGFloat) -> UIImage {
+        let toSize = CGSize(width: size.width * scale, height: size.height * scale)
         
-        UIGraphicsBeginImageContextWithOptions(reSize, false, UIScreen.main.scale)
-        draw(in: CGRect(x: 0, y: 0, width: reSize.width, height: reSize.height))
-        guard let reSizeImage = UIGraphicsGetImageFromCurrentImageContext() else {
+        UIGraphicsBeginImageContextWithOptions(toSize, false, UIScreen.main.scale)
+        draw(in: CGRect(x: 0, y: 0, width: toSize.width, height: toSize.height))
+        guard let reSizedImage = UIGraphicsGetImageFromCurrentImageContext() else {
             return self
         }
         UIGraphicsEndImageContext()
-        return reSizeImage
+        return reSizedImage
     }
     
-    func cropping(to: CGRect) -> UIImage {
+    func cropping(to trimmingArea: CGRect) -> UIImage {
         var isOpaque = false
         if let cgImage = cgImage {
             switch cgImage.alphaInfo {
@@ -83,12 +83,12 @@ extension UIImage {
             }
         }
         
-        UIGraphicsBeginImageContextWithOptions(to.size, isOpaque, scale)
-        draw(at: CGPoint(x: -to.origin.x, y: -to.origin.y))
-        guard let result = UIGraphicsGetImageFromCurrentImageContext() else {
+        UIGraphicsBeginImageContextWithOptions(trimmingArea.size, isOpaque, scale)
+        draw(at: CGPoint(x: -trimmingArea.origin.x, y: -trimmingArea.origin.y))
+        guard let croppedImage = UIGraphicsGetImageFromCurrentImageContext() else {
             return self
         }
         UIGraphicsEndImageContext()
-        return result
+        return croppedImage
     }
 }
