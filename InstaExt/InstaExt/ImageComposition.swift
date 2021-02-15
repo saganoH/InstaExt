@@ -5,15 +5,19 @@ class ImageComposition {
         guard let sourceImage = sourceImageView.image else {
             return sourceImageView.image
         }
-        let frameSize = sourceImageView.frame.size
-        
-        UIGraphicsBeginImageContext(frameSize)
+      
+        UIGraphicsBeginImageContext(filterImageView.frame.size)
         let context = UIGraphicsGetCurrentContext()!
         filterImageView.layer.render(in: context)
-        let maskedFilterImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let maskedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+
+        let resizedMaskImage = resize(maskedImage: maskedImage!, sourceImage: sourceImage)
         
-        sourceImage.draw(in: CGRect(origin: CGPoint.zero, size: frameSize))
-        maskedFilterImage.draw(in: CGRect(origin: CGPoint.zero, size: frameSize))
+        UIGraphicsBeginImageContext(sourceImage.size)
+        sourceImage.draw(in: CGRect(origin: CGPoint.zero, size: sourceImage.size))
+        resizedMaskImage.draw(in: CGRect(origin: CGPoint.zero, size: sourceImage.size))
         let drawedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
@@ -21,5 +25,45 @@ class ImageComposition {
             return sourceImage
         }
         return resultImage
+    }
+    
+    func resize(maskedImage: UIImage, sourceImage: UIImage) -> UIImage {
+        if sourceImage.size.width > sourceImage.size.height {
+            let scale = sourceImage.size.width / maskedImage.size.width
+            let resizedImage = maskedImage.scaleImage(scaleSize: scale)
+            let spaceSize = (resizedImage.size.height - sourceImage.size.height ) / 2
+            let trimmingArea = CGRect(x: 0, y: spaceSize, width: sourceImage.size.width, height: sourceImage.size.height)
+            return trimmingImage(resizedImage, trimmingArea: trimmingArea)
+            
+        } else {
+            let scale = sourceImage.size.height / maskedImage.size.height
+            return maskedImage.scaleImage(scaleSize: scale)
+        }
+    }
+    
+    func trimmingImage(_ image: UIImage, trimmingArea: CGRect) -> UIImage {
+        UIGraphicsBeginImageContext(image.size)
+        image.draw(in: trimmingArea)
+        let drawedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return drawedImage!
+    }
+}
+
+extension UIImage {
+    // resize image
+    func reSizeImage(reSize:CGSize)->UIImage {
+        //UIGraphicsBeginImageContext(reSize);
+        UIGraphicsBeginImageContextWithOptions(reSize,false,UIScreen.main.scale);
+        self.draw(in: CGRect(x: 0, y: 0, width: reSize.width, height: reSize.height));
+        let reSizeImage:UIImage! = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return reSizeImage;
+    }
+
+    // scale the image at rates
+    func scaleImage(scaleSize:CGFloat)->UIImage {
+        let reSize = CGSize(width: self.size.width * scaleSize, height: self.size.height * scaleSize)
+        return reSizeImage(reSize: reSize)
     }
 }
