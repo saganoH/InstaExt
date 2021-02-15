@@ -6,6 +6,7 @@ class ImageComposition {
             return sourceImageView.image
         }
       
+        // 空白を含むマスク画像の生成
         UIGraphicsBeginImageContext(filterImageView.frame.size)
         let context = UIGraphicsGetCurrentContext()!
         filterImageView.layer.render(in: context)
@@ -33,7 +34,7 @@ class ImageComposition {
             let resizedImage = maskedImage.scaleImage(scaleSize: scale)
             let spaceSize = (resizedImage.size.height - sourceImage.size.height ) / 2
             let trimmingArea = CGRect(x: 0, y: spaceSize, width: sourceImage.size.width, height: sourceImage.size.height)
-            return trimmingImage(resizedImage, trimmingArea: trimmingArea)
+            return resizedImage.cropping(to: trimmingArea)
             
         } else {
             let scale = sourceImage.size.height / maskedImage.size.height
@@ -66,4 +67,22 @@ extension UIImage {
         let reSize = CGSize(width: self.size.width * scaleSize, height: self.size.height * scaleSize)
         return reSizeImage(reSize: reSize)
     }
+    
+    func cropping(to: CGRect) -> UIImage {
+            var opaque = false
+            if let cgImage = cgImage {
+                switch cgImage.alphaInfo {
+                case .noneSkipLast, .noneSkipFirst:
+                    opaque = true
+                default:
+                    break
+                }
+            }
+
+            UIGraphicsBeginImageContextWithOptions(to.size, opaque, scale)
+            draw(at: CGPoint(x: -to.origin.x, y: -to.origin.y))
+            let result = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return result!
+        }
 }
