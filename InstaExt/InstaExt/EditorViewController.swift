@@ -46,10 +46,12 @@ class EditorViewController: UIViewController {
             return
         }
         
-        let navi = navigationController
-        let mainViewController = navi?.viewControllers[(navi?.viewControllers.count)!-2] as! MainViewController
+        guard let navi = navigationController else {
+            return
+        }
+        let mainViewController = navi.viewControllers[(navi.viewControllers.count)-2] as! MainViewController
         mainViewController.setEditedImage(image: resultImage)
-        navigationController?.popViewController(animated: true)
+        navi.popViewController(animated: true)
     }
     
     // MARK: - private
