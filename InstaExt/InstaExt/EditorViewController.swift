@@ -23,7 +23,7 @@ class EditorViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         let maskView = MaskView(frame: filterImageView.frame)
         maskView.maskImageView.frame = filterImageView.bounds
-        self.view.addSubview(maskView)
+        view.addSubview(maskView)
         filterImageView.mask = maskView.maskImageView
     }
     
@@ -36,7 +36,7 @@ class EditorViewController: UIViewController {
     // MARK: - @objc
     
     @objc func cancelAction() {
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func doneAction() {
@@ -46,10 +46,10 @@ class EditorViewController: UIViewController {
             return
         }
         
-        let navi = self.navigationController
+        let navi = navigationController
         let mainViewController = navi?.viewControllers[(navi?.viewControllers.count)!-2] as! MainViewController
         mainViewController.setEditoredImage(image: resultImage)
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     // MARK: - private

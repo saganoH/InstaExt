@@ -101,9 +101,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     // 編集機能の選択時に呼ばれる
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let editorViewController = self.storyboard!.instantiateViewController(identifier: "editorViewController") as! EditorViewController
+        let editorViewController = storyboard!.instantiateViewController(identifier: "editorViewController") as! EditorViewController
         editorViewController.selectedFilter = editorNames[indexPath.item]
         editorViewController.sourceImage = mainImageView.image        
-        self.navigationController?.pushViewController(editorViewController, animated: true)
+        navigationController?.pushViewController(editorViewController, animated: true)
     }
 }
