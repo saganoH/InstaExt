@@ -1,15 +1,15 @@
 import UIKit
 
 class ImageComposition {
-    func process(sourceImageView: UIImageView, filterImageView: UIImageView) -> UIImage? {
-        guard let sourceImage = sourceImageView.image else {
-            return sourceImageView.image
+    func process(source: UIImageView, filter: UIImageView) -> UIImage? {
+        guard let sourceImage = source.image else {
+            return source.image
         }
         
         // 余白を含むマスク画像の生成
-        UIGraphicsBeginImageContext(filterImageView.frame.size)
+        UIGraphicsBeginImageContext(filter.frame.size)
         let context = UIGraphicsGetCurrentContext()!
-        filterImageView.layer.render(in: context)
+        filter.layer.render(in: context)
         guard let maskedImage = UIGraphicsGetImageFromCurrentImageContext() else {
             return sourceImage
         }
@@ -33,29 +33,29 @@ class ImageComposition {
 }
 
 extension UIImage {
-    func cutout(adjustTo sourceImage: UIImage) -> UIImage {
+    func cutout(adjustTo source: UIImage) -> UIImage {
         let scale: CGFloat
         let resizedImage: UIImage
         let spaceSize: CGFloat
         let trimmingArea: CGRect
         
         // 元画像の向きを判断しトリミングエリアを決定
-        if sourceImage.size.width > sourceImage.size.height {
-            scale = sourceImage.size.width / size.width
+        if source.size.width > source.size.height {
+            scale = source.size.width / size.width
             resizedImage = resize(scale: scale)
-            spaceSize = (resizedImage.size.height - sourceImage.size.height ) / 2
+            spaceSize = (resizedImage.size.height - source.size.height ) / 2
             trimmingArea = CGRect(x: 0,
                                   y: spaceSize,
-                                  width: sourceImage.size.width,
-                                  height: sourceImage.size.height)
+                                  width: source.size.width,
+                                  height: source.size.height)
         } else {
-            scale = sourceImage.size.height / size.height
+            scale = source.size.height / size.height
             resizedImage = resize(scale: scale)
-            spaceSize = (resizedImage.size.width - sourceImage.size.width ) / 2
+            spaceSize = (resizedImage.size.width - source.size.width ) / 2
             trimmingArea = CGRect(x: spaceSize,
                                   y: 0,
-                                  width: sourceImage.size.width,
-                                  height: sourceImage.size.height)
+                                  width: source.size.width,
+                                  height: source.size.height)
         }
         return resizedImage.cropping(to: trimmingArea)
     }
