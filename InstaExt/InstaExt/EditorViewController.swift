@@ -11,7 +11,7 @@ class EditorViewController: UIViewController {
     var sourceImage: UIImage?
     
     private var filterImage: UIImage?
-    
+
     // MARK: - Life cycle
     
     override func viewWillAppear(_ animated: Bool) {
@@ -22,7 +22,7 @@ class EditorViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         let maskView = MaskView(frame: filterImageView.frame)
         maskView.maskImageView.frame = filterImageView.bounds
-        self.view.addSubview(maskView)
+        view.addSubview(maskView)
         filterImageView.mask = maskView.maskImageView
     }
     
@@ -34,8 +34,21 @@ class EditorViewController: UIViewController {
     
     // MARK: - @objc
     
-    @objc func backMain() {
-        self.navigationController?.popViewController(animated: true)
+    @objc func cancelAction() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func doneAction() {
+        let imageComposition = ImageComposition()
+        let compositedImage = imageComposition.process(source: sourceImageView,
+                                                       filter: filterImageView)
+        guard let resultImage = compositedImage,
+              let navi = navigationController,
+              let mainViewController = navi.viewControllers[(navi.viewControllers.count)-2] as? MainViewController else {
+            fatalError("Unexpected error!")
+        }
+        mainViewController.setEditedImage(image: resultImage)
+        navi.popViewController(animated: true)
     }
     
     // MARK: - private
@@ -48,11 +61,11 @@ class EditorViewController: UIViewController {
         sourceImageView.image = sourceImage
         navigationItem.title = selectedFilter.rawValue
         
-        let cancelButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(backMain))
+        let cancelButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(cancelAction))
         cancelButtonItem.tintColor = .label
         navigationItem.setLeftBarButton(cancelButtonItem, animated: true)
         
-        let doneButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(backMain))
+        let doneButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(doneAction))
         doneButtonItem.tintColor = .label
         navigationItem.setRightBarButton(doneButtonItem, animated: true)
         

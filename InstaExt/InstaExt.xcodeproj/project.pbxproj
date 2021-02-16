@@ -19,6 +19,7 @@
 		C6886FE325B7C4F900CA7781 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FE225B7C4F900CA7781 /* EditorViewController.swift */; };
 		C688703325B7FE8E00CA7781 /* ImageDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688703225B7FE8E00CA7781 /* ImageDelivery.swift */; };
 		C6BC134725C8F57A00FD789D /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BC134625C8F57A00FD789D /* Filter.swift */; };
+		C6C6505725D3A3DA008603C9 /* ImageComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C6505625D3A3DA008603C9 /* ImageComposition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		C6886FE225B7C4F900CA7781 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		C688703225B7FE8E00CA7781 /* ImageDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDelivery.swift; sourceTree = "<group>"; };
 		C6BC134625C8F57A00FD789D /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		C6C6505625D3A3DA008603C9 /* ImageComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComposition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				C688703225B7FE8E00CA7781 /* ImageDelivery.swift */,
 				C6BC134625C8F57A00FD789D /* Filter.swift */,
 				C634C0C025CBBBB900AA0CF1 /* MaskView.swift */,
+				C6C6505625D3A3DA008603C9 /* ImageComposition.swift */,
 			);
 			path = InstaExt;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6C6505725D3A3DA008603C9 /* ImageComposition.swift in Sources */,
 				C6886FAE25B7B83200CA7781 /* MainViewController.swift in Sources */,
 				C6886FAA25B7B83200CA7781 /* AppDelegate.swift in Sources */,
 				C6886FAC25B7B83200CA7781 /* SceneDelegate.swift in Sources */,

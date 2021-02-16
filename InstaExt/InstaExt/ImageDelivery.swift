@@ -13,7 +13,7 @@ class ImageDelivery: NSObject {
         let phPicker = PHPickerViewController(configuration: config)
         phPicker.delegate = self
         
-        self.delegate?.showPHPicker(phPicker: phPicker)
+        delegate?.showPHPicker(phPicker: phPicker)
     }
     
     func savePhoto(image: UIImage, completion: @escaping (UIAlertController) -> Void) {

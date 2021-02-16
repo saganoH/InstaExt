@@ -32,6 +32,13 @@ class MainViewController: UIViewController {
                                         self.showAlert(alert: alert) })
         }
     }
+    
+    // MARK: - public
+    
+    func setEditedImage(image: UIImage) {
+        mainImageView.image = image
+        initialLabel.isHidden = true
+    }
 }
 
 // MARK: - ImageDeliveryクラスのDelegate
@@ -94,13 +101,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     // 編集機能の選択時に呼ばれる
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let storyboard = self.storyboard!
-        let editorViewController = storyboard.instantiateViewController(identifier: "editorViewController") as! EditorViewController
+        guard let storyboard = storyboard,
+              let editorViewController = storyboard.instantiateViewController(identifier: "editorViewController") as? EditorViewController else {
+            fatalError("Unexpected error!")
+        }
         editorViewController.selectedFilter = editorNames[indexPath.item]
-        editorViewController.sourceImage = mainImageView.image
-        editorViewController.modalPresentationStyle = .fullScreen
-        
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "キャンセル", style: .plain, target: nil, action: nil)
-        self.navigationController?.pushViewController(editorViewController, animated: true)
+        editorViewController.sourceImage = mainImageView.image        
+        navigationController?.pushViewController(editorViewController, animated: true)
     }
 }
