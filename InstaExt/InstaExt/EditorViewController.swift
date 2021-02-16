@@ -42,14 +42,11 @@ class EditorViewController: UIViewController {
         let imageComposition = ImageComposition()
         let compositedImage = imageComposition.process(source: sourceImageView,
                                                        filter: filterImageView)
-        guard let resultImage = compositedImage else {
-            return
+        guard let resultImage = compositedImage,
+              let navi = navigationController,
+              let mainViewController = navi.viewControllers[(navi.viewControllers.count)-2] as? MainViewController else {
+            fatalError("Unexpected error!")
         }
-        
-        guard let navi = navigationController else {
-            return
-        }
-        let mainViewController = navi.viewControllers[(navi.viewControllers.count)-2] as! MainViewController
         mainViewController.setEditedImage(image: resultImage)
         navi.popViewController(animated: true)
     }
