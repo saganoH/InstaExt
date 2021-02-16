@@ -10,10 +10,12 @@ class ImageComposition {
         UIGraphicsBeginImageContext(filter.frame.size)
         let context = UIGraphicsGetCurrentContext()!
         filter.layer.render(in: context)
-        guard let maskedImage = UIGraphicsGetImageFromCurrentImageContext() else {
-            return sourceImage
-        }
+        let tmpMaskedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+
+        guard let maskedImage = tmpMaskedImage else {
+            fatalError("Unexpected error!")
+        }
         
         // マスク画像の余白を削除
         let resizedMaskImage = maskedImage.cutout(adjustTo: sourceImage)
@@ -25,10 +27,10 @@ class ImageComposition {
         let drawedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        guard let resultImage = drawedImage else {
-            return sourceImage
+        guard let result = drawedImage else {
+            fatalError("Unexpected error!")
         }
-        return resultImage
+        return result
     }
 }
 
@@ -68,11 +70,13 @@ extension UIImage {
         
         UIGraphicsBeginImageContextWithOptions(toSize, false, UIScreen.main.scale)
         draw(in: CGRect(x: 0, y: 0, width: toSize.width, height: toSize.height))
-        guard let reSizedImage = UIGraphicsGetImageFromCurrentImageContext() else {
-            return self
-        }
+        let reSizedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return reSizedImage
+
+        guard let result = reSizedImage else {
+            fatalError("Unexpected error!")
+        }
+        return result
     }
     
     func cropping(to trimmingArea: CGRect) -> UIImage {
@@ -88,10 +92,12 @@ extension UIImage {
         
         UIGraphicsBeginImageContextWithOptions(trimmingArea.size, isOpaque, scale)
         draw(at: CGPoint(x: -trimmingArea.origin.x, y: -trimmingArea.origin.y))
-        guard let croppedImage = UIGraphicsGetImageFromCurrentImageContext() else {
-            return self
-        }
+        let croppedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return croppedImage
+
+        guard let result = croppedImage else {
+            fatalError("Unexpected error!")
+        }
+        return result
     }
 }
