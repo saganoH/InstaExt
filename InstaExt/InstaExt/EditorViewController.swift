@@ -11,8 +11,7 @@ class EditorViewController: UIViewController {
     var sourceImage: UIImage?
     
     private var filterImage: UIImage?
-    private let imageComposition = ImageComposition()
-    
+
     // MARK: - Life cycle
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,8 +39,9 @@ class EditorViewController: UIViewController {
     }
     
     @objc func doneAction() {
-        let compositedImage = imageComposition.process(sourceImageView: sourceImageView,
-                                                       filterImageView: filterImageView)
+        let imageComposition = ImageComposition()
+        let compositedImage = imageComposition.process(source: sourceImageView,
+                                                       filter: filterImageView)
         guard let resultImage = compositedImage else {
             return
         }
