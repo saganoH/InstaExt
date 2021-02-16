@@ -32,7 +32,16 @@ class MainViewController: UIViewController {
                                         self.showAlert(alert: alert) })
         }
     }
-    
+
+    @IBAction func linkInstagram(_ sender: Any) {
+        guard let image = mainImageView.image else {
+            fatalError()
+        }
+        
+        let insta = InstaLinker()
+        insta.openApp(image: image)
+    }
+
     // MARK: - public
     
     func setEditedImage(image: UIImage) {

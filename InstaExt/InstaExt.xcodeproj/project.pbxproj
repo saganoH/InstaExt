@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C616C2E525DBA8850082EE63 /* InstaLinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C616C2E425DBA8850082EE63 /* InstaLinker.swift */; };
 		C634C0C125CBBBB900AA0CF1 /* MaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C634C0C025CBBBB900AA0CF1 /* MaskView.swift */; };
 		C6886FAA25B7B83200CA7781 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FA925B7B83200CA7781 /* AppDelegate.swift */; };
 		C6886FAC25B7B83200CA7781 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FAB25B7B83200CA7781 /* SceneDelegate.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C616C2E425DBA8850082EE63 /* InstaLinker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaLinker.swift; sourceTree = "<group>"; };
 		C634C0C025CBBBB900AA0CF1 /* MaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskView.swift; sourceTree = "<group>"; };
 		C6886FA625B7B83200CA7781 /* InstaExt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaExt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6886FA925B7B83200CA7781 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				C6BC134625C8F57A00FD789D /* Filter.swift */,
 				C634C0C025CBBBB900AA0CF1 /* MaskView.swift */,
 				C6C6505625D3A3DA008603C9 /* ImageComposition.swift */,
+				C616C2E425DBA8850082EE63 /* InstaLinker.swift */,
 			);
 			path = InstaExt;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C616C2E525DBA8850082EE63 /* InstaLinker.swift in Sources */,
 				C6C6505725D3A3DA008603C9 /* ImageComposition.swift in Sources */,
 				C6886FAE25B7B83200CA7781 /* MainViewController.swift in Sources */,
 				C6886FAA25B7B83200CA7781 /* AppDelegate.swift in Sources */,
@@ -386,7 +390,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -441,7 +445,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
