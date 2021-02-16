@@ -48,7 +48,7 @@ class EditorViewController: UIViewController {
         
         let navi = navigationController
         let mainViewController = navi?.viewControllers[(navi?.viewControllers.count)!-2] as! MainViewController
-        mainViewController.setEditoredImage(image: resultImage)
+        mainViewController.setEditedImage(image: resultImage)
         navigationController?.popViewController(animated: true)
     }
     

@@ -6,7 +6,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var initialLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
     private let imageDelivery = ImageDelivery()
     private let editorNames = FilterType.allCases
     private let functionIcons: [UIImage] = [
@@ -35,7 +35,7 @@ class MainViewController: UIViewController {
     
     // MARK: - public
     
-    func setEditoredImage(image: UIImage) {
+    func setEditedImage(image: UIImage) {
         mainImageView.image = image
         initialLabel.isHidden = true
     }

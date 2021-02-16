@@ -33,14 +33,17 @@ class ImageComposition {
 }
 
 extension UIImage {
+    func isLandscape() -> Bool {
+        return size.width > size.height
+    }
+
     func cutout(adjustTo source: UIImage) -> UIImage {
         let scale: CGFloat
         let resizedImage: UIImage
         let spaceSize: CGFloat
         let trimmingArea: CGRect
         
-        // 元画像の向きを判断しトリミングエリアを決定
-        if source.size.width > source.size.height {
+        if source.isLandscape() {
             scale = source.size.width / size.width
             resizedImage = resize(scale: scale)
             spaceSize = (resizedImage.size.height - source.size.height ) / 2
