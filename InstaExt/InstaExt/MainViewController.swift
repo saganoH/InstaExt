@@ -39,7 +39,10 @@ class MainViewController: UIViewController {
         }
         
         let insta = InstaLinker()
-        insta.openApp(image: image)
+        guard let url = insta.prepareLink(image: image) else {
+            return
+        }
+        insta.openApp(instaUrl: url)
     }
 
     // MARK: - public
