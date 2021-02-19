@@ -1,82 +1,26 @@
 import UIKit
+import Photos
 
-class InstaLinker {
-    func prepareLink(image: UIImage) -> URL? {
-        guard let jpg = image.jpegData(compressionQuality: 1.0) as NSData? else {
-            return nil
-        }
-        //let path = NSTemporaryDirectory() + "tmpImage.jpg"
-        //let url: URL = NSURL(string: path)! as URL
-        let url = FileManager.default.temporaryDirectory
-
-
-        jpg.write(to: url, atomically: true)
-
-        // url先には正しい画像が格納されている
-        do {
-            let data = try Data(contentsOf: url)
-            let image = UIImage(data: data)!
-        } catch let err {
-            print("Error : \(err.localizedDescription)")
-        }
-
-
-        guard let instaUrl = URL(string: "instagram://library?LocalIdentifier=\(url)") else {
-            return nil
-        }
-
-        print(FileManager.default.fileExists(atPath: url.path))
-        if FileManager.default.fileExists(atPath: url.path) {
-            do {
-                // removeItemは機能している
-                //try FileManager.default.removeItem(atPath: url.path)
-            } catch {
-                print("failed")
-            }
-        } else {
-            print("ファイルがないよ")
-        }
-        print(FileManager.default.fileExists(atPath: url.path))
-
-        return instaUrl
+class InstaLinker: NSObject {
+    func link(image: UIImage) {
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(afterSave(_:didFinishSavingWithError:contextInfo:)), nil)
     }
 
-    func openApp(instaUrl: URL) {
-
-        if UIApplication.shared.canOpenURL(instaUrl) {
-            UIApplication.shared.open(instaUrl,
-                                      options: [ : ],
-                                      completionHandler: nil)
-        } else {
-            // インストールされていません　とアラート表示
-        }
-    }
-}
-
-extension FileManager {
-    func clearTmpDirectory() {
-        do {
-            let tmpDirURL = FileManager.default.temporaryDirectory
-            let tmpDirectory = try contentsOfDirectory(atPath: tmpDirURL.path)
-            try tmpDirectory.forEach { file in
-                let fileUrl = tmpDirURL.appendingPathComponent(file)
-                try removeItem(atPath: fileUrl.path)
+    @objc private func afterSave(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        
+        let fetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+        if (fetchResult.firstObject != nil) {
+            guard let lastAsset = fetchResult.lastObject,
+                  let urlScheme = URL(string: "instagram://library?LocalIdentifier=\(lastAsset.localIdentifier)") else {
+                return
             }
-        } catch {
-           //catch the error somehow
-        }
-    }
-
-    func clearTmpDirectory(path: String) {
-        do {
-            let tmpDirURL = NSURL(string: path)! as URL
-            let tmpDirectory = try contentsOfDirectory(atPath: tmpDirURL.path)
-            try tmpDirectory.forEach { file in
-                let fileUrl = tmpDirURL.appendingPathComponent(file)
-                try removeItem(atPath: fileUrl.path)
+            if UIApplication.shared.canOpenURL(urlScheme) {
+                UIApplication.shared.open(urlScheme)
+            } else {
+                print("インストールされていません　とアラート表示入れる")
             }
-        } catch {
-           //catch the error somehow
         }
     }
 }
