@@ -12,7 +12,7 @@ class ImageDelivery: NSObject {
         
         let phPicker = PHPickerViewController(configuration: config)
         phPicker.delegate = self
-        
+
         delegate?.showPHPicker(phPicker: phPicker)
     }
     
@@ -71,6 +71,15 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
                 }
                 self.delegate?.didGetImage(image: wrapImage)
             })
+
+            // URL取得試し中
+            let provider = results.first?.itemProvider
+            provider!.loadItem(forTypeIdentifier: provider!.registeredTypeIdentifiers.first!, options: nil) { (url, error) in
+                if let url = url as? URL {
+                    print( )
+                    print(url)
+                }
+            }
         }
     }
     
