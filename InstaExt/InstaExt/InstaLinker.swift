@@ -12,17 +12,24 @@ class InstaLinker {
 
         jpg.write(to: url, atomically: true)
 
+        // url先には正しい画像が格納されている
+        do {
+            let data = try Data(contentsOf: url)
+            let image = UIImage(data: data)!
+        } catch let err {
+            print("Error : \(err.localizedDescription)")
+        }
+
+
         guard let instaUrl = URL(string: "instagram://library?LocalIdentifier=\(url)") else {
             return nil
         }
 
-        FileManager.default.clearTmpDirectory()
-        FileManager.default.clearTmpDirectory(path: url.path)
-
         print(FileManager.default.fileExists(atPath: url.path))
         if FileManager.default.fileExists(atPath: url.path) {
             do {
-                try FileManager.default.removeItem(atPath: url.path)
+                // removeItemは機能している
+                //try FileManager.default.removeItem(atPath: url.path)
             } catch {
                 print("failed")
             }
