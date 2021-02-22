@@ -35,7 +35,7 @@ class ImageDelivery: NSObject {
             completion(alert)
         }
     }
-    
+
     @objc func showResultOfSaveImage(_ image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutableRawPointer) {
         DispatchQueue.main.async {
             var title = "保存完了"
@@ -71,15 +71,6 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
                 }
                 self.delegate?.didGetImage(image: wrapImage)
             })
-
-            // URL取得試し中
-            let provider = results.first?.itemProvider
-            provider!.loadItem(forTypeIdentifier: provider!.registeredTypeIdentifiers.first!, options: nil) { (url, error) in
-                if let url = url as? URL {
-                    print( )
-                    print(url)
-                }
-            }
         }
     }
     

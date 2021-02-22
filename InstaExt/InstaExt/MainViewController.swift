@@ -22,9 +22,21 @@ class MainViewController: UIViewController {
     // MARK: - @IBAction
     
     @IBAction func takeInAction(_ sender: Any) {
-        imageDelivery.takeInPhoto()
+        if PHPhotoLibrary.authorizationStatus(for: .readWrite) == .authorized {
+            self.imageDelivery.takeInPhoto()
+            return
+        }
+
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] (status) in
+            guard let self = self else { return }
+            if status == .authorized {
+                self.imageDelivery.takeInPhoto()
+            } else {
+                self.showAuthAlert()
+            }
+        }
     }
-    
+
     @IBAction func saveAction(_ sender: Any) {
         if let image = mainImageView.image {
             imageDelivery.savePhoto(image: image, completion: { [weak self] (alert) in
@@ -47,6 +59,24 @@ class MainViewController: UIViewController {
     func setEditedImage(image: UIImage) {
         mainImageView.image = image
         initialLabel.isHidden = true
+    }
+
+    // MARK: - private
+
+    private func showAuthAlert() {
+        DispatchQueue.main.async {
+            let title = "写真のアクセス権限がありません"
+            let message = "すべての写真を許可してください"
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let setting = UIAlertAction(title: "設定", style: .default, handler: { (_) -> Void in
+                guard let settingsURL = URL(string: UIApplication.openSettingsURLString ) else {
+                    return
+                }
+                UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+            })
+            alert.addAction(setting)
+            self.present(alert, animated: true)
+        }
     }
 }
 
