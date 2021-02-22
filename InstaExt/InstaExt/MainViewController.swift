@@ -46,13 +46,11 @@ class MainViewController: UIViewController {
                                         self.showAlert(alert: alert) })
         }
     }
-
+    
     @IBAction func linkInstagram(_ sender: Any) {
-        guard let image = mainImageView.image else {
-            fatalError()
+        if let image = mainImageView.image {
+            instaLinker.link(image: image)
         }
-        
-        instaLinker.link(image: image)
     }
 
     // MARK: - public
