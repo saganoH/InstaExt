@@ -2,10 +2,13 @@ import UIKit
 import Photos
 
 class InstaLinker: NSObject {
+
+    var delegate: InstaLinkerDelegate?
+    
     func link(image: UIImage) {
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(afterSave(_:didFinishSavingWithError:contextInfo:)), nil)
     }
-
+    
     @objc private func afterSave(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
@@ -19,8 +22,21 @@ class InstaLinker: NSObject {
             if UIApplication.shared.canOpenURL(urlScheme) {
                 UIApplication.shared.open(urlScheme)
             } else {
-                print("インストールされていません　とアラート表示入れる")
+                DispatchQueue.main.async {
+                    let title = "Instagram連携エラー"
+                    let message = "アプリがインストールされていません"
+                    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.delegate?.showInstaAlert(alert: alert)
+                }
             }
         }
     }
 }
+
+// MARK: - InstaLinkerDelegate protocol
+
+protocol InstaLinkerDelegate {
+    func showInstaAlert(alert: UIAlertController)
+}
+

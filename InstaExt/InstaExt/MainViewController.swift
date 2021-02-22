@@ -8,6 +8,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
     private let imageDelivery = ImageDelivery()
+    private let instaLinker = InstaLinker()
     private let editorNames = FilterType.allCases
     private let functionIcons: [UIImage] = [
         UIImage(named: "blur")!,
@@ -17,6 +18,7 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         imageDelivery.delegate = self
+        instaLinker.delegate = self
     }
     
     // MARK: - @IBAction
@@ -50,8 +52,7 @@ class MainViewController: UIViewController {
             fatalError()
         }
         
-        let insta = InstaLinker()
-        insta.link(image: image)
+        instaLinker.link(image: image)
     }
 
     // MARK: - public
@@ -99,6 +100,17 @@ extension MainViewController: ImageDeliveryDelegate {
     }
     
     func showAlert(alert: UIAlertController) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.present(alert, animated: true)
+        }
+    }
+}
+
+// MARK: - InstaLinkerクラスのDelegate
+
+extension MainViewController: InstaLinkerDelegate {
+    func showInstaAlert(alert: UIAlertController) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.present(alert, animated: true)

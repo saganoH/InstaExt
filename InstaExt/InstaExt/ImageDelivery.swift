@@ -56,15 +56,15 @@ class ImageDelivery: NSObject {
 // MARK: - PHPickerViewControllerDelegate
 
 extension ImageDelivery: PHPickerViewControllerDelegate {
-    
+
     public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
-        
+
         for image in results {
             // PHPickerResultからImageを読み込む
             image.itemProvider.loadObject(ofClass: UIImage.self, completionHandler: { [weak self] (selectedImage, error) in
                 guard let self = self else { return }
-                
+
                 guard error == nil, let wrapImage = selectedImage as? UIImage else {
                     self.makePickerAlert(completion: { (alert) in self.delegate?.showAlert(alert: alert) })
                     return
