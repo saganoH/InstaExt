@@ -28,13 +28,16 @@ class MainViewController: UIViewController {
             self.imageDelivery.takeInPhoto()
             return
         }
-
+        
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] (status) in
             guard let self = self else { return }
-            if status == .authorized {
+            switch status {
+            case .authorized, .limited:
                 self.imageDelivery.takeInPhoto()
-            } else {
+            case .denied:
                 self.showAuthAlert()
+            default:
+                print("Unexpexted Error!")
             }
         }
     }
