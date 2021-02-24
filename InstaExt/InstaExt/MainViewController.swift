@@ -6,6 +6,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var initialLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var instaButton: UIBarButtonItem!
 
     private let imageDelivery = ImageDelivery()
     private let instaLinker = InstaLinker()
@@ -19,6 +21,11 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         imageDelivery.delegate = self
         instaLinker.delegate = self
+
+        if mainImageView.image == nil {
+            saveButton.isEnabled = false
+            instaButton.isEnabled = false
+        }
     }
     
     // MARK: - @IBAction
@@ -28,7 +35,7 @@ class MainViewController: UIViewController {
             self.imageDelivery.takeInPhoto()
             return
         }
-        
+
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] (status) in
             guard let self = self else { return }
             switch status {
@@ -98,6 +105,8 @@ extension MainViewController: ImageDeliveryDelegate {
             guard let self = self else { return }
             self.mainImageView.image = image
             self.initialLabel.isHidden = true
+            self.saveButton.isEnabled = true
+            self.instaButton.isEnabled = true
         }
     }
     

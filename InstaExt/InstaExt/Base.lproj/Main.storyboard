@@ -94,7 +94,9 @@
                     <connections>
                         <outlet property="collectionView" destination="1j7-AO-rXQ" id="upK-Bp-6WQ"/>
                         <outlet property="initialLabel" destination="1UD-p0-RBn" id="JN0-sJ-ruq"/>
+                        <outlet property="instaButton" destination="Rct-MW-QDL" id="tNq-kn-d7c"/>
                         <outlet property="mainImageView" destination="cqD-4E-0Ij" id="2eL-xc-UgN"/>
+                        <outlet property="saveButton" destination="MY0-Df-MGN" id="W08-1W-KMT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
