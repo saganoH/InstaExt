@@ -26,7 +26,7 @@ class InstaLinker: NSObject {
                 let message = "アプリがインストールされていません"
                 let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.delegate?.showInstaAlert(alert: alert)
+            self.delegate?.failedToLink(with: alert)
         }
     }
 }
@@ -34,6 +34,6 @@ class InstaLinker: NSObject {
 // MARK: - InstaLinkerDelegate protocol
 
 protocol InstaLinkerDelegate {
-    func showInstaAlert(alert: UIAlertController)
+    func failedToLink(with alert: UIAlertController)
 }
 

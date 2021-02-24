@@ -86,8 +86,7 @@ class MainViewController: UIViewController {
 extension MainViewController: ImageDeliveryDelegate {
     func showPHPicker(phPicker: PHPickerViewController) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.present(phPicker, animated: true)
+            self?.present(phPicker, animated: true)
         }
     }
     
@@ -101,8 +100,7 @@ extension MainViewController: ImageDeliveryDelegate {
     
     func showAlert(alert: UIAlertController) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.present(alert, animated: true)
+            self?.present(alert, animated: true)
         }
     }
 }
@@ -110,10 +108,9 @@ extension MainViewController: ImageDeliveryDelegate {
 // MARK: - InstaLinkerクラスのDelegate
 
 extension MainViewController: InstaLinkerDelegate {
-    func showInstaAlert(alert: UIAlertController) {
+    func failedToLink(with alert: UIAlertController) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.present(alert, animated: true)
+            self?.present(alert, animated: true)
         }
     }
 }
