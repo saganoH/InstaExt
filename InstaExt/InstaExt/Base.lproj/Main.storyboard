@@ -82,7 +82,7 @@
                                     <action selector="saveAction:" destination="BYZ-38-t0r" id="y8X-V0-RMW"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="instagramIcon" id="MY0-Df-MGN">
+                            <barButtonItem image="instagramIcon" id="MY0-Df-MGN" userLabel="インスタ連携">
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <connections>
                                     <action selector="linkInstagram:" destination="BYZ-38-t0r" id="s9q-2J-sHe"/>

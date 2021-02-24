@@ -14,23 +14,19 @@ class InstaLinker: NSObject {
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         
         let fetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
-        if (fetchResult.firstObject != nil) {
-            guard let lastAsset = fetchResult.lastObject,
-                  let urlScheme = URL(string: "instagram://library?LocalIdentifier=\(lastAsset.localIdentifier)") else {
-                return
-            }
-            
-            if UIApplication.shared.canOpenURL(urlScheme) {
-                UIApplication.shared.open(urlScheme)
-            } else {
-                DispatchQueue.main.async {
-                    let title = "Instagram連携エラー"
-                    let message = "アプリがインストールされていません"
-                    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.delegate?.showInstaAlert(alert: alert)
-                }
-            }
+        guard let lastAsset = fetchResult.lastObject,
+              let urlScheme = URL(string: "instagram://library?LocalIdentifier=\(lastAsset.localIdentifier)") else {
+            return
+        }
+
+        if UIApplication.shared.canOpenURL(urlScheme) {
+            UIApplication.shared.open(urlScheme)
+        } else {
+                let title = "Instagram連携エラー"
+                let message = "アプリがインストールされていません"
+                let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.delegate?.showInstaAlert(alert: alert)
         }
     }
 }
