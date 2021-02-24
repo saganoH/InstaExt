@@ -107,6 +107,7 @@ extension MainViewController: ImageDeliveryDelegate {
             self.initialLabel.isHidden = true
             self.saveButton.isEnabled = true
             self.instaButton.isEnabled = true
+            self.collectionView.reloadData()
         }
     }
     
@@ -136,26 +137,33 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     // cell情報
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = UIColor.systemBackground
-        cell.layer.borderColor = CGColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.7)
-        cell.layer.borderWidth = 1.0
-        cell.layer.cornerRadius = cell.frame.size.width * 0.5
-        cell.clipsToBounds = true
-        
-        let functionIconFrame = CGRect(x: cell.frame.height / 2,
-                                       y: cell.frame.height / 2,
-                                       width: cell.frame.height / 2,
-                                       height: cell.frame.height / 2)
-        let functionIcon = UIImageView(frame: functionIconFrame)
-        functionIcon.image = functionIcons[indexPath.item]
-        cell.contentView.addSubview(functionIcon)
 
-        let functionLabel = UILabel(frame: cell.bounds)
-        functionLabel.textAlignment = .center
-        functionLabel.text = editorNames[indexPath.item].rawValue
-        cell.contentView.addSubview(functionLabel)
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+
+        if mainImageView.image == nil {
+            cell.backgroundColor = UIColor.systemBackground
+            cell.layer.borderColor = CGColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.7)
+            cell.layer.borderWidth = 1.0
+            cell.layer.cornerRadius = cell.frame.size.width * 0.5
+            cell.clipsToBounds = true
+
+            let functionIconFrame = CGRect(x: cell.frame.height / 2,
+                                           y: cell.frame.height / 2,
+                                           width: cell.frame.height / 2,
+                                           height: cell.frame.height / 2)
+            let functionIcon = UIImageView(frame: functionIconFrame)
+            functionIcon.image = functionIcons[indexPath.item]
+            cell.contentView.addSubview(functionIcon)
+
+            let functionLabel = UILabel(frame: cell.bounds)
+            functionLabel.textAlignment = .center
+            functionLabel.text = editorNames[indexPath.item].rawValue
+            cell.contentView.addSubview(functionLabel)
+            
+            cell.isUserInteractionEnabled = false
+        } else {
+            cell.isUserInteractionEnabled = true
+        }
         return cell
     }
     
