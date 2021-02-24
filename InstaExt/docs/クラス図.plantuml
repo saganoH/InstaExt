@@ -17,7 +17,7 @@ class  編集画面{
   @IBOutlet　編集ツール用のビュー: UIView
   @IBOutlet　編集ツール用のスライダ: UISlider
   編集対象画像: UIImage
-  編集機能名: FilterType(enumで定義)
+  編集機能名: FilterType
   @IBAction スライダアクション(sender: UISlider)
   @IBAction　完了ボタン()
   @IBAction　キャンセルボタン()
@@ -37,7 +37,7 @@ class デバイスクラス{
 class インスタクラス{
   デリゲート変数
   インスタに画像を受け渡す(画像: UIImage)
-  @objc 画像のURLを取得しインスタへ遷移
+  @objc 画像のURLを取得しインスタへ遷移()
 }
 
 class 画像形式クラス{
