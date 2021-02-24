@@ -67,12 +67,14 @@ class MainViewController: UIViewController {
             let title = "写真のアクセス権限がありません"
             let message = "すべての写真を許可してください"
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let setting = UIAlertAction(title: "設定", style: .default, handler: { (_) -> Void in
-                guard let settingsURL = URL(string: UIApplication.openSettingsURLString ) else {
-                    return
-                }
-                UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
-            })
+            let setting = UIAlertAction(title: "設定",
+                                        style: .default,
+                                        handler: { (_) -> Void in
+                                            guard let settingsURL = URL(string: UIApplication.openSettingsURLString ) else {
+                                                return
+                                            }
+                                            UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                                        })
             alert.addAction(setting)
             self.present(alert, animated: true)
         }

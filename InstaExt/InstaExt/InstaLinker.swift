@@ -19,6 +19,7 @@ class InstaLinker: NSObject {
                   let urlScheme = URL(string: "instagram://library?LocalIdentifier=\(lastAsset.localIdentifier)") else {
                 return
             }
+            
             if UIApplication.shared.canOpenURL(urlScheme) {
                 UIApplication.shared.open(urlScheme)
             } else {
