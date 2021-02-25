@@ -2,13 +2,13 @@ import UIKit
 import PhotosUI
 
 class MainViewController: UIViewController {
-
+    
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var initialLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var instaButton: UIBarButtonItem!
-
+    
     private let imageDelivery = ImageDelivery()
     private let instaLinker = InstaLinker()
     private let editorNames = FilterType.allCases
@@ -21,7 +21,7 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         imageDelivery.delegate = self
         instaLinker.delegate = self
-
+        
         if mainImageView.image == nil {
             saveButton.isEnabled = false
             instaButton.isEnabled = false
@@ -35,7 +35,7 @@ class MainViewController: UIViewController {
             self.imageDelivery.takeInPhoto()
             return
         }
-
+        
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] (status) in
             guard let self = self else { return }
             switch status {
@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
             }
         }
     }
-
+    
     @IBAction func saveAction(_ sender: Any) {
         if let image = mainImageView.image {
             imageDelivery.savePhoto(image: image, completion: { [weak self] (alert) in
@@ -62,16 +62,16 @@ class MainViewController: UIViewController {
             instaLinker.link(image: image)
         }
     }
-
+    
     // MARK: - public
     
     func setEditedImage(image: UIImage) {
         mainImageView.image = image
         initialLabel.isHidden = true
     }
-
+    
     // MARK: - private
-
+    
     private func showAuthAlert() {
         DispatchQueue.main.async {
             let title = "写真のアクセス権限がありません"
@@ -107,7 +107,11 @@ extension MainViewController: ImageDeliveryDelegate {
             self.initialLabel.isHidden = true
             self.saveButton.isEnabled = true
             self.instaButton.isEnabled = true
-            self.collectionView.reloadData()
+            
+            // TODO: - cellの無効化切り替え時に色変更
+            for cell in self.collectionView.visibleCells {
+                cell.isUserInteractionEnabled = true
+            }
         }
     }
     
@@ -137,33 +141,29 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     // cell情報
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-
-        if mainImageView.image == nil {
-            cell.backgroundColor = UIColor.systemBackground
-            cell.layer.borderColor = CGColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.7)
-            cell.layer.borderWidth = 1.0
-            cell.layer.cornerRadius = cell.frame.size.width * 0.5
-            cell.clipsToBounds = true
-
-            let functionIconFrame = CGRect(x: cell.frame.height / 2,
-                                           y: cell.frame.height / 2,
-                                           width: cell.frame.height / 2,
-                                           height: cell.frame.height / 2)
-            let functionIcon = UIImageView(frame: functionIconFrame)
-            functionIcon.image = functionIcons[indexPath.item]
-            cell.contentView.addSubview(functionIcon)
-
-            let functionLabel = UILabel(frame: cell.bounds)
-            functionLabel.textAlignment = .center
-            functionLabel.text = editorNames[indexPath.item].rawValue
-            cell.contentView.addSubview(functionLabel)
-            
-            cell.isUserInteractionEnabled = false
-        } else {
-            cell.isUserInteractionEnabled = true
-        }
+        
+        cell.backgroundColor = UIColor.systemBackground
+        cell.layer.borderColor = CGColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.7)
+        cell.layer.borderWidth = 1.0
+        cell.layer.cornerRadius = cell.frame.size.width * 0.5
+        cell.clipsToBounds = true
+        
+        let functionIconFrame = CGRect(x: cell.frame.height / 2,
+                                       y: cell.frame.height / 2,
+                                       width: cell.frame.height / 2,
+                                       height: cell.frame.height / 2)
+        let functionIcon = UIImageView(frame: functionIconFrame)
+        functionIcon.image = functionIcons[indexPath.item]
+        cell.contentView.addSubview(functionIcon)
+        
+        let functionLabel = UILabel(frame: cell.bounds)
+        functionLabel.textAlignment = .center
+        functionLabel.text = editorNames[indexPath.item].rawValue
+        cell.contentView.addSubview(functionLabel)
+        
+        cell.isUserInteractionEnabled = false
         return cell
     }
     
