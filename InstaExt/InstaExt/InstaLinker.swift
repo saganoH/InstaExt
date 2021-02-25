@@ -2,7 +2,7 @@ import UIKit
 import Photos
 
 class InstaLinker: NSObject {
-    
+
     var delegate: InstaLinkerDelegate?
     
     func link(image: UIImage) {
@@ -18,9 +18,7 @@ class InstaLinker: NSObject {
               let urlScheme = URL(string: "instagram://library?LocalIdentifier=\(lastAsset.localIdentifier)") else {
             let title = "Instagram連携エラー"
             let message = "画像取得に失敗しました"
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.delegate?.failedToLink(with: alert)
+            self.delegate?.failedToLink(with: makeAlert(title: title, message: message))
             return
         }
         
@@ -29,10 +27,14 @@ class InstaLinker: NSObject {
         } else {
             let title = "Instagram連携エラー"
             let message = "アプリがインストールされていません"
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.delegate?.failedToLink(with: alert)
+            self.delegate?.failedToLink(with: makeAlert(title: title, message: message))
         }
+    }
+    
+    private func makeAlert(title: String, message: String) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        return alert
     }
 }
 
