@@ -14,7 +14,7 @@ enum FilterType: String, CaseIterable {
         case .mosaic:
             return 20
         case .monochrome:
-            return 20
+            return 1
         }
     }
     
@@ -40,7 +40,7 @@ enum FilterType: String, CaseIterable {
         case .mosaic:
             return Blur()
         case .monochrome:
-            return Blur()
+            return Monochrome()
         }
     }
 }
@@ -79,6 +79,29 @@ class Blur: Filter {
         cropFilter.setValue(inputCIImage.extent, forKey: "inputRectangle")
         guard let croppedImage = cropFilter.outputImage,
               let cgImage = CIContext().createCGImage(croppedImage, from: croppedImage.extent) else { return image }
+        
+        let resultImage = UIImage(cgImage: cgImage, scale: 0, orientation: orientation)
+        return resultImage
+    }
+}
+
+// MARK: - Monochromeクラス
+
+class Monochrome: Filter {
+    func process(value: CGFloat, image: UIImage) -> UIImage {
+        let orientation = image.imageOrientation
+        guard let inputCIImage = CIImage(image: image) else {
+            return image
+        }
+        
+        // モノクロ処理
+        let monochromeFilter = CIFilter(name: "CIColorMonochrome")!
+        monochromeFilter.setValue(inputCIImage, forKey: "inputImage")
+        monochromeFilter.setValue(CIColor(red: 0.7, green: 0.7, blue: 0.7), forKey: "inputColor")
+        monochromeFilter.setValue(value, forKey: "inputIntensity")
+        
+        guard let monochromeImage = monochromeFilter.outputImage,
+              let cgImage = CIContext().createCGImage(monochromeImage, from: monochromeImage.extent) else { return image }
         
         let resultImage = UIImage(cgImage: cgImage, scale: 0, orientation: orientation)
         return resultImage
