@@ -2,12 +2,15 @@ import UIKit
 import PhotosUI
 
 class MainViewController: UIViewController {
-
+    
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var initialLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var instaButton: UIBarButtonItem!
+    
     private let imageDelivery = ImageDelivery()
+    private let instaLinker = InstaLinker()
     private let editorNames = FilterType.allCases
     private let functionIcons: [UIImage] = [
         UIImage(named: "blur")!,
@@ -17,12 +20,33 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         imageDelivery.delegate = self
+        instaLinker.delegate = self
+        
+        if mainImageView.image == nil {
+            saveButton.isEnabled = false
+            instaButton.isEnabled = false
+        }
     }
     
     // MARK: - @IBAction
     
     @IBAction func takeInAction(_ sender: Any) {
-        imageDelivery.takeInPhoto()
+        if PHPhotoLibrary.authorizationStatus(for: .readWrite) == .authorized {
+            self.imageDelivery.takeInPhoto()
+            return
+        }
+        
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] (status) in
+            guard let self = self else { return }
+            switch status {
+            case .authorized, .limited:
+                self.imageDelivery.takeInPhoto()
+            case .denied:
+                self.showAuthAlert()
+            default:
+                print("Unexpexted Error!")
+            }
+        }
     }
     
     @IBAction func saveAction(_ sender: Any) {
@@ -33,11 +57,37 @@ class MainViewController: UIViewController {
         }
     }
     
+    @IBAction func linkInstagram(_ sender: Any) {
+        if let image = mainImageView.image {
+            instaLinker.link(image: image)
+        }
+    }
+    
     // MARK: - public
     
     func setEditedImage(image: UIImage) {
         mainImageView.image = image
         initialLabel.isHidden = true
+    }
+    
+    // MARK: - private
+    
+    private func showAuthAlert() {
+        DispatchQueue.main.async {
+            let title = "写真のアクセス権限がありません"
+            let message = "すべての写真を許可してください"
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let setting = UIAlertAction(title: "設定",
+                                        style: .default,
+                                        handler: { (_) -> Void in
+                                            guard let settingsURL = URL(string: UIApplication.openSettingsURLString ) else {
+                                                return
+                                            }
+                                            UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                                        })
+            alert.addAction(setting)
+            self.present(alert, animated: true)
+        }
     }
 }
 
@@ -46,8 +96,7 @@ class MainViewController: UIViewController {
 extension MainViewController: ImageDeliveryDelegate {
     func showPHPicker(phPicker: PHPickerViewController) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.present(phPicker, animated: true)
+            self?.present(phPicker, animated: true)
         }
     }
     
@@ -56,13 +105,29 @@ extension MainViewController: ImageDeliveryDelegate {
             guard let self = self else { return }
             self.mainImageView.image = image
             self.initialLabel.isHidden = true
+            self.saveButton.isEnabled = true
+            self.instaButton.isEnabled = true
+            
+            // TODO: - cellの無効化切り替え時に色変更
+            for cell in self.collectionView.visibleCells {
+                cell.isUserInteractionEnabled = true
+            }
         }
     }
     
     func showAlert(alert: UIAlertController) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.present(alert, animated: true)
+            self?.present(alert, animated: true)
+        }
+    }
+}
+
+// MARK: - InstaLinkerクラスのDelegate
+
+extension MainViewController: InstaLinkerDelegate {
+    func failedToLink(with alert: UIAlertController) {
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alert, animated: true)
         }
     }
 }
@@ -76,7 +141,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     // cell情報
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        
         cell.backgroundColor = UIColor.systemBackground
         cell.layer.borderColor = CGColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.7)
         cell.layer.borderWidth = 1.0
@@ -90,12 +157,13 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let functionIcon = UIImageView(frame: functionIconFrame)
         functionIcon.image = functionIcons[indexPath.item]
         cell.contentView.addSubview(functionIcon)
-
+        
         let functionLabel = UILabel(frame: cell.bounds)
         functionLabel.textAlignment = .center
         functionLabel.text = editorNames[indexPath.item].rawValue
         cell.contentView.addSubview(functionLabel)
         
+        cell.isUserInteractionEnabled = false
         return cell
     }
     

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NVn-vC-yUl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NVn-vC-yUl">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -75,17 +75,28 @@
                                 <action selector="takeInAction:" destination="BYZ-38-t0r" id="08N-pg-W3a"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="保存" image="square.and.arrow.down" catalog="system" id="Rct-MW-QDL">
-                            <color key="tintColor" systemColor="labelColor"/>
-                            <connections>
-                                <action selector="saveAction:" destination="BYZ-38-t0r" id="y8X-V0-RMW"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="保存" image="square.and.arrow.down" catalog="system" id="Rct-MW-QDL">
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <connections>
+                                    <action selector="saveAction:" destination="BYZ-38-t0r" id="y8X-V0-RMW"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="インスタ連携" image="instagramIcon" id="MY0-Df-MGN" userLabel="インスタ連携">
+                                <inset key="imageInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <connections>
+                                    <action selector="linkInstagram:" destination="BYZ-38-t0r" id="s9q-2J-sHe"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="1j7-AO-rXQ" id="upK-Bp-6WQ"/>
                         <outlet property="initialLabel" destination="1UD-p0-RBn" id="JN0-sJ-ruq"/>
+                        <outlet property="instaButton" destination="Rct-MW-QDL" id="tNq-kn-d7c"/>
                         <outlet property="mainImageView" destination="cqD-4E-0Ij" id="2eL-xc-UgN"/>
+                        <outlet property="saveButton" destination="MY0-Df-MGN" id="W08-1W-KMT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -174,6 +185,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="instagramIcon" width="24" height="24"/>
         <image name="photo.on.rectangle" catalog="system" width="128" height="96"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <systemColor name="labelColor">
