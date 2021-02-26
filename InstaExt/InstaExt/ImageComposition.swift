@@ -7,7 +7,7 @@ class ImageComposition {
         }
         
         // 余白を含むマスク画像の生成
-        UIGraphicsBeginImageContext(filter.frame.size)
+        UIGraphicsBeginImageContextWithOptions(filter.frame.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()!
         filter.layer.render(in: context)
         let tmpMaskedImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -21,7 +21,7 @@ class ImageComposition {
         let resizedMaskImage = maskedImage.cutout(adjustTo: sourceImage)
         
         // 元画像とマスク画像の合成処理
-        UIGraphicsBeginImageContext(sourceImage.size)
+        UIGraphicsBeginImageContextWithOptions(sourceImage.size, false, 0.0)
         sourceImage.draw(in: CGRect(origin: CGPoint.zero, size: sourceImage.size))
         resizedMaskImage.draw(in: CGRect(origin: CGPoint.zero, size: sourceImage.size))
         let drawedImage = UIGraphicsGetImageFromCurrentImageContext()
