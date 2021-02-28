@@ -94,7 +94,6 @@ class Monochrome: Filter {
             return image
         }
         
-        // モノクロ処理
         let monochromeFilter = CIFilter(name: "CIColorMonochrome")!
         monochromeFilter.setValue(inputCIImage, forKey: "inputImage")
         monochromeFilter.setValue(CIColor(red: 0.7, green: 0.7, blue: 0.7), forKey: "inputColor")
