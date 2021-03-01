@@ -78,7 +78,7 @@ class Blur: Filter {
         cropFilter.setValue(bluredImage, forKey: "inputImage")
         cropFilter.setValue(inputCIImage.extent, forKey: "inputRectangle")
         guard let croppedImage = cropFilter.outputImage,
-              let cgImage = CIContext().createCGImage(croppedImage, from: croppedImage.extent) else { return image }
+              let cgImage = CIContext().createCGImage(croppedImage, from: croppedImage.extent) else { fatalError("CGImageの書き出しに失敗") }
         
         let resultImage = UIImage(cgImage: cgImage, scale: 0, orientation: orientation)
         return resultImage
@@ -100,7 +100,7 @@ class Monochrome: Filter {
         monochromeFilter.setValue(value, forKey: "inputIntensity")
         
         guard let monochromeImage = monochromeFilter.outputImage,
-              let cgImage = CIContext().createCGImage(monochromeImage, from: monochromeImage.extent) else { return image }
+              let cgImage = CIContext().createCGImage(monochromeImage, from: monochromeImage.extent) else { fatalError("CGImageの書き出しに失敗") }
         
         let resultImage = UIImage(cgImage: cgImage, scale: 0, orientation: orientation)
         return resultImage
