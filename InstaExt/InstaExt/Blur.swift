@@ -4,7 +4,7 @@ class Blur: Filter {
     func process(value: CGFloat, image: UIImage) -> UIImage {
         let orientation = image.imageOrientation
         guard let inputCIImage = CIImage(image: image) else {
-            return image
+            fatalError("CIImageへの変換に失敗")
         }
         
         // 画像の縁の引き伸ばし処理

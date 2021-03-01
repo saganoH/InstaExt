@@ -4,7 +4,7 @@ class Monochrome: Filter {
     func process(value: CGFloat, image: UIImage) -> UIImage {
         let orientation = image.imageOrientation
         guard let inputCIImage = CIImage(image: image) else {
-            return image
+            fatalError("CIImageへの変換に失敗")
         }
 
         let monochromeFilter = CIFilter(name: "CIColorMonochrome")!
