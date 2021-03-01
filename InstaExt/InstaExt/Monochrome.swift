@@ -9,8 +9,8 @@ class Monochrome: Filter {
 
         let monochromeFilter = CIFilter(name: "CIColorMonochrome")!
         monochromeFilter.setValue(inputCIImage, forKey: "inputImage")
-        monochromeFilter.setValue(CIColor(red: 0.7, green: 0.7, blue: 0.7), forKey: "inputColor")
-        monochromeFilter.setValue(value, forKey: "inputIntensity")
+        monochromeFilter.setValue(CIColor(red: value, green: value, blue: value), forKey: "inputColor")
+        monochromeFilter.setValue(1, forKey: "inputIntensity")
 
         guard let monochromeImage = monochromeFilter.outputImage,
               let cgImage = CIContext().createCGImage(monochromeImage, from: monochromeImage.extent) else { fatalError("CGImageの書き出しに失敗") }
