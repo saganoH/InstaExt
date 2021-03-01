@@ -7,28 +7,28 @@ class ImageComposition {
         }
         
         // 余白を含むマスク画像の生成
-        UIGraphicsBeginImageContext(filter.frame.size)
+        UIGraphicsBeginImageContextWithOptions(filter.frame.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()!
         filter.layer.render(in: context)
         let tmpMaskedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
         guard let maskedImage = tmpMaskedImage else {
-            fatalError("Unexpected error!")
+            fatalError("マスク画像の生成に失敗")
         }
         
         // マスク画像の余白を削除
         let resizedMaskImage = maskedImage.cutout(adjustTo: sourceImage)
         
         // 元画像とマスク画像の合成処理
-        UIGraphicsBeginImageContext(sourceImage.size)
+        UIGraphicsBeginImageContextWithOptions(sourceImage.size, false, 0.0)
         sourceImage.draw(in: CGRect(origin: CGPoint.zero, size: sourceImage.size))
         resizedMaskImage.draw(in: CGRect(origin: CGPoint.zero, size: sourceImage.size))
         let drawedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         guard let result = drawedImage else {
-            fatalError("Unexpected error!")
+            fatalError("画像の合成処理に失敗")
         }
         return result
     }
@@ -74,7 +74,7 @@ extension UIImage {
         UIGraphicsEndImageContext()
 
         guard let result = reSizedImage else {
-            fatalError("Unexpected error!")
+            fatalError("画像リサイズ時の描画に失敗")
         }
         return result
     }
@@ -96,7 +96,7 @@ extension UIImage {
         UIGraphicsEndImageContext()
 
         guard let result = croppedImage else {
-            fatalError("Unexpected error!")
+            fatalError("画像クロップ時の描画に失敗")
         }
         return result
     }
