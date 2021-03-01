@@ -40,7 +40,7 @@ class ImageDelivery: NSObject {
 
         if error != nil {
             title = "保存エラー"
-            message = "写真の追加権限を確認してください"
+            message = "写真が保存できませんでした"
         }
 
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
