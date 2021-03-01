@@ -171,7 +171,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let storyboard = storyboard,
               let editorViewController = storyboard.instantiateViewController(identifier: "editorViewController") as? EditorViewController else {
-            fatalError("Unexpected error!")
+            fatalError("画面遷移先の取得に失敗")
         }
         editorViewController.selectedFilter = editorNames[indexPath.item]
         editorViewController.sourceImage = mainImageView.image        

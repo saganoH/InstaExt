@@ -14,7 +14,7 @@ class ImageComposition {
         UIGraphicsEndImageContext()
 
         guard let maskedImage = tmpMaskedImage else {
-            fatalError("Unexpected error!")
+            fatalError("マスク画像の生成に失敗")
         }
         
         // マスク画像の余白を削除
@@ -28,7 +28,7 @@ class ImageComposition {
         UIGraphicsEndImageContext()
         
         guard let result = drawedImage else {
-            fatalError("Unexpected error!")
+            fatalError("画像の合成処理に失敗")
         }
         return result
     }
@@ -74,7 +74,7 @@ extension UIImage {
         UIGraphicsEndImageContext()
 
         guard let result = reSizedImage else {
-            fatalError("Unexpected error!")
+            fatalError("画像リサイズ時の描画に失敗")
         }
         return result
     }
@@ -96,7 +96,7 @@ extension UIImage {
         UIGraphicsEndImageContext()
 
         guard let result = croppedImage else {
-            fatalError("Unexpected error!")
+            fatalError("画像クロップ時の描画に失敗")
         }
         return result
     }
