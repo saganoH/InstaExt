@@ -45,6 +45,7 @@ class MainViewController: UIViewController {
             alert.addAction(cancelAction)
             alert.addAction(okAction)
             self.present(alert, animated: true)
+            return
         }
 
         if PHPhotoLibrary.authorizationStatus(for: .readWrite) == .authorized {
