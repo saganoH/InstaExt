@@ -10,7 +10,7 @@ enum FilterType: String, CaseIterable {
         case .blur:
             return 20
         case .mosaic:
-            return 20
+            return 30
         case .monochrome:
             return 1
         }
@@ -21,7 +21,7 @@ enum FilterType: String, CaseIterable {
         case .blur:
             return 0
         case .mosaic:
-            return 0
+            return 1
         case .monochrome:
             return 0
         }
@@ -36,7 +36,7 @@ enum FilterType: String, CaseIterable {
         case .blur:
             return Blur()
         case .mosaic:
-            return Blur()
+            return Mosaic()
         case .monochrome:
             return Monochrome()
         }

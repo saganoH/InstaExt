@@ -23,6 +23,7 @@
 		C6C6505725D3A3DA008603C9 /* ImageComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C6505625D3A3DA008603C9 /* ImageComposition.swift */; };
 		C6C8FA0D25ECC58B00760B2A /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C8FA0C25ECC58B00760B2A /* Blur.swift */; };
 		C6C8FA1225ECC5C200760B2A /* Monochrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C8FA1125ECC5C200760B2A /* Monochrome.swift */; };
+		C6DAD62425EDCB7700BAFB1E /* Mosaic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DAD62325EDCB7700BAFB1E /* Mosaic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		C6C6505625D3A3DA008603C9 /* ImageComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComposition.swift; sourceTree = "<group>"; };
 		C6C8FA0C25ECC58B00760B2A /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		C6C8FA1125ECC5C200760B2A /* Monochrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monochrome.swift; sourceTree = "<group>"; };
+		C6DAD62325EDCB7700BAFB1E /* Mosaic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mosaic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				C688703225B7FE8E00CA7781 /* ImageDelivery.swift */,
 				C6BC134625C8F57A00FD789D /* Filter.swift */,
 				C6C8FA0C25ECC58B00760B2A /* Blur.swift */,
+				C6DAD62325EDCB7700BAFB1E /* Mosaic.swift */,
 				C6C8FA1125ECC5C200760B2A /* Monochrome.swift */,
 				C634C0C025CBBBB900AA0CF1 /* MaskView.swift */,
 				C6C6505625D3A3DA008603C9 /* ImageComposition.swift */,
@@ -289,6 +292,7 @@
 				C6886FAA25B7B83200CA7781 /* AppDelegate.swift in Sources */,
 				C6886FAC25B7B83200CA7781 /* SceneDelegate.swift in Sources */,
 				C6BC134725C8F57A00FD789D /* Filter.swift in Sources */,
+				C6DAD62425EDCB7700BAFB1E /* Mosaic.swift in Sources */,
 				C6886FE325B7C4F900CA7781 /* EditorViewController.swift in Sources */,
 				C634C0C125CBBBB900AA0CF1 /* MaskView.swift in Sources */,
 				C688703325B7FE8E00CA7781 /* ImageDelivery.swift in Sources */,
