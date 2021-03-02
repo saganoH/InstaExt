@@ -31,6 +31,23 @@ class MainViewController: UIViewController {
     // MARK: - @IBAction
     
     @IBAction func takeInAction(_ sender: Any) {
+        if mainImageView.image != nil {
+            let title = "新規画像取り込み"
+            let message = "編集中画像を破棄してもよろしいですか？"
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { (ok) in
+                self.imageDelivery.takeInPhoto()
+            }
+            let cancelAction = UIAlertAction(title: "CANCEL", style: .default) { (cancel) in
+                alert.dismiss(animated: true, completion: nil)
+            }
+
+            alert.addAction(cancelAction)
+            alert.addAction(okAction)
+            self.present(alert, animated: true)
+            return
+        }
+
         if PHPhotoLibrary.authorizationStatus(for: .readWrite) == .authorized {
             self.imageDelivery.takeInPhoto()
             return
