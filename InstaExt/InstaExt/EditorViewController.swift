@@ -20,6 +20,10 @@ class EditorViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        guard filterImageView.mask == nil else {
+            return
+        }
+        
         let maskView = MaskView(frame: filterImageView.frame)
         maskView.maskImageView.frame = filterImageView.bounds
         view.addSubview(maskView)
