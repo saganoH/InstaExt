@@ -59,6 +59,7 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
         guard let provider = results.first?.itemProvider else {
             return
         }
+
         provider.loadObject(ofClass: UIImage.self, completionHandler: { [weak self] (selectedImage, error) in
             guard let self = self else { return }
             guard error == nil, let wrapImage = selectedImage as? UIImage else {
@@ -67,6 +68,14 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
             }
             self.delegate?.didGetImage(image: wrapImage)
         })
+
+        // PHPickerで選択した画像のURLを取得
+        guard let identifier = provider.registeredTypeIdentifiers.first else { return }
+        provider.loadItem(forTypeIdentifier: identifier, options: nil) { (url, error) in
+            if let url = url as? URL {
+                print(url)
+            }
+        }
     }
     
     private func makePickerAlert(completion: @escaping (UIAlertController) -> Void) {
