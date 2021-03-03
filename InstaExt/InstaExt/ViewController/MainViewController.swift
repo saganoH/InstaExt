@@ -121,7 +121,6 @@ extension MainViewController: ImageDeliveryDelegate {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.mainImageView.image = image
-            self.imageType = type
             self.initialLabel.isHidden = true
             self.saveButton.isEnabled = true
             self.instaButton.isEnabled = true
