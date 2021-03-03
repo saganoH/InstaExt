@@ -129,6 +129,7 @@
 				C6E018F925EF186300303459 /* InOut */,
 				C6E018F125EF17F800303459 /* Filter */,
 				C6E018F525EF184200303459 /* MaskProcess */,
+				C6E018E525EF106000303459 /* ImageType.swift */,
 			);
 			path = InstaExt;
 			sourceTree = "<group>";
