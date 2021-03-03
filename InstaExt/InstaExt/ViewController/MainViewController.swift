@@ -117,7 +117,7 @@ extension MainViewController: ImageDeliveryDelegate {
         }
     }
     
-    func didGetImage(image: UIImage, type: ImageType) {
+    func didGetImage(image: UIImage) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.mainImageView.image = image

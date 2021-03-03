@@ -23,8 +23,8 @@
 		C6C6505725D3A3DA008603C9 /* ImageComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C6505625D3A3DA008603C9 /* ImageComposition.swift */; };
 		C6C8FA0D25ECC58B00760B2A /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C8FA0C25ECC58B00760B2A /* Blur.swift */; };
 		C6C8FA1225ECC5C200760B2A /* Monochrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C8FA1125ECC5C200760B2A /* Monochrome.swift */; };
-		C6E018E625EF106000303459 /* ImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E018E525EF106000303459 /* ImageType.swift */; };
 		C6DAD62425EDCB7700BAFB1E /* Mosaic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DAD62325EDCB7700BAFB1E /* Mosaic.swift */; };
+		C6E018E625EF106000303459 /* ImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E018E525EF106000303459 /* ImageType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,8 +67,8 @@
 		C6C6505625D3A3DA008603C9 /* ImageComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComposition.swift; sourceTree = "<group>"; };
 		C6C8FA0C25ECC58B00760B2A /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		C6C8FA1125ECC5C200760B2A /* Monochrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monochrome.swift; sourceTree = "<group>"; };
-		C6E018E525EF106000303459 /* ImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageType.swift; sourceTree = "<group>"; };
 		C6DAD62325EDCB7700BAFB1E /* Mosaic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mosaic.swift; sourceTree = "<group>"; };
+		C6E018E525EF106000303459 /* ImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,7 +129,6 @@
 				C6E018F925EF186300303459 /* InOut */,
 				C6E018F125EF17F800303459 /* Filter */,
 				C6E018F525EF184200303459 /* MaskProcess */,
-				C6E018E525EF106000303459 /* ImageType.swift */,
 			);
 			path = InstaExt;
 			sourceTree = "<group>";
@@ -177,6 +176,7 @@
 			children = (
 				C688703225B7FE8E00CA7781 /* ImageDelivery.swift */,
 				C616C2E425DBA8850082EE63 /* InstaLinker.swift */,
+				C6E018E525EF106000303459 /* ImageType.swift */,
 			);
 			path = InOut;
 			sourceTree = "<group>";

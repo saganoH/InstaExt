@@ -63,14 +63,13 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
         }
 
         // 選択した画像のURLから拡張子を取得
-        var type: ImageType = .jpg
         guard let identifier = provider.registeredTypeIdentifiers.first else { return }
         provider.loadItem(forTypeIdentifier: identifier, options: nil) { (url, error) in
             if let url = url as? URL {
-                type = url.imageTypeForExtention()
+                let type = url.imageTypeForExtention()
+                self.imageType = type
             }
         }
-        imageType = type
 
         provider.loadObject(ofClass: UIImage.self, completionHandler: { [weak self] (selectedImage, error) in
             guard let self = self else { return }
