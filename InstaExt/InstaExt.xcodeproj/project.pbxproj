@@ -117,22 +117,16 @@
 		C6886FA825B7B83200CA7781 /* InstaExt */ = {
 			isa = PBXGroup;
 			children = (
-				C6886FB725B7B83400CA7781 /* Info.plist */,
-				C6886FB225B7B83400CA7781 /* Assets.xcassets */,
 				C6886FA925B7B83200CA7781 /* AppDelegate.swift */,
 				C6886FAB25B7B83200CA7781 /* SceneDelegate.swift */,
+				C6886FB725B7B83400CA7781 /* Info.plist */,
+				C6886FB225B7B83400CA7781 /* Assets.xcassets */,
 				C6886FB425B7B83400CA7781 /* LaunchScreen.storyboard */,
 				C6886FAF25B7B83200CA7781 /* Main.storyboard */,
-				C6886FAD25B7B83200CA7781 /* MainViewController.swift */,
-				C6886FE225B7C4F900CA7781 /* EditorViewController.swift */,
-				C688703225B7FE8E00CA7781 /* ImageDelivery.swift */,
-				C6BC134625C8F57A00FD789D /* Filter.swift */,
-				C6C8FA0C25ECC58B00760B2A /* Blur.swift */,
-				C6DAD62325EDCB7700BAFB1E /* Mosaic.swift */,
-				C6C8FA1125ECC5C200760B2A /* Monochrome.swift */,
-				C634C0C025CBBBB900AA0CF1 /* MaskView.swift */,
-				C6C6505625D3A3DA008603C9 /* ImageComposition.swift */,
-				C616C2E425DBA8850082EE63 /* InstaLinker.swift */,
+				C6E018FD25EF187B00303459 /* ViewController */,
+				C6E018F925EF186300303459 /* InOut */,
+				C6E018F125EF17F800303459 /* Filter */,
+				C6E018F525EF184200303459 /* MaskProcess */,
 			);
 			path = InstaExt;
 			sourceTree = "<group>";
@@ -153,6 +147,44 @@
 				C6886FCD25B7B83400CA7781 /* Info.plist */,
 			);
 			path = InstaExtUITests;
+			sourceTree = "<group>";
+		};
+		C6E018F125EF17F800303459 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				C6BC134625C8F57A00FD789D /* Filter.swift */,
+				C6C8FA0C25ECC58B00760B2A /* Blur.swift */,
+				C6DAD62325EDCB7700BAFB1E /* Mosaic.swift */,
+				C6C8FA1125ECC5C200760B2A /* Monochrome.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		C6E018F525EF184200303459 /* MaskProcess */ = {
+			isa = PBXGroup;
+			children = (
+				C634C0C025CBBBB900AA0CF1 /* MaskView.swift */,
+				C6C6505625D3A3DA008603C9 /* ImageComposition.swift */,
+			);
+			path = MaskProcess;
+			sourceTree = "<group>";
+		};
+		C6E018F925EF186300303459 /* InOut */ = {
+			isa = PBXGroup;
+			children = (
+				C688703225B7FE8E00CA7781 /* ImageDelivery.swift */,
+				C616C2E425DBA8850082EE63 /* InstaLinker.swift */,
+			);
+			path = InOut;
+			sourceTree = "<group>";
+		};
+		C6E018FD25EF187B00303459 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C6886FAD25B7B83200CA7781 /* MainViewController.swift */,
+				C6886FE225B7C4F900CA7781 /* EditorViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
