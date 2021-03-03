@@ -60,26 +60,23 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
             return
         }
 
+        // 選択した画像のURLから拡張子を取得
+        var imageType: ImageType = .jpg
+        guard let identifier = provider.registeredTypeIdentifiers.first else { return }
+        provider.loadItem(forTypeIdentifier: identifier, options: nil) { (url, error) in
+            if let url = url as? URL {
+                imageType = url.imageTypeForExtention()
+            }
+        }
+
         provider.loadObject(ofClass: UIImage.self, completionHandler: { [weak self] (selectedImage, error) in
             guard let self = self else { return }
             guard error == nil, let wrapImage = selectedImage as? UIImage else {
                 self.makePickerAlert(completion: { (alert) in self.delegate?.showAlert(alert: alert) })
                 return
             }
-            self.delegate?.didGetImage(image: wrapImage)
+            self.delegate?.didGetImage(image: wrapImage, type: imageType)
         })
-
-        // PHPickerで選択した画像のURLを取得
-        var imageType: ImageType = .jpg
-        guard let identifier = provider.registeredTypeIdentifiers.first else { return }
-        provider.loadItem(forTypeIdentifier: identifier, options: nil) { (url, error) in
-            if let url = url as? URL {
-                print(url)
-                imageType = url.imageTypeForExtention() ?? .jpg
-                print(imageType.rawValue)
-
-            }
-        }
     }
     
     private func makePickerAlert(completion: @escaping (UIAlertController) -> Void) {
@@ -95,6 +92,6 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
 
 protocol ImageDeliveryDelegate {
     func showPHPicker(phPicker: PHPickerViewController)
-    func didGetImage(image: UIImage)
+    func didGetImage(image: UIImage, type: ImageType)
     func showAlert(alert: UIAlertController)
 }

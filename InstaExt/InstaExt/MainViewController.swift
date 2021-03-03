@@ -8,7 +8,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var instaButton: UIBarButtonItem!
-    
+
+    private var imageType: ImageType = .jpg
     private let imageDelivery = ImageDelivery()
     private let instaLinker = InstaLinker()
     private let editorNames = FilterType.allCases
@@ -117,10 +118,11 @@ extension MainViewController: ImageDeliveryDelegate {
         }
     }
     
-    func didGetImage(image: UIImage) {
+    func didGetImage(image: UIImage, type: ImageType) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.mainImageView.image = image
+            self.imageType = type
             self.initialLabel.isHidden = true
             self.saveButton.isEnabled = true
             self.instaButton.isEnabled = true

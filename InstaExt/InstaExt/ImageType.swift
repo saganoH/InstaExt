@@ -8,19 +8,20 @@ enum ImageType: String {
 }
 
 extension URL {
-    func imageTypeForExtention() -> ImageType? {
+    func imageTypeForExtention() -> ImageType {
         let ext = self.pathExtension.lowercased()
         switch ext {
         case "jpg", "jpeg":
             return .jpg
         case "png":
             return .png
-        case "heic":
+        case "heic", "heif":
             return .heic
         case "pvt":
             return .pvt
         default:
-            return nil
+            print("予期していない拡張子です")
+            return .jpg
         }
     }
 }
