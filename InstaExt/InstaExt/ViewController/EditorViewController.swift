@@ -49,7 +49,7 @@ class EditorViewController: UIViewController {
         guard let resultImage = compositedImage,
               let navi = navigationController,
               let mainViewController = navi.viewControllers[(navi.viewControllers.count)-2] as? MainViewController else {
-            fatalError("Unexpected error!")
+            fatalError("画像の編集確定に失敗")
         }
         mainViewController.setEditedImage(image: resultImage)
         navi.popViewController(animated: true)
