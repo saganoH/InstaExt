@@ -21,7 +21,7 @@ enum FilterType: String, CaseIterable {
         case .blur:
             return 0
         case .mosaic:
-            return 1
+            return 5
         case .monochrome:
             return 0
         }
