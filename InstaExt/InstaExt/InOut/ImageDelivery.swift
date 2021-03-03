@@ -5,7 +5,9 @@ class ImageDelivery: NSObject {
     var delegate: ImageDeliveryDelegate?
 
     private var imageType: ImageType = .jpg
-    
+
+    // MARK: - public
+
     func takeInPhoto() {
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
         
@@ -19,6 +21,8 @@ class ImageDelivery: NSObject {
     }
     
     func savePhoto(image: UIImage, completion: @escaping (UIAlertController) -> Void) {
+        let image = imageConversion(source: image)
+
         let alert = UIAlertController(title: "保存",
                                       message: "この画像を保存しますか？",
                                       preferredStyle: .alert)
@@ -49,6 +53,24 @@ class ImageDelivery: NSObject {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.delegate?.showAlert(alert: alert)
     }
+
+    // MARK: - private
+
+    private func imageConversion(source: UIImage) -> UIImage {
+        let data: Data?
+
+        switch imageType {
+        case .png:
+            data = source.pngData()
+        case .jpg, .pvt:
+            data = source.jpegData(compressionQuality: 1.0)
+        }
+
+        guard let convertedData = data else { return source }
+        guard let convertedImage = UIImage(data: convertedData) else { return source }
+
+        return convertedImage
+    }
 }
 
 // MARK: - PHPickerViewControllerDelegate
@@ -57,11 +79,11 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
 
     public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
-
+        
         guard let provider = results.first?.itemProvider else {
             return
         }
-
+        
         // 選択した画像のURLから拡張子を取得
         guard let identifier = provider.registeredTypeIdentifiers.first else { return }
         provider.loadItem(forTypeIdentifier: identifier, options: nil) { (url, error) in
@@ -70,7 +92,7 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
                 self.imageType = type
             }
         }
-
+        
         provider.loadObject(ofClass: UIImage.self, completionHandler: { [weak self] (selectedImage, error) in
             guard let self = self else { return }
             guard error == nil, let wrapImage = selectedImage as? UIImage else {
