@@ -3,6 +3,8 @@ import PhotosUI
 class ImageDelivery: NSObject {
     
     var delegate: ImageDeliveryDelegate?
+
+    private var imageType: ImageType = .jpg
     
     func takeInPhoto() {
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
@@ -61,13 +63,14 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
         }
 
         // 選択した画像のURLから拡張子を取得
-        var imageType: ImageType = .jpg
+        var type: ImageType = .jpg
         guard let identifier = provider.registeredTypeIdentifiers.first else { return }
         provider.loadItem(forTypeIdentifier: identifier, options: nil) { (url, error) in
             if let url = url as? URL {
-                imageType = url.imageTypeForExtention()
+                type = url.imageTypeForExtention()
             }
         }
+        imageType = type
 
         provider.loadObject(ofClass: UIImage.self, completionHandler: { [weak self] (selectedImage, error) in
             guard let self = self else { return }
@@ -75,7 +78,7 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
                 self.makePickerAlert(completion: { (alert) in self.delegate?.showAlert(alert: alert) })
                 return
             }
-            self.delegate?.didGetImage(image: wrapImage, type: imageType)
+            self.delegate?.didGetImage(image: wrapImage)
         })
     }
     
@@ -92,6 +95,6 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
 
 protocol ImageDeliveryDelegate {
     func showPHPicker(phPicker: PHPickerViewController)
-    func didGetImage(image: UIImage, type: ImageType)
+    func didGetImage(image: UIImage)
     func showAlert(alert: UIAlertController)
 }
