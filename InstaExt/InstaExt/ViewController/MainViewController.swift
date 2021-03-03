@@ -61,7 +61,7 @@ class MainViewController: UIViewController {
             case .denied:
                 self.showAuthAlert()
             default:
-                print("Unexpexted Error!")
+                print("写真のアクセス権限に変更があった可能性")
             }
         }
     }
