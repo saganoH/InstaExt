@@ -40,12 +40,6 @@ class インスタクラス{
   @objc 画像のURLを取得しインスタへ遷移()
 }
 
-class 画像形式クラス{
-  画像形式判別(URL: String) -> 画像形式: String
-  保存用画像形式変換(画像: UIImage, 画像形式: String) -> 画像: UIImage
-  インスタ用画像形式変換(画像: UIImage) -> jpeg画像: UIImage
-}
-
 enum フィルタタイプ {
   ぼかし
   モザイク
@@ -54,6 +48,12 @@ enum フィルタタイプ {
   スライダの下限値を返す()
   スライダの中央値を返す()
   フィルタクラスのインスタンスを返す()
+}
+
+enum 画像形式 {
+  jpg
+  png
+  pvt
 }
 
 package フィルタ画像生成クラス {
@@ -87,9 +87,6 @@ end note
 note left on link
   画像(UIImage)
 end note
-
-デバイスクラス--画像形式クラス
-インスタクラス--画像形式クラス
 
 マスクビュークラス--編集画面
 
