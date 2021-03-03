@@ -78,7 +78,7 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
                 self.makePickerAlert(completion: { (alert) in self.delegate?.showAlert(alert: alert) })
                 return
             }
-            self.delegate?.didGetImage(image: wrapImage)
+            self.delegate?.didGetImage(image: wrapImage, type: imageType)
         })
     }
     
@@ -95,6 +95,6 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
 
 protocol ImageDeliveryDelegate {
     func showPHPicker(phPicker: PHPickerViewController)
-    func didGetImage(image: UIImage)
+    func didGetImage(image: UIImage, type: ImageType)
     func showAlert(alert: UIAlertController)
 }
