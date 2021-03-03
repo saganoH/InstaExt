@@ -66,8 +66,8 @@ class ImageDelivery: NSObject {
             data = source.jpegData(compressionQuality: 1.0)
         }
 
-        guard let convertedData = data else { return source }
-        guard let convertedImage = UIImage(data: convertedData) else { return source }
+        guard let convertedData = data,
+              let convertedImage = UIImage(data: convertedData) else { return source }
 
         return convertedImage
     }
@@ -86,12 +86,12 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
         
         // 選択した画像のURLから拡張子を取得
         guard let identifier = provider.registeredTypeIdentifiers.first else { return }
-        provider.loadItem(forTypeIdentifier: identifier, options: nil) { (url, error) in
+        provider.loadItem(forTypeIdentifier: identifier, options: nil, completionHandler: { (url, error) in
             if let url = url as? URL {
                 let type = url.imageTypeForExtention()
                 self.imageType = type
             }
-        }
+        })
         
         provider.loadObject(ofClass: UIImage.self, completionHandler: { [weak self] (selectedImage, error) in
             guard let self = self else { return }
