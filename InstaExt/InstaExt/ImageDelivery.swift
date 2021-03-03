@@ -70,10 +70,14 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
         })
 
         // PHPickerで選択した画像のURLを取得
+        var imageType: ImageType = .jpg
         guard let identifier = provider.registeredTypeIdentifiers.first else { return }
         provider.loadItem(forTypeIdentifier: identifier, options: nil) { (url, error) in
             if let url = url as? URL {
                 print(url)
+                imageType = url.imageTypeForExtention() ?? .jpg
+                print(imageType.rawValue)
+
             }
         }
     }

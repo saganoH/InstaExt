@@ -23,6 +23,7 @@
 		C6C6505725D3A3DA008603C9 /* ImageComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C6505625D3A3DA008603C9 /* ImageComposition.swift */; };
 		C6C8FA0D25ECC58B00760B2A /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C8FA0C25ECC58B00760B2A /* Blur.swift */; };
 		C6C8FA1225ECC5C200760B2A /* Monochrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C8FA1125ECC5C200760B2A /* Monochrome.swift */; };
+		C6E018E625EF106000303459 /* ImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E018E525EF106000303459 /* ImageType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		C6C6505625D3A3DA008603C9 /* ImageComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComposition.swift; sourceTree = "<group>"; };
 		C6C8FA0C25ECC58B00760B2A /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		C6C8FA1125ECC5C200760B2A /* Monochrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monochrome.swift; sourceTree = "<group>"; };
+		C6E018E525EF106000303459 /* ImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				C6886FE225B7C4F900CA7781 /* EditorViewController.swift */,
 				C688703225B7FE8E00CA7781 /* ImageDelivery.swift */,
 				C6BC134625C8F57A00FD789D /* Filter.swift */,
+				C6E018E525EF106000303459 /* ImageType.swift */,
 				C6C8FA0C25ECC58B00760B2A /* Blur.swift */,
 				C6C8FA1125ECC5C200760B2A /* Monochrome.swift */,
 				C634C0C025CBBBB900AA0CF1 /* MaskView.swift */,
@@ -284,6 +287,7 @@
 			files = (
 				C616C2E525DBA8850082EE63 /* InstaLinker.swift in Sources */,
 				C6C6505725D3A3DA008603C9 /* ImageComposition.swift in Sources */,
+				C6E018E625EF106000303459 /* ImageType.swift in Sources */,
 				C6C8FA0D25ECC58B00760B2A /* Blur.swift in Sources */,
 				C6886FAE25B7B83200CA7781 /* MainViewController.swift in Sources */,
 				C6886FAA25B7B83200CA7781 /* AppDelegate.swift in Sources */,
