@@ -10,7 +10,6 @@ class ImageDelivery: NSObject {
 
     func takeInPhoto() {
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
-        
         config.filter = .images
         config.selectionLimit = 1
         
@@ -22,24 +21,24 @@ class ImageDelivery: NSObject {
     
     func savePhoto(image: UIImage, completion: @escaping (UIAlertController) -> Void) {
         let image = imageConversion(source: image)
-
+        
         let alert = UIAlertController(title: "保存",
                                       message: "この画像を保存しますか？",
                                       preferredStyle: .alert)
-
-        let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] (ok) in
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { [weak self] (ok) in
             guard let self = self else { return }
             UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.showResultOfSaveImage( _:didFinishSavingWithError:contextInfo:)), nil)
-        }
-        let cancelAction = UIAlertAction(title: "CANCEL", style: .default) { (cancel) in
+        })
+        let cancelAction = UIAlertAction(title: "CANCEL", style: .default, handler: { (cancel) in
             alert.dismiss(animated: true, completion: nil)
-        }
-
+        })
+        
         alert.addAction(cancelAction)
         alert.addAction(okAction)
         completion(alert)
     }
-
+    
     @objc func showResultOfSaveImage(_ image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutableRawPointer) {
         var title = "保存完了"
         var message = "カメラロールに保存しました"

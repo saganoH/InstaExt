@@ -43,8 +43,7 @@ class EditorViewController: UIViewController {
     }
     
     @objc func doneAction() {
-        let imageComposition = ImageComposition()
-        let compositedImage = imageComposition.process(source: sourceImageView,
+        let compositedImage = ImageComposition().process(source: sourceImageView,
                                                        filter: filterImageView)
         guard let resultImage = compositedImage,
               let navi = navigationController,
@@ -65,11 +64,17 @@ class EditorViewController: UIViewController {
         sourceImageView.image = sourceImage
         navigationItem.title = selectedFilter.rawValue
         
-        let cancelButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(cancelAction))
+        let cancelButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"),
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(cancelAction))
         cancelButtonItem.tintColor = .label
         navigationItem.setLeftBarButton(cancelButtonItem, animated: true)
         
-        let doneButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(doneAction))
+        let doneButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(doneAction))
         doneButtonItem.tintColor = .label
         navigationItem.setRightBarButton(doneButtonItem, animated: true)
         

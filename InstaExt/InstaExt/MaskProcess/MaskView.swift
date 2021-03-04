@@ -5,6 +5,8 @@ class MaskView: UIView {
     private(set) var maskImageView = UIImageView()
     private var maskImage = UIImage()
     private var previousPosition: CGPoint = .zero
+
+    private let drawLineWidth: CGFloat = 30
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,13 +35,11 @@ class MaskView: UIView {
     // MARK: - private
     
     private func drawLine(from: CGPoint, to: CGPoint){
-        let lineWidth: CGFloat = 30
-        
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
 
         if let context = UIGraphicsGetCurrentContext() {
             maskImage.draw(at: .zero)
-            context.setLineWidth(lineWidth)
+            context.setLineWidth(drawLineWidth)
             context.setLineCap(.round)
             context.setStrokeColor(UIColor.white.cgColor)
             
@@ -61,6 +61,10 @@ class MaskView: UIView {
         let inputImage = CIImage(cgImage: cgImage)
         let alphaFilter = CIFilter(name: "CIMaskToAlpha")!
         alphaFilter.setValue(inputImage, forKeyPath: "inputImage")
-        return UIImage(ciImage: alphaFilter.outputImage!)
+
+        guard let resultImage = alphaFilter.outputImage else {
+            fatalError("CIImageの生成に失敗")
+        }
+        return UIImage(ciImage: resultImage)
     }
 }
