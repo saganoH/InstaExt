@@ -21,11 +21,11 @@ class ImageDelivery: NSObject {
     
     func savePhoto(image: UIImage, completion: @escaping (UIAlertController) -> Void) {
         let image = imageConversion(source: image)
-        
+
         let alert = UIAlertController(title: "保存",
                                       message: "この画像を保存しますか？",
                                       preferredStyle: .alert)
-        
+
         let okAction = UIAlertAction(title: "OK", style: .default, handler: { [weak self] (ok) in
             guard let self = self else { return }
             UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.showResultOfSaveImage( _:didFinishSavingWithError:contextInfo:)), nil)
@@ -33,12 +33,12 @@ class ImageDelivery: NSObject {
         let cancelAction = UIAlertAction(title: "CANCEL", style: .default, handler: { (cancel) in
             alert.dismiss(animated: true, completion: nil)
         })
-        
+
         alert.addAction(cancelAction)
         alert.addAction(okAction)
         completion(alert)
     }
-    
+
     @objc func showResultOfSaveImage(_ image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutableRawPointer) {
         var title = "保存完了"
         var message = "カメラロールに保存しました"
@@ -90,15 +90,15 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
                 let type = url.imageTypeForExtention()
                 self.imageType = type
             }
-        })
-        
-        provider.loadObject(ofClass: UIImage.self, completionHandler: { [weak self] (selectedImage, error) in
-            guard let self = self else { return }
-            guard error == nil, let wrapImage = selectedImage as? UIImage else {
-                self.makePickerAlert(completion: { (alert) in self.delegate?.showAlert(alert: alert) })
-                return
-            }
-            self.delegate?.didGetImage(image: wrapImage)
+
+            provider.loadObject(ofClass: UIImage.self, completionHandler: { [weak self] (selectedImage, error) in
+                guard let self = self else { return }
+                guard error == nil, let wrapImage = selectedImage as? UIImage else {
+                    self.makePickerAlert(completion: { (alert) in self.delegate?.showAlert(alert: alert) })
+                    return
+                }
+                self.delegate?.didGetImage(image: wrapImage)
+            })
         })
     }
     
