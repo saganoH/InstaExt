@@ -16,18 +16,14 @@ class InstaLinker: NSObject {
         let fetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
         guard let lastAsset = fetchResult.lastObject,
               let urlScheme = URL(string: "instagram://library?LocalIdentifier=\(lastAsset.localIdentifier)") else {
-            let title = "Instagram連携エラー"
-            let message = "画像取得に失敗しました"
-            self.delegate?.failedToLink(with: makeAlert(title: title, message: message))
+            self.delegate?.failedToLink(with: makeAlert(title: "Instagram連携エラー", message: "画像取得に失敗しました"))
             return
         }
         
         if UIApplication.shared.canOpenURL(urlScheme) {
             UIApplication.shared.open(urlScheme)
         } else {
-            let title = "Instagram連携エラー"
-            let message = "アプリがインストールされていません"
-            self.delegate?.failedToLink(with: makeAlert(title: title, message: message))
+            self.delegate?.failedToLink(with: makeAlert(title: "Instagram連携エラー", message: "アプリがインストールされていません"))
         }
     }
     

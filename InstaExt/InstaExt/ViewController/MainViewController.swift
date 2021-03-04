@@ -8,7 +8,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var instaButton: UIBarButtonItem!
-    
+
     private let imageDelivery = ImageDelivery()
     private let instaLinker = InstaLinker()
     private let editorNames = FilterType.allCases
@@ -32,9 +32,9 @@ class MainViewController: UIViewController {
     
     @IBAction func takeInAction(_ sender: Any) {
         if mainImageView.image != nil {
-            let title = "新規画像取り込み"
-            let message = "編集中画像を破棄してもよろしいですか？"
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let alert = UIAlertController(title: "新規画像取り込み",
+                                          message: "編集中画像を破棄してもよろしいですか？",
+                                          preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default) { (ok) in
                 self.imageDelivery.takeInPhoto()
             }
@@ -91,9 +91,9 @@ class MainViewController: UIViewController {
     
     private func showAuthAlert() {
         DispatchQueue.main.async {
-            let title = "写真のアクセス権限がありません"
-            let message = "すべての写真を許可してください"
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let alert = UIAlertController(title: "写真のアクセス権限がありません",
+                                          message: "すべての写真を許可してください",
+                                          preferredStyle: .alert)
             let setting = UIAlertAction(title: "設定",
                                         style: .default,
                                         handler: { (_) -> Void in
