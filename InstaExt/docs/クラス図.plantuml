@@ -12,15 +12,17 @@ class  メイン画面{
 }
 
 class  編集画面{
-  @IBOutlet　編集画像イメージビュー: UIImageView
-  @IBOutlet　フィルタ画像イメージビュー: UIImageView
-  @IBOutlet　編集ツール用のビュー: UIView
-  @IBOutlet　編集ツール用のスライダ: UISlider
+  @IBOutlet 編集画像イメージビュー: UIImageView
+  @IBOutlet フィルタ画像イメージビュー: UIImageView
+  @IBOutlet 編集ツール用のビュー: UIView
+  @IBOutlet 編集ツール用のスライダ: UISlider
+  @IBOutlet 顔認識・描画モードの切り替えボタン: UISegmentedControl
   編集対象画像: UIImage
   編集機能名: FilterType
+  @IBAction 顔認識・描画モード切り替え時のアクション: (sender: UISegmentedControl)
   @IBAction スライダアクション(sender: UISlider)
-  @IBAction　完了ボタン()
-  @IBAction　キャンセルボタン()
+  @IBAction 完了ボタン()
+  @IBAction キャンセルボタン()
 }
 
 class マスクビュークラス{
