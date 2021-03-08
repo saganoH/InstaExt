@@ -1,7 +1,7 @@
 @startuml
 title "クラス図"
 
-class  メイン画面{
+class  メイン画面 {
   @IBOutlet イメージビュー: UIImageView
   @IBOutlet コレクションビュー: UICollectionView
   @IBOutlet 初期テキストラベル: UILabel
@@ -11,30 +11,38 @@ class  メイン画面{
   編集画像設定メソッド()
 }
 
-class  編集画面{
-  @IBOutlet　編集画像イメージビュー: UIImageView
-  @IBOutlet　フィルタ画像イメージビュー: UIImageView
-  @IBOutlet　編集ツール用のビュー: UIView
-  @IBOutlet　編集ツール用のスライダ: UISlider
+class  編集画面 {
+  @IBOutlet 編集画像イメージビュー: UIImageView
+  @IBOutlet フィルタ画像イメージビュー: UIImageView
+  @IBOutlet 編集ツール用のビュー: UIView
+  @IBOutlet 編集ツール用のスライダ: UISlider
+  @IBOutlet 顔認識・描画モードの切り替えボタン: UISegmentedControl
   編集対象画像: UIImage
   編集機能名: FilterType
+  @IBAction 顔認識・描画モード切り替え時のアクション: (sender: UISegmentedControl)
   @IBAction スライダアクション(sender: UISlider)
-  @IBAction　完了ボタン()
-  @IBAction　キャンセルボタン()
+  @IBAction 完了ボタン()
+  @IBAction キャンセルボタン()
+  矩形を表示する()
 }
 
-class マスクビュークラス{
+class マスクビュークラス {
   @objc なぞった部分に線を引く(sender: UIPanGestureRecognizer)
+  顔を円形にマスクする(認識された顔のbounds: [CGRect])
 }
 
-class デバイスクラス{
+class 顔認識クラス {
+  顔認識を実行(画像: UIImage) -> [CGRect]
+}
+
+class デバイスクラス {
   デリゲート変数
   画像を取り込む()
   カメラロールに保存する(画像: UIImage, アラートを返すクロージャ)
   @objc 保存成否アラートの表示(UIImage, NSError, UnsafeMutableRawPointer)
 }
 
-class インスタクラス{
+class インスタクラス {
   デリゲート変数
   インスタに画像を受け渡す(画像: UIImage)
   @objc 画像のURLを取得しインスタへ遷移()
@@ -57,19 +65,27 @@ enum 画像形式 {
 }
 
 package フィルタ画像生成クラス {
-class ぼかしクラス{
-  元画像からぼかし画像を作る(ぼかし度合い：CGFloat, 元画像: UIImage) -> UIImage
-}
+  interface フィルタ {
+    process(フィルタパラメータ: CGFloat, 元画像: UIImage) -> UIImage
+  }
 
-class モザイククラス{
-  元画像からモザイク画像を作る(モザイク度合い：CGFloat, 元画像: UIImage) -> UIImage
-}
+  class ぼかしクラス {
+    元画像からぼかし画像を作る(ぼかし度合い：CGFloat, 元画像: UIImage) -> UIImage
+  }
 
-class モノクロクラス{
-  元画像からモノクロ画像を作る(モノクロ度合い：CGFloat, 元画像: UIImage) -> UIImage
+  class モザイククラス {
+    元画像からモザイク画像を作る(モザイク度合い：CGFloat, 元画像: UIImage) -> UIImage
+  }
+
+  class モノクロクラス {
+    元画像からモノクロ画像を作る(モノクロ度合い：CGFloat, 元画像: UIImage) -> UIImage
+  }
+
+  フィルタ <|- ぼかしクラス
+  フィルタ <|- モザイククラス
+  フィルタ <|- モノクロクラス
 }
-}
-note bottom
+note left of フィルタ画像生成クラス
   フィルタ画像のみを生成、この画像をマスクレイヤと重ねる
 end note
 
@@ -78,38 +94,22 @@ note left on link
   画像(UIImage)、編集機能名(String)
 end note
 
-メイン画面--デバイスクラス
+メイン画面-->デバイスクラス
 note left on link
   画像(UIImage)
 end note
 
-メイン画面--インスタクラス
+メイン画面-->インスタクラス
 note left on link
   画像(UIImage)
 end note
 
-マスクビュークラス--編集画面
+編集画面-->マスクビュークラス
+編集画面-->顔認識クラス
 
-編集画面--ぼかしクラス
-note left on link
-  画像、スライダの値(CGFloat)
-end note
-
-編集画面--モザイククラス
-note left on link
-  画像、スライダの値(CGFloat)
-end note
-
-編集画面--モノクロクラス
-note left on link
-  画像、スライダの値(CGFloat)
-end note
-
-デバイスクラス--画像形式
-メイン画面--フィルタタイプ
-編集画面--フィルタタイプ
-ぼかしクラス--フィルタタイプ
-モザイククラス--フィルタタイプ
-モノクロクラス--フィルタタイプ
+デバイスクラス-->画像形式
+メイン画面-->フィルタタイプ
+編集画面-->フィルタタイプ
+フィルタタイプ-->フィルタ
 
 @enduml
