@@ -23,16 +23,16 @@ class  編集画面 {
   @IBAction スライダアクション(sender: UISlider)
   @IBAction 完了ボタン()
   @IBAction キャンセルボタン()
+  矩形を表示する()
 }
 
 class マスクビュークラス {
   @objc なぞった部分に線を引く(sender: UIPanGestureRecognizer)
-  顔を円形にマスクする(認識された顔: [VNFaceObservation])
+  顔を円形にマスクする(認識された顔のbounds: [CGRect])
 }
 
 class 顔認識クラス {
-  顔認識を実行(画像: UIImage) -> [VNFaceObservation]
-  矩形を表示する()
+  顔認識を実行(画像: UIImage) -> [CGRect]
 }
 
 class デバイスクラス {
