@@ -33,17 +33,17 @@ class MaskView: UIView {
     }
 
     // MARK: - public
-
+    // 動作確認未実施
     func drawCycle(faceBounds: [CGRect]) {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
 
         if let context = UIGraphicsGetCurrentContext() {
             maskImage.draw(at: .zero)
-            context.setFillColor(CGColor(red: <#T##CGFloat#>, green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>))
-            context.fillEllipse(in: rect)
+            context.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
 
-
-
+            for faceBound in faceBounds {
+                context.fillEllipse(in: faceBound)
+            }
             maskImage = UIGraphicsGetImageFromCurrentImageContext()!
         }
 
