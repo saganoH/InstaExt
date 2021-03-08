@@ -31,6 +31,25 @@ class MaskView: UIView {
         }
         previousPosition = currentPosition
     }
+
+    // MARK: - public
+
+    func drawCycle(faceBounds: [CGRect]) {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
+
+        if let context = UIGraphicsGetCurrentContext() {
+            maskImage.draw(at: .zero)
+            context.setFillColor(CGColor(red: <#T##CGFloat#>, green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>))
+            context.fillEllipse(in: rect)
+
+
+
+            maskImage = UIGraphicsGetImageFromCurrentImageContext()!
+        }
+
+        UIGraphicsEndImageContext()
+        maskImageView.image = maskToAlpha(maskImage)
+    }
     
     // MARK: - private
     
