@@ -6,15 +6,18 @@ class EditorViewController: UIViewController {
     @IBOutlet weak var filterImageView: UIImageView!
     @IBOutlet weak var toolView: UIView!
     @IBOutlet weak var toolSlider: UISlider!
-    
+    @IBOutlet weak var modeChanger: UISegmentedControl!
+
     var selectedFilter: FilterType?
     var sourceImage: UIImage?
-    
-    private var filterImage: UIImage?
 
+    private var maskView: MaskView? = nil
+    private var filterImage: UIImage?
+    
     // MARK: - Life cycle
     
     override func viewWillAppear(_ animated: Bool) {
+        // TODO: - モノクロの場合はスライダとmodeChangerの位置調整する
         prepareTool()
         processFilter()
     }
@@ -24,7 +27,10 @@ class EditorViewController: UIViewController {
             return
         }
         
-        let maskView = MaskView(frame: filterImageView.frame)
+        maskView = MaskView(frame: filterImageView.frame)
+        guard let maskView = maskView else {
+            return
+        }
         maskView.maskImageView.frame = filterImageView.bounds
         view.addSubview(maskView)
         filterImageView.mask = maskView.maskImageView
@@ -32,6 +38,19 @@ class EditorViewController: UIViewController {
     
     // MARK: - @IBAction
     
+    @IBAction func changeModeAction(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            print("描画モード")
+            maskView?.addGestureRecognizer(UIPanGestureRecognizer(target: maskView, action: #selector(maskView?.panAction(_:))))
+        case 1:
+            print("顔認識モード")
+            maskView?.gestureRecognizers?.removeAll()
+        default:
+            fatalError("モードは2つのみ")
+        }
+    }
+
     @IBAction func sliderAction(_ sender: UISlider) {
         processFilter()
     }

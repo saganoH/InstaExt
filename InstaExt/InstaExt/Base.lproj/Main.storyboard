@@ -139,7 +139,7 @@
                                 <rect key="frame" x="0.0" y="742" width="414" height="154"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.0" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="7iT-WU-nlf">
-                                        <rect key="frame" x="55" y="62" width="304" height="31"/>
+                                        <rect key="frame" x="55" y="104" width="304" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="300" id="Ic9-6c-Erg"/>
                                         </constraints>
@@ -147,11 +147,23 @@
                                             <action selector="sliderAction:" destination="K3Q-8D-0nV" eventType="valueChanged" id="R6Q-3b-vJv"/>
                                         </connections>
                                     </slider>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zXY-62-lvp">
+                                        <rect key="frame" x="148.5" y="20" width="117" height="32"/>
+                                        <segments>
+                                            <segment title="描画"/>
+                                            <segment title="顔認識"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="changeModeAction:" destination="K3Q-8D-0nV" eventType="valueChanged" id="ept-re-D8G"/>
+                                        </connections>
+                                    </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="7iT-WU-nlf" firstAttribute="centerX" secondItem="GmR-4y-fwX" secondAttribute="centerX" id="FHI-ru-o6L"/>
-                                    <constraint firstItem="7iT-WU-nlf" firstAttribute="centerY" secondItem="GmR-4y-fwX" secondAttribute="centerY" id="nNq-oJ-YBc"/>
+                                    <constraint firstItem="zXY-62-lvp" firstAttribute="centerX" secondItem="GmR-4y-fwX" secondAttribute="centerX" id="PgQ-t2-HOJ"/>
+                                    <constraint firstItem="zXY-62-lvp" firstAttribute="top" secondItem="GmR-4y-fwX" secondAttribute="top" constant="20" id="avR-Lk-4QJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="7iT-WU-nlf" secondAttribute="bottom" constant="20" id="bzV-x4-mcd"/>
+                                    <constraint firstItem="7iT-WU-nlf" firstAttribute="centerX" secondItem="GmR-4y-fwX" secondAttribute="centerX" id="eVk-rt-mp4"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -174,6 +186,7 @@
                     </view>
                     <connections>
                         <outlet property="filterImageView" destination="yzL-yL-pRg" id="8be-bd-30B"/>
+                        <outlet property="modeChanger" destination="zXY-62-lvp" id="Ieb-Eh-ndB"/>
                         <outlet property="sourceImageView" destination="Xgh-FB-gQP" id="9hf-gy-IBy"/>
                         <outlet property="toolSlider" destination="7iT-WU-nlf" id="TA5-Ml-FGt"/>
                         <outlet property="toolView" destination="GmR-4y-fwX" id="76u-Su-QBR"/>
