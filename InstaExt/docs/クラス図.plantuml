@@ -65,19 +65,27 @@ enum 画像形式 {
 }
 
 package フィルタ画像生成クラス {
-class ぼかしクラス {
-  元画像からぼかし画像を作る(ぼかし度合い：CGFloat, 元画像: UIImage) -> UIImage
-}
+  interface フィルタ {
+    process(フィルタパラメータ: CGFloat, 元画像: UIImage) -> UIImage
+  }
 
-class モザイククラス {
-  元画像からモザイク画像を作る(モザイク度合い：CGFloat, 元画像: UIImage) -> UIImage
-}
+  class ぼかしクラス {
+    元画像からぼかし画像を作る(ぼかし度合い：CGFloat, 元画像: UIImage) -> UIImage
+  }
 
-class モノクロクラス {
-  元画像からモノクロ画像を作る(モノクロ度合い：CGFloat, 元画像: UIImage) -> UIImage
+  class モザイククラス {
+    元画像からモザイク画像を作る(モザイク度合い：CGFloat, 元画像: UIImage) -> UIImage
+  }
+
+  class モノクロクラス {
+    元画像からモノクロ画像を作る(モノクロ度合い：CGFloat, 元画像: UIImage) -> UIImage
+  }
+
+  フィルタ <|- ぼかしクラス
+  フィルタ <|- モザイククラス
+  フィルタ <|- モノクロクラス
 }
-}
-note bottom
+note left of フィルタ画像生成クラス
   フィルタ画像のみを生成、この画像をマスクレイヤと重ねる
 end note
 
@@ -86,26 +94,22 @@ note left on link
   画像(UIImage)、編集機能名(String)
 end note
 
-メイン画面--デバイスクラス
+メイン画面-->デバイスクラス
 note left on link
   画像(UIImage)
 end note
 
-メイン画面--インスタクラス
+メイン画面-->インスタクラス
 note left on link
   画像(UIImage)
 end note
 
-編集画面--マスクビュークラス
-編集画面--顔認識クラス
-編集画面--ぼかしクラス
-編集画面--モザイククラス
-編集画面--モノクロクラス
-デバイスクラス--画像形式
-メイン画面--フィルタタイプ
-編集画面--フィルタタイプ
-ぼかしクラス--フィルタタイプ
-モザイククラス--フィルタタイプ
-モノクロクラス--フィルタタイプ
+編集画面-->マスクビュークラス
+編集画面-->顔認識クラス
+
+デバイスクラス-->画像形式
+メイン画面-->フィルタタイプ
+編集画面-->フィルタタイプ
+フィルタタイプ-->フィルタ
 
 @enduml
