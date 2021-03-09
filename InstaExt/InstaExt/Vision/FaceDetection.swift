@@ -4,16 +4,13 @@ import Vision
 class FaceDetection {
     var delegate: FaceDetectionDelegate?
 
-    lazy var faceDetectionRequest = VNDetectFaceRectanglesRequest(completionHandler: self.handleDetectedFaces)
-    private var faces: [CGRect] = []
-    private let semaphore = DispatchSemaphore(value: 0)
+    lazy private var faceDetectionRequest = VNDetectFaceRectanglesRequest(completionHandler: self.handleDetectedFaces)
 
-
-    func request(image: UIImage) -> [CGRect] {
+    func request(image: UIImage) {
         let orientation = CGImagePropertyOrientation(rawValue: UInt32(image.imageOrientation.rawValue))
         guard let cgImage = image.cgImage,
               let cgOrientation = orientation else {
-            return faces
+            return
         }
 
         var requests: [VNRequest] = []
@@ -28,40 +25,24 @@ class FaceDetection {
         } catch let error as NSError {
             print("リクエストの実行に失敗: \(error)")
             self.detectionErrorAlert()
-            return faces
+            return
         }
-
-        // リクエストの実行が完了してから返したい
-        semaphore.wait()
-        return faces
     }
 
     // MARK: - private
 
     private func handleDetectedFaces(request: VNRequest?, error: Error?) {
-        if let nsError = error as NSError? {
-            print("顔認識に失敗: \(nsError)")
+        guard let results = request?.results as? [VNFaceObservation] else {
+            print("顔認識に失敗: \(error!)")
             self.detectionErrorAlert()
             return
         }
 
-        guard let results = request?.results as? [VNFaceObservation] else {
-            return
-        }
-        for (index, observation) in results.enumerated() {
+        var faces: [CGRect] = []
+        for observation in results {
             faces.append(observation.boundingBox)
-            print(index)
-            semaphore.signal()
         }
-
-        //        DispatchQueue.main.async {
-        //            guard let drawLayer = self.pathLayer,
-        //                let results = request?.results as? [VNFaceObservation] else {
-        //                    return
-        //            }
-        //            self.draw(faces: results, onImageWithBounds: drawLayer.bounds)
-        //            drawLayer.setNeedsDisplay()
-        //        }
+        delegate?.didGetFaces(faces: faces)
     }
 
     private func detectionErrorAlert() {
@@ -82,4 +63,5 @@ class FaceDetection {
 
 protocol FaceDetectionDelegate {
     func showAlert(alert: UIAlertController)
+    func didGetFaces(faces: [CGRect])
 }

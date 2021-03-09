@@ -33,18 +33,16 @@ class MaskView: UIView {
     }
 
     // MARK: - public
-    // 動作確認未実施、次カードだった
     func drawCycle(faceBounds: [CGRect]) {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
 
-        if let context = UIGraphicsGetCurrentContext() {
-            maskImage.draw(at: .zero)
-            context.setFillColor(CGColor(red: 1, green: 1, blue: 1, alpha: 1))
-
-            for faceBound in faceBounds {
+        for faceBound in faceBounds {
+            if let context = UIGraphicsGetCurrentContext() {
+                maskImage.draw(at: .zero)
+                context.setFillColor(UIColor.white.cgColor)
                 context.fillEllipse(in: faceBound)
+                maskImage = UIGraphicsGetImageFromCurrentImageContext()!
             }
-            maskImage = UIGraphicsGetImageFromCurrentImageContext()!
         }
 
         UIGraphicsEndImageContext()

@@ -53,9 +53,7 @@ class EditorViewController: UIViewController {
         case 1:
             print("顔認識モード")
             maskView?.gestureRecognizers?.removeAll()
-            // リクエストハンドラ作成
-            faces = faceDetection.request(image: sourceImage)
-            // 矩形表示
+            faceDetection.request(image: sourceImage)
         default:
             fatalError("モードは2つのみ")
         }
@@ -131,6 +129,14 @@ extension EditorViewController: FaceDetectionDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.present(alert, animated: true)
         }
+    }
+
+    func didGetFaces(faces: [CGRect]) {
+        // 矩形表示
+        print(faces)
+        print("ここで矩形を表示する")
+        // 顔ぼかし
+        maskView?.drawCycle(faceBounds: faces)
     }
 }
 
