@@ -160,7 +160,7 @@ extension EditorViewController: FaceDetectionDelegate {
             let width = sourceRect.size.width * imageView.bounds.width
             let height = sourceRect.size.height * imageView.bounds.height
             let x = sourceRect.origin.x * imageView.bounds.width
-            let y = (1 - sourceRect.origin.y) * imageView.bounds.height
+            let y = (1 - sourceRect.origin.y) * imageView.bounds.height - height
             let convertedRect = CGRect(x: x, y: y, width: width, height: height)
             convertedRects.append(convertedRect)
         }
