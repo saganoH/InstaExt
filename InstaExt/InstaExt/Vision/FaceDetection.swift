@@ -6,6 +6,8 @@ class FaceDetection {
 
     lazy var faceDetectionRequest = VNDetectFaceRectanglesRequest(completionHandler: self.handleDetectedFaces)
     private var faces: [CGRect] = []
+    private let semaphore = DispatchSemaphore(value: 0)
+
 
     func request(image: UIImage) -> [CGRect] {
         let orientation = CGImagePropertyOrientation(rawValue: UInt32(image.imageOrientation.rawValue))
@@ -30,6 +32,7 @@ class FaceDetection {
         }
 
         // リクエストの実行が完了してから返したい
+        semaphore.wait()
         return faces
     }
 
@@ -46,8 +49,9 @@ class FaceDetection {
             return
         }
         for (index, observation) in results.enumerated() {
-            faces[index] = observation.boundingBox
+            faces.append(observation.boundingBox)
             print(index)
+            semaphore.signal()
         }
 
         //        DispatchQueue.main.async {
