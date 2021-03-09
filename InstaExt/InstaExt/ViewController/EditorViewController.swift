@@ -11,12 +11,16 @@ class EditorViewController: UIViewController {
     var selectedFilter: FilterType?
     var sourceImage: UIImage?
 
+    private let faceDetection = FaceDetection()
+    private var faces: [CGRect] = []
     private var maskView: MaskView? = nil
     private var filterImage: UIImage?
     
     // MARK: - Life cycle
     
     override func viewWillAppear(_ animated: Bool) {
+        faceDetection.delegate = self
+        
         // TODO: - モノクロの場合はスライダとmodeChangerの位置調整する
         prepareTool()
         processFilter()
@@ -39,6 +43,9 @@ class EditorViewController: UIViewController {
     // MARK: - @IBAction
     
     @IBAction func changeModeAction(_ sender: UISegmentedControl) {
+        guard let sourceImage = sourceImage else {
+            return
+        }
         switch sender.selectedSegmentIndex {
         case 0:
             print("描画モード")
@@ -46,6 +53,9 @@ class EditorViewController: UIViewController {
         case 1:
             print("顔認識モード")
             maskView?.gestureRecognizers?.removeAll()
+            // リクエストハンドラ作成
+            faces = faceDetection.request(image: sourceImage)
+            // 矩形表示
         default:
             fatalError("モードは2つのみ")
         }
@@ -111,6 +121,16 @@ class EditorViewController: UIViewController {
         filterImage = selectedFilter.filter().process(value: CGFloat(toolSlider.value),
                                                       image: sourceImage)
         filterImageView.image = filterImage
+    }
+}
+
+// MARK: - FaceDetectionクラスのDelegate
+
+extension EditorViewController: FaceDetectionDelegate {
+    func showAlert(alert: UIAlertController) {
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alert, animated: true)
+        }
     }
 }
 

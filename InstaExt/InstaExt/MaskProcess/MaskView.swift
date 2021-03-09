@@ -33,7 +33,7 @@ class MaskView: UIView {
     }
 
     // MARK: - public
-    // 動作確認未実施
+    // 動作確認未実施、次カードだった
     func drawCycle(faceBounds: [CGRect]) {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
 
