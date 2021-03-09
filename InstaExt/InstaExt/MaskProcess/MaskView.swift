@@ -35,7 +35,7 @@ class MaskView: UIView {
     // MARK: - public
     func drawCycle(faceBounds: [CGRect]) {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
-
+        print(bounds)
         for faceBound in faceBounds {
             if let context = UIGraphicsGetCurrentContext() {
                 maskImage.draw(at: .zero)

@@ -132,11 +132,31 @@ extension EditorViewController: FaceDetectionDelegate {
     }
 
     func didGetFaces(faces: [CGRect]) {
-        // 矩形表示
+        guard let imageView = filterImageView else {
+            return
+        }
+
+        // サイズを変換する
+        let faces = convertRectsSize(sourceRects: faces, imageView: imageView)
         print(faces)
-        print("ここで矩形を表示する")
+        // 矩形表示はこれから
         // 顔ぼかし
         maskView?.drawCycle(faceBounds: faces)
+    }
+
+    private func convertRectsSize(sourceRects: [CGRect], imageView: UIImageView) -> [CGRect] {
+        var convertedRects: [CGRect] = []
+
+        for sourceRect in sourceRects {
+            let width = sourceRect.size.width * imageView.bounds.width
+            let height = sourceRect.size.height * imageView.bounds.width
+            let x = sourceRect.origin.x * imageView.bounds.width
+            let y = sourceRect.origin.y * imageView.bounds.width
+            let convertedRect = CGRect(x: x, y: y, width: width, height: height)
+
+            convertedRects.append(convertedRect)
+        }
+        return convertedRects
     }
 }
 
