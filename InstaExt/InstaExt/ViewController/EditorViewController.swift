@@ -43,9 +43,9 @@ class EditorViewController: UIViewController {
     // MARK: - @IBAction
     
     @IBAction func changeModeAction(_ sender: UISegmentedControl) {
-        guard let sourceImage = sourceImage else {
-            return
-        }
+//        guard let sourceImage = sourceImage else {
+//            return
+//        }
         switch sender.selectedSegmentIndex {
         case 0:
             print("描画モード")
@@ -53,7 +53,15 @@ class EditorViewController: UIViewController {
         case 1:
             print("顔認識モード")
             maskView?.gestureRecognizers?.removeAll()
-            faceDetection.request(image: sourceImage)
+
+            UIGraphicsBeginImageContextWithOptions(sourceImageView.frame.size, false, 0.0)
+            let context = UIGraphicsGetCurrentContext()!
+            sourceImageView.layer.render(in: context)
+            let tmpImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+
+
+            faceDetection.request(image: tmpImage!)
         default:
             fatalError("モードは2つのみ")
         }
@@ -132,12 +140,13 @@ extension EditorViewController: FaceDetectionDelegate {
     }
 
     func didGetFaces(faces: [CGRect]) {
-        guard let imageView = filterImageView else {
-            return
-        }
+//        guard let sourceImage = sourceImage else {
+//            return
+//        }
 
         // サイズを変換する
-        let faces = convertRectsSize(sourceRects: faces, imageView: imageView)
+        let faces = convertRectsSize(sourceRects: faces, imageView: sourceImageView)
+
         print(faces)
         // 矩形表示はこれから
         // 顔ぼかし
@@ -149,11 +158,10 @@ extension EditorViewController: FaceDetectionDelegate {
 
         for sourceRect in sourceRects {
             let width = sourceRect.size.width * imageView.bounds.width
-            let height = sourceRect.size.height * imageView.bounds.width
+            let height = sourceRect.size.height * imageView.bounds.height
             let x = sourceRect.origin.x * imageView.bounds.width
-            let y = sourceRect.origin.y * imageView.bounds.width
+            let y = (1 - sourceRect.origin.y) * imageView.bounds.height
             let convertedRect = CGRect(x: x, y: y, width: width, height: height)
-
             convertedRects.append(convertedRect)
         }
         return convertedRects
