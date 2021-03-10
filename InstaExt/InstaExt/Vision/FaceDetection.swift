@@ -15,9 +15,7 @@ class FaceDetection {
             return
         }
 
-        var requests: [VNRequest] = []
-        requests.append(self.faceDetectionRequest)
-
+        let requests: [VNRequest] = [self.faceDetectionRequest]
         let imageRequestHandler = VNImageRequestHandler(cgImage: cgImage,
                                                         orientation: cgOrientation,
                                                         options: [:])
