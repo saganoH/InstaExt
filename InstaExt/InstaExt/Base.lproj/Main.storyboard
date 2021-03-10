@@ -129,17 +129,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xgh-FB-gQP" userLabel="editing Image View">
-                                <rect key="frame" x="0.0" y="44" width="414" height="698"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yzL-yL-pRg" userLabel="filter Image View">
-                                <rect key="frame" x="0.0" y="44" width="414" height="698"/>
-                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="skW-pt-Xim">
+                                <rect key="frame" x="0.0" y="44" width="414" height="732"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GmR-4y-fwX">
-                                <rect key="frame" x="0.0" y="742" width="414" height="154"/>
+                                <rect key="frame" x="0.0" y="776" width="414" height="120"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.0" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="7iT-WU-nlf">
-                                        <rect key="frame" x="55" y="104" width="304" height="31"/>
+                                        <rect key="frame" x="55" y="70" width="304" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="300" id="Ic9-6c-Erg"/>
                                         </constraints>
@@ -160,6 +158,7 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="5f5-om-7Ds"/>
                                     <constraint firstItem="zXY-62-lvp" firstAttribute="centerX" secondItem="GmR-4y-fwX" secondAttribute="centerX" id="PgQ-t2-HOJ"/>
                                     <constraint firstItem="zXY-62-lvp" firstAttribute="top" secondItem="GmR-4y-fwX" secondAttribute="top" constant="20" id="avR-Lk-4QJ"/>
                                     <constraint firstAttribute="bottom" secondItem="7iT-WU-nlf" secondAttribute="bottom" constant="20" id="bzV-x4-mcd"/>
@@ -170,31 +169,25 @@
                         <viewLayoutGuide key="safeArea" id="Kxh-i4-CgM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Xgh-FB-gQP" firstAttribute="leading" secondItem="Kxh-i4-CgM" secondAttribute="leading" id="0Da-qN-DFP"/>
-                            <constraint firstItem="Xgh-FB-gQP" firstAttribute="top" secondItem="Kxh-i4-CgM" secondAttribute="top" id="6l2-OI-cGZ"/>
+                            <constraint firstItem="skW-pt-Xim" firstAttribute="trailing" secondItem="Kxh-i4-CgM" secondAttribute="trailing" id="0aD-kC-Zmg"/>
                             <constraint firstItem="GmR-4y-fwX" firstAttribute="leading" secondItem="Kxh-i4-CgM" secondAttribute="leading" id="B0O-Of-6q1"/>
-                            <constraint firstItem="Kxh-i4-CgM" firstAttribute="trailing" secondItem="yzL-yL-pRg" secondAttribute="trailing" id="K3G-If-AR5"/>
-                            <constraint firstItem="yzL-yL-pRg" firstAttribute="top" secondItem="Kxh-i4-CgM" secondAttribute="top" id="Kmm-vr-UKo"/>
                             <constraint firstAttribute="bottom" secondItem="GmR-4y-fwX" secondAttribute="bottom" id="LYo-HF-Kxx"/>
                             <constraint firstItem="Kxh-i4-CgM" firstAttribute="trailing" secondItem="GmR-4y-fwX" secondAttribute="trailing" id="QHe-nb-adq"/>
-                            <constraint firstItem="GmR-4y-fwX" firstAttribute="top" secondItem="yzL-yL-pRg" secondAttribute="bottom" id="XxY-bf-NGl"/>
-                            <constraint firstItem="Kxh-i4-CgM" firstAttribute="trailing" secondItem="Xgh-FB-gQP" secondAttribute="trailing" id="iIq-Ug-Gvn"/>
-                            <constraint firstItem="yzL-yL-pRg" firstAttribute="leading" secondItem="Kxh-i4-CgM" secondAttribute="leading" id="oxa-de-0Ty"/>
-                            <constraint firstItem="Kxh-i4-CgM" firstAttribute="bottom" secondItem="yzL-yL-pRg" secondAttribute="bottom" constant="120" id="ppt-rB-wv1"/>
-                            <constraint firstItem="GmR-4y-fwX" firstAttribute="top" secondItem="Xgh-FB-gQP" secondAttribute="bottom" id="wWX-bD-4pm"/>
+                            <constraint firstItem="GmR-4y-fwX" firstAttribute="top" secondItem="skW-pt-Xim" secondAttribute="bottom" id="XxY-bf-NGl"/>
+                            <constraint firstItem="skW-pt-Xim" firstAttribute="top" secondItem="Kxh-i4-CgM" secondAttribute="top" id="cBD-it-Au0"/>
+                            <constraint firstItem="skW-pt-Xim" firstAttribute="leading" secondItem="Kxh-i4-CgM" secondAttribute="leading" id="qna-Mh-3qX"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="filterImageView" destination="yzL-yL-pRg" id="8be-bd-30B"/>
                         <outlet property="modeChanger" destination="zXY-62-lvp" id="Ieb-Eh-ndB"/>
-                        <outlet property="sourceImageView" destination="Xgh-FB-gQP" id="9hf-gy-IBy"/>
+                        <outlet property="tmpView" destination="skW-pt-Xim" id="lEr-I4-dJa"/>
                         <outlet property="toolSlider" destination="7iT-WU-nlf" id="TA5-Ml-FGt"/>
                         <outlet property="toolView" destination="GmR-4y-fwX" id="76u-Su-QBR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Ut-0E-nx0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1479.7101449275362" y="79.6875"/>
+            <point key="canvasLocation" x="1478.2608695652175" y="79.6875"/>
         </scene>
     </scenes>
     <resources>
