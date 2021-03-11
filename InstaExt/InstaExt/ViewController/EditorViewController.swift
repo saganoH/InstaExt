@@ -154,9 +154,7 @@ class EditorViewController: UIViewController {
             return
         }
 
-        sourceImageView = UIImageView(frame: frameView.bounds.aspectFit(contentSize: sourceImage.size,
-                                                                        stretchble: true,
-                                                                        integer: true))
+        sourceImageView = UIImageView(frame: frameView.bounds.aspectFit(contentSize: sourceImage.size))
         guard let sourceImageView = sourceImageView else {
             return
         }
@@ -207,15 +205,13 @@ extension EditorViewController: FaceDetectionDelegate {
             return
         }
 
-        // サイズを変換する
-        let faces = convertRectsSize(sourceRects: faces, imageView: sourceImageView)
+        // 顔のrect情報をimageViewのスケールに変換
+        let faces = convertRects(sourceRects: faces, imageView: sourceImageView)
 
-        // 矩形表示はこれから
-        // 顔ぼかし
         maskView?.drawCycle(faceBounds: faces)
     }
 
-    private func convertRectsSize(sourceRects: [CGRect], imageView: UIImageView) -> [CGRect] {
+    private func convertRects(sourceRects: [CGRect], imageView: UIImageView) -> [CGRect] {
         var convertedRects: [CGRect] = []
 
         for sourceRect in sourceRects {
@@ -233,23 +229,16 @@ extension EditorViewController: FaceDetectionDelegate {
 // MARK: - extension CGRect
 
 extension CGRect {
-    func aspectFit(contentSize: CGSize, stretchble: Bool, integer: Bool) -> CGRect {
+    func aspectFit(contentSize: CGSize) -> CGRect {
         let xZoom = width / contentSize.width
         let yZoom = height / contentSize.height
-        let zoom = stretchble ? min(xZoom, yZoom) : min(xZoom, yZoom, 1)
+        let zoom = min(xZoom, yZoom)
 
-        if integer {
-            let newWidth = max(Int(contentSize.width * zoom), 1)
-            let newHeight = max(Int(contentSize.height * zoom), 1)
-            let newX = Int(origin.x) + (Int(width) - newWidth) / 2
-            let newY = Int(origin.y) + (Int(height) - newHeight) / 2
-            return CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
-        } else {
-            let newWidth = contentSize.width * zoom
-            let newHeight = contentSize.height * zoom
-            let newX = origin.x + (width - newWidth) / 2
-            let newY = origin.y + (height - newHeight) / 2
-            return CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
-        }
+        let newWidth = max(Int(contentSize.width * zoom), 1)
+        let newHeight = max(Int(contentSize.height * zoom), 1)
+        let newX = Int(origin.x) + (Int(width) - newWidth) / 2
+        let newY = Int(origin.y) + (Int(height) - newHeight) / 2
+        
+        return CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
     }
 }
