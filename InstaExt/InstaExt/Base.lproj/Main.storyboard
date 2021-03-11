@@ -135,34 +135,9 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GmR-4y-fwX">
                                 <rect key="frame" x="0.0" y="776" width="414" height="120"/>
-                                <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.0" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="7iT-WU-nlf">
-                                        <rect key="frame" x="55" y="70" width="304" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="300" id="Ic9-6c-Erg"/>
-                                        </constraints>
-                                        <connections>
-                                            <action selector="sliderAction:" destination="K3Q-8D-0nV" eventType="valueChanged" id="R6Q-3b-vJv"/>
-                                        </connections>
-                                    </slider>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zXY-62-lvp">
-                                        <rect key="frame" x="148.5" y="20" width="117" height="32"/>
-                                        <segments>
-                                            <segment title="描画"/>
-                                            <segment title="顔認識"/>
-                                        </segments>
-                                        <connections>
-                                            <action selector="changeModeAction:" destination="K3Q-8D-0nV" eventType="valueChanged" id="ept-re-D8G"/>
-                                        </connections>
-                                    </segmentedControl>
-                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="5f5-om-7Ds"/>
-                                    <constraint firstItem="zXY-62-lvp" firstAttribute="centerX" secondItem="GmR-4y-fwX" secondAttribute="centerX" id="PgQ-t2-HOJ"/>
-                                    <constraint firstItem="zXY-62-lvp" firstAttribute="top" secondItem="GmR-4y-fwX" secondAttribute="top" constant="20" id="avR-Lk-4QJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="7iT-WU-nlf" secondAttribute="bottom" constant="20" id="bzV-x4-mcd"/>
-                                    <constraint firstItem="7iT-WU-nlf" firstAttribute="centerX" secondItem="GmR-4y-fwX" secondAttribute="centerX" id="eVk-rt-mp4"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -179,9 +154,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="modeChanger" destination="zXY-62-lvp" id="Ieb-Eh-ndB"/>
-                        <outlet property="tmpView" destination="skW-pt-Xim" id="lEr-I4-dJa"/>
-                        <outlet property="toolSlider" destination="7iT-WU-nlf" id="TA5-Ml-FGt"/>
+                        <outlet property="frameView" destination="skW-pt-Xim" id="lEr-I4-dJa"/>
                         <outlet property="toolView" destination="GmR-4y-fwX" id="76u-Su-QBR"/>
                     </connections>
                 </viewController>

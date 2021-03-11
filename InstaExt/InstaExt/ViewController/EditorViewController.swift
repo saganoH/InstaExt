@@ -2,28 +2,27 @@ import UIKit
 
 class EditorViewController: UIViewController {
 
-    @IBOutlet weak var tmpView: UIView!
+    @IBOutlet weak var frameView: UIView!
     @IBOutlet weak var toolView: UIView!
-    @IBOutlet weak var toolSlider: UISlider!
-    @IBOutlet weak var modeChanger: UISegmentedControl!
 
     var selectedFilter: FilterType?
     var sourceImage: UIImage?
 
     private var sourceImageView: UIImageView?
     private var filterImageView: UIImageView?
+    private var filterImage: UIImage?
+
+    private var modeChanger: UISegmentedControl?
+    private var toolSlider: UISlider?
 
     private let faceDetection = FaceDetection()
     private var faces: [CGRect] = []
     private var maskView: MaskView? = nil
-    private var filterImage: UIImage?
-    
+
     // MARK: - Life cycle
     
     override func viewWillAppear(_ animated: Bool) {
         faceDetection.delegate = self
-
-        // TODO: - モノクロの場合はスライダとmodeChangerの位置調整する
         prepareTool()
     }
     
@@ -34,9 +33,9 @@ class EditorViewController: UIViewController {
         }
     }
     
-    // MARK: - @IBAction
-    
-    @IBAction func changeModeAction(_ sender: UISegmentedControl) {
+    // MARK: - @objc
+
+    @objc func changeModeAction(_ sender: UISegmentedControl) {
         guard let sourceImage = sourceImage else {
             return
         }
@@ -55,12 +54,10 @@ class EditorViewController: UIViewController {
         }
     }
 
-    @IBAction func sliderAction(_ sender: UISlider) {
+    @objc func sliderAction(_ sender: UISlider) {
         processFilter()
     }
-    
-    // MARK: - @objc
-    
+
     @objc func cancelAction() {
         navigationController?.popViewController(animated: true)
     }
@@ -85,26 +82,45 @@ class EditorViewController: UIViewController {
     // MARK: - private
     
     private func prepareTool() {
-        guard let selectedFilter = selectedFilter else {
+        makeTools()
+        setNavigationItem()
+    }
+
+    private func makeTools() {
+        toolSlider = UISlider()
+        modeChanger = UISegmentedControl(items: ["描画", "顔認識"])
+        guard let toolSlider = toolSlider,
+              let modeChanger = modeChanger,
+              let selectedFilter = selectedFilter else {
             return
         }
-        
-        navigationItem.title = selectedFilter.rawValue
-        
-        let cancelButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"),
-                                               style: .plain,
-                                               target: self,
-                                               action: #selector(cancelAction))
-        cancelButtonItem.tintColor = .label
-        navigationItem.setLeftBarButton(cancelButtonItem, animated: true)
-        
-        let doneButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"),
-                                             style: .plain,
-                                             target: self,
-                                             action: #selector(doneAction))
-        doneButtonItem.tintColor = .label
-        navigationItem.setRightBarButton(doneButtonItem, animated: true)
-        
+
+        toolView.addSubview(toolSlider)
+        toolView.addSubview(modeChanger)
+
+        toolSlider.addTarget(self, action: #selector(sliderAction(_:)), for: UIControl.Event.valueChanged)
+        modeChanger.addTarget(self, action: #selector(changeModeAction(_:)), for: UIControl.Event.valueChanged)
+
+        toolSlider.translatesAutoresizingMaskIntoConstraints = false
+        modeChanger.translatesAutoresizingMaskIntoConstraints = false
+
+        // toolViewに対してconstraintsを設定
+        toolSlider.centerXAnchor.constraint(equalTo: toolView.centerXAnchor).isActive = true
+        toolSlider.widthAnchor.constraint(equalToConstant: 300).isActive = true
+
+        switch selectedFilter {
+        case .blur, .mosaic:
+            modeChanger.centerXAnchor.constraint(equalTo: toolView.centerXAnchor).isActive = true
+            modeChanger.topAnchor.constraint(
+                equalTo: toolView.topAnchor, constant: 20).isActive = true
+            toolSlider.bottomAnchor.constraint(
+                equalTo: toolView.bottomAnchor, constant: -20).isActive = true
+        case .monochrome:
+            modeChanger.isHidden = true
+            toolSlider.centerYAnchor.constraint(equalTo: toolView.centerYAnchor).isActive = true
+        }
+
+        modeChanger.selectedSegmentIndex = 0
         toolSlider.isContinuous = false
         toolSlider.minimumTrackTintColor = UIColor.systemGray
         toolSlider.maximumValue = selectedFilter.max()
@@ -112,19 +128,40 @@ class EditorViewController: UIViewController {
         toolSlider.value = selectedFilter.mid()
     }
 
+    private func setNavigationItem() {
+        guard let selectedFilter = selectedFilter else {
+            return
+        }
+        navigationItem.title = selectedFilter.rawValue
+
+        let cancelButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"),
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(cancelAction))
+        cancelButtonItem.tintColor = .label
+        navigationItem.setLeftBarButton(cancelButtonItem, animated: true)
+
+        let doneButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(doneAction))
+        doneButtonItem.tintColor = .label
+        navigationItem.setRightBarButton(doneButtonItem, animated: true)
+    }
+
     private func makeImageViews() {
         guard let sourceImage = sourceImage else {
             return
         }
 
-        sourceImageView = UIImageView(frame: tmpView.bounds.aspectFit(contentSize: sourceImage.size,
-                                                                      stretchble: true,
-                                                                      integer: true))
+        sourceImageView = UIImageView(frame: frameView.bounds.aspectFit(contentSize: sourceImage.size,
+                                                                        stretchble: true,
+                                                                        integer: true))
         guard let sourceImageView = sourceImageView else {
             return
         }
         sourceImageView.image = sourceImage
-        sourceImageView.center = tmpView.center
+        sourceImageView.center = frameView.center
         view.addSubview(sourceImageView)
 
         filterImageView = UIImageView(frame: sourceImageView.frame)
@@ -146,7 +183,8 @@ class EditorViewController: UIViewController {
     private func processFilter() {
         guard let sourceImage = sourceImage,
               let selectedFilter = selectedFilter,
-              let filterImageView = filterImageView else {
+              let filterImageView = filterImageView,
+              let toolSlider = toolSlider else {
             return
         }
         filterImage = selectedFilter.filter().process(value: CGFloat(toolSlider.value),
