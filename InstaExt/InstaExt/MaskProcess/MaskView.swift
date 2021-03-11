@@ -35,6 +35,7 @@ class MaskView: UIView {
     // MARK: - public
     func drawCycle(faceBounds: [CGRect]) {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
+        maskImage.draw(at: .zero)
         
         for faceBound in faceBounds {
             if let context = UIGraphicsGetCurrentContext() {
@@ -52,9 +53,9 @@ class MaskView: UIView {
     
     private func drawLine(from: CGPoint, to: CGPoint){
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
+        maskImage.draw(at: .zero)
 
         if let context = UIGraphicsGetCurrentContext() {
-            maskImage.draw(at: .zero)
             context.setLineWidth(drawLineWidth)
             context.setLineCap(.round)
             context.setStrokeColor(UIColor.white.cgColor)

@@ -209,7 +209,6 @@ extension EditorViewController: FaceDetectionDelegate {
 
         // サイズを変換する
         let faces = convertRectsSize(sourceRects: faces, imageView: sourceImageView)
-        print(faces)
 
         // 矩形表示はこれから
         // 顔ぼかし
