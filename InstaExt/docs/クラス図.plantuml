@@ -12,17 +12,14 @@ class  メイン画面 {
 }
 
 class  編集画面 {
-  @IBOutlet 編集画像イメージビュー: UIImageView
-  @IBOutlet フィルタ画像イメージビュー: UIImageView
   @IBOutlet 編集ツール用のビュー: UIView
-  @IBOutlet 編集ツール用のスライダ: UISlider
-  @IBOutlet 顔認識・描画モードの切り替えボタン: UISegmentedControl
+  @IBOutlet frameの基準用ビュー: UIView
   編集対象画像: UIImage
   編集機能名: FilterType
-  @IBAction 顔認識・描画モード切り替え時のアクション: (sender: UISegmentedControl)
-  @IBAction スライダアクション(sender: UISlider)
-  @IBAction 完了ボタン()
-  @IBAction キャンセルボタン()
+  @objc 顔認識・描画モード切り替え時のアクション: (sender: UISegmentedControl)
+  @objc スライダアクション(sender: UISlider)
+  @objc 完了ボタン()
+  @objc キャンセルボタン()
   矩形を表示する()
 }
 
@@ -32,6 +29,7 @@ class マスクビュークラス {
 }
 
 class 顔認識クラス {
+  デリゲート変数
   顔認識を実行(画像: UIImage) -> [CGRect]
 }
 
