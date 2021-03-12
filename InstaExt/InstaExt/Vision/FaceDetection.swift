@@ -8,10 +8,10 @@ class FaceDetection {
     private var sourceImage: UIImage?
 
     func request(image: UIImage) {
-        let orientation = CGImagePropertyOrientation(rawValue: UInt32(image.imageOrientation.rawValue))
+        //let orientation = CGImagePropertyOrientation(rawValue: UInt32(image.imageOrientation.rawValue))
+        let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
         sourceImage = image
-        guard let cgImage = image.cgImage,
-              let cgOrientation = orientation else {
+        guard let cgImage = image.cgImage else {
             return
         }
 
@@ -64,4 +64,21 @@ class FaceDetection {
 protocol FaceDetectionDelegate {
     func showAlert(alert: UIAlertController)
     func didGetFaces(faces: [CGRect])
+}
+
+extension CGImagePropertyOrientation {
+    init(_ uiOrientation: UIImage.Orientation) {
+        switch uiOrientation {
+            case .up: self = .up
+            case .upMirrored: self = .upMirrored
+            case .down: self = .down
+            case .downMirrored: self = .downMirrored
+            case .left: self = .left
+            case .leftMirrored: self = .leftMirrored
+            case .right: self = .right
+            case .rightMirrored: self = .rightMirrored
+        @unknown default:
+            fatalError()
+        }
+    }
 }
