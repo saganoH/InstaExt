@@ -5,15 +5,12 @@ class FaceDetection {
     var delegate: FaceDetectionDelegate?
 
     lazy private var faceDetectionRequest = VNDetectFaceRectanglesRequest(completionHandler: self.handleDetectedFaces)
-    private var sourceImage: UIImage?
 
     func request(image: UIImage) {
-        //let orientation = CGImagePropertyOrientation(rawValue: UInt32(image.imageOrientation.rawValue))
-        let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
-        sourceImage = image
         guard let cgImage = image.cgImage else {
             return
         }
+        let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
 
         let requests: [VNRequest] = [self.faceDetectionRequest]
         let imageRequestHandler = VNImageRequestHandler(cgImage: cgImage,
@@ -65,6 +62,8 @@ protocol FaceDetectionDelegate {
     func showAlert(alert: UIAlertController)
     func didGetFaces(faces: [CGRect])
 }
+
+// MARK: - extension CGImagePropertyOrientation
 
 extension CGImagePropertyOrientation {
     init(_ uiOrientation: UIImage.Orientation) {

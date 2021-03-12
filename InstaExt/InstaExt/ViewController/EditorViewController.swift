@@ -205,10 +205,10 @@ extension EditorViewController: FaceDetectionDelegate {
             return
         }
 
-        // 顔のrect情報をimageViewのスケールに変換
-        let faces = convertRects(sourceRects: faces, imageView: sourceImageView)
+        // 正規化されたrect情報をimageViewのスケールに変換
+        let faceRects = convertRects(sourceRects: faces, imageView: sourceImageView)
 
-        maskView?.drawCycle(faceBounds: faces)
+        maskView?.drawCycle(faceBounds: faceRects)
     }
 
     private func convertRects(sourceRects: [CGRect], imageView: UIImageView) -> [CGRect] {
@@ -238,7 +238,9 @@ extension CGRect {
         let newHeight = max(Int(contentSize.height * zoom), 1)
         let newX = Int(origin.x) + (Int(width) - newWidth) / 2
         let newY = Int(origin.y) + (Int(height) - newHeight) / 2
+
+        let newRect = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
         
-        return CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
+        return newRect
     }
 }
