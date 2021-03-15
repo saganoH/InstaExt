@@ -12,11 +12,9 @@ class EditorViewController: UIViewController {
     private var filterImageView: UIImageView?
     private var filterImage: UIImage?
 
-    private var modeChanger: UISegmentedControl?
     private var toolSlider: UISlider?
 
     private let faceDetection = FaceDetection()
-    private var faces: [CGRect] = []
     private var maskView: MaskView? = nil
 
     // MARK: - Life cycle
@@ -27,7 +25,7 @@ class EditorViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        if filterImageView == nil  {
+        if filterImageView == nil {
             makeImageViews()
             processFilter()
         }
@@ -40,18 +38,11 @@ class EditorViewController: UIViewController {
             return
         }
 
-        switch sender.selectedSegmentIndex {
-        case 0:
-            print("描画モード")
-            maskView?.addGestureRecognizer(UIPanGestureRecognizer(target: maskView,
-                                                                  action: #selector(maskView?.panAction(_:))))
-        case 1:
-            print("顔認識モード")
-            maskView?.gestureRecognizers?.removeAll()
+        if sender.selectedSegmentIndex == 1 {
             faceDetection.request(image: sourceImage)
-        default:
-            fatalError("モードは2つのみ")
         }
+
+        maskView?.changeEditMode(mode: sender.selectedSegmentIndex)
     }
 
     @objc func sliderAction(_ sender: UISlider) {
@@ -88,12 +79,11 @@ class EditorViewController: UIViewController {
 
     private func makeTools() {
         toolSlider = UISlider()
-        modeChanger = UISegmentedControl(items: ["描画", "顔認識"])
         guard let toolSlider = toolSlider,
-              let modeChanger = modeChanger,
               let selectedFilter = selectedFilter else {
             return
         }
+        let modeChanger = UISegmentedControl(items: ["描画", "顔認識"])
 
         toolView.addSubview(toolSlider)
         toolView.addSubview(modeChanger)

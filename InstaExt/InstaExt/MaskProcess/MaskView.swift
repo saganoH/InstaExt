@@ -33,6 +33,19 @@ class MaskView: UIView {
     }
 
     // MARK: - public
+
+    func changeEditMode(mode: Int) {
+        switch mode {
+        case 0:
+            self.addGestureRecognizer(UIPanGestureRecognizer(target: self,
+                                                             action: #selector(panAction(_:))))
+        case 1:
+            self.gestureRecognizers?.removeAll()
+        default:
+            fatalError("モードは2つのみ")
+        }
+    }
+
     func drawCycle(faceBounds: [CGRect]) {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
         maskImage.draw(at: .zero)
