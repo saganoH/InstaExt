@@ -13,7 +13,7 @@ class  メイン画面 {
 
 class  編集画面 {
   @IBOutlet 編集ツール用のビュー: UIView
-  @IBOutlet frameの基準用ビュー: UIView
+  @IBOutlet 画像表示ビューのframe基準となるビュー: UIView
   編集対象画像: UIImage
   編集機能名: FilterType
   @objc 顔認識・描画モード切り替え時のアクション: (sender: UISegmentedControl)

@@ -64,6 +64,7 @@ protocol FaceDetectionDelegate {
 }
 
 // MARK: - extension CGImagePropertyOrientation
+// https://developer.apple.com/documentation/imageio/cgimagepropertyorientation
 
 extension CGImagePropertyOrientation {
     init(_ uiOrientation: UIImage.Orientation) {

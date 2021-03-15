@@ -196,19 +196,19 @@ extension EditorViewController: FaceDetectionDelegate {
         }
 
         // 正規化されたrect情報をimageViewのスケールに変換
-        let faceRects = convertRects(sourceRects: faces, imageView: sourceImageView)
+        let faceRects = convertRects(from: faces, to: sourceImageView.bounds)
 
         maskView?.drawCycle(faceBounds: faceRects)
     }
 
-    private func convertRects(sourceRects: [CGRect], imageView: UIImageView) -> [CGRect] {
+    private func convertRects(from normRects: [CGRect], to baseRect: CGRect) -> [CGRect] {
         var convertedRects: [CGRect] = []
 
-        for sourceRect in sourceRects {
-            let width = sourceRect.size.width * imageView.bounds.width
-            let height = sourceRect.size.height * imageView.bounds.height
-            let x = sourceRect.origin.x * imageView.bounds.width
-            let y = (1 - sourceRect.origin.y) * imageView.bounds.height - height
+        for normRect in normRects {
+            let width = normRect.size.width * baseRect.width
+            let height = normRect.size.height * baseRect.height
+            let x = normRect.origin.x * baseRect.width
+            let y = (1 - normRect.origin.y) * baseRect.height - height
             let convertedRect = CGRect(x: x, y: y, width: width, height: height)
             convertedRects.append(convertedRect)
         }
@@ -220,12 +220,12 @@ extension EditorViewController: FaceDetectionDelegate {
 
 extension CGRect {
     func aspectFit(contentSize: CGSize) -> CGRect {
-        let xZoom = width / contentSize.width
-        let yZoom = height / contentSize.height
-        let zoom = min(xZoom, yZoom)
+        let xRatio = width / contentSize.width
+        let yRatio = height / contentSize.height
+        let ratio = min(xRatio, yRatio)
 
-        let newWidth = max(Int(contentSize.width * zoom), 1)
-        let newHeight = max(Int(contentSize.height * zoom), 1)
+        let newWidth = max(Int(contentSize.width * ratio), 1)
+        let newHeight = max(Int(contentSize.height * ratio), 1)
         let newX = Int(origin.x) + (Int(width) - newWidth) / 2
         let newY = Int(origin.y) + (Int(height) - newHeight) / 2
 
