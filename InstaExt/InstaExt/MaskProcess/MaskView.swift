@@ -46,7 +46,7 @@ class MaskView: UIView {
         }
     }
 
-    func drawCycle(faceBounds: [CGRect]) {
+    func maskFaces(faceBounds: [CGRect]) {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
         maskImage.draw(at: .zero)
         

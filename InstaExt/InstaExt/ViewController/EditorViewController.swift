@@ -195,42 +195,22 @@ extension EditorViewController: FaceDetectionDelegate {
             return
         }
 
-        // 正規化されたrect情報をimageViewのスケールに変換
-        let faceRects = convertRects(from: faces, to: sourceImageView.bounds)
+        let faceRects = convertFaceScale(from: faces, to: sourceImageView.bounds)
 
-        maskView?.drawCycle(faceBounds: faceRects)
+        maskView?.maskFaces(faceBounds: faceRects)
     }
 
-    private func convertRects(from normRects: [CGRect], to baseRect: CGRect) -> [CGRect] {
+    private func convertFaceScale(from normRects: [CGRect], to baseRect: CGRect) -> [CGRect] {
         var convertedRects: [CGRect] = []
 
         for normRect in normRects {
-            let width = normRect.size.width * baseRect.width
-            let height = normRect.size.height * baseRect.height
-            let x = normRect.origin.x * baseRect.width
-            let y = (1 - normRect.origin.y) * baseRect.height - height
-            let convertedRect = CGRect(x: x, y: y, width: width, height: height)
+            let faceWidth = normRect.size.width * baseRect.width
+            let faceHeight = normRect.size.height * baseRect.height
+            let faceX = normRect.origin.x * baseRect.width
+            let faceY = (1 - normRect.origin.y) * baseRect.height - faceHeight
+            let convertedRect = CGRect(x: faceX, y: faceY, width: faceWidth, height: faceHeight)
             convertedRects.append(convertedRect)
         }
         return convertedRects
-    }
-}
-
-// MARK: - extension CGRect
-
-extension CGRect {
-    func aspectFit(contentSize: CGSize) -> CGRect {
-        let xRatio = width / contentSize.width
-        let yRatio = height / contentSize.height
-        let ratio = min(xRatio, yRatio)
-
-        let newWidth = max(Int(contentSize.width * ratio), 1)
-        let newHeight = max(Int(contentSize.height * ratio), 1)
-        let newX = Int(origin.x) + (Int(width) - newWidth) / 2
-        let newY = Int(origin.y) + (Int(height) - newHeight) / 2
-
-        let newRect = CGRect(x: newX, y: newY, width: newWidth, height: newHeight)
-        
-        return newRect
     }
 }

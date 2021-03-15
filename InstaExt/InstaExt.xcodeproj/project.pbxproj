@@ -19,6 +19,7 @@
 		C6886FCC25B7B83400CA7781 /* InstaExtUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FCB25B7B83400CA7781 /* InstaExtUITests.swift */; };
 		C6886FE325B7C4F900CA7781 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6886FE225B7C4F900CA7781 /* EditorViewController.swift */; };
 		C688703325B7FE8E00CA7781 /* ImageDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C688703225B7FE8E00CA7781 /* ImageDelivery.swift */; };
+		C698F47525FF4D10003423EC /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C698F47425FF4D10003423EC /* CGRectExtension.swift */; };
 		C6BC134725C8F57A00FD789D /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BC134625C8F57A00FD789D /* Filter.swift */; };
 		C6C6505725D3A3DA008603C9 /* ImageComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C6505625D3A3DA008603C9 /* ImageComposition.swift */; };
 		C6C8FA0D25ECC58B00760B2A /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C8FA0C25ECC58B00760B2A /* Blur.swift */; };
@@ -64,6 +65,7 @@
 		C6886FCD25B7B83400CA7781 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6886FE225B7C4F900CA7781 /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		C688703225B7FE8E00CA7781 /* ImageDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDelivery.swift; sourceTree = "<group>"; };
+		C698F47425FF4D10003423EC /* CGRectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
 		C6BC134625C8F57A00FD789D /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		C6C6505625D3A3DA008603C9 /* ImageComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComposition.swift; sourceTree = "<group>"; };
 		C6C8FA0C25ECC58B00760B2A /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				C6E018F125EF17F800303459 /* Filter */,
 				C6E018F525EF184200303459 /* MaskProcess */,
 				C6EB24D425F6FD3C00514EC1 /* Vision */,
+				C698F47925FF4D5C003423EC /* Extensions */,
 			);
 			path = InstaExt;
 			sourceTree = "<group>";
@@ -152,6 +155,14 @@
 				C6886FCD25B7B83400CA7781 /* Info.plist */,
 			);
 			path = InstaExtUITests;
+			sourceTree = "<group>";
+		};
+		C698F47925FF4D5C003423EC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C698F47425FF4D10003423EC /* CGRectExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C6E018F125EF17F800303459 /* Filter */ = {
@@ -331,6 +342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C698F47525FF4D10003423EC /* CGRectExtension.swift in Sources */,
 				C616C2E525DBA8850082EE63 /* InstaLinker.swift in Sources */,
 				C6C6505725D3A3DA008603C9 /* ImageComposition.swift in Sources */,
 				C6E018E625EF106000303459 /* ImageType.swift in Sources */,
