@@ -1,7 +1,7 @@
 @startuml
 title "クラス図"
 
-class  メイン画面 {
+class メイン画面 {
   @IBOutlet イメージビュー: UIImageView
   @IBOutlet コレクションビュー: UICollectionView
   @IBOutlet 初期テキストラベル: UILabel
@@ -11,7 +11,7 @@ class  メイン画面 {
   編集画像設定メソッド()
 }
 
-class  編集画面 {
+class 編集画面 {
   @IBOutlet 編集ツール用のビュー: UIView
   @IBOutlet 画像表示ビューのframe基準となるビュー: UIView
   編集対象画像: UIImage
@@ -23,9 +23,14 @@ class  編集画面 {
   矩形を表示する()
 }
 
+class 顔選択ボタンクラス {
+  デリゲート変数
+  @objc 顔の矩形ボタンが押されたらオンオフを切り替える()
+}
+
 class マスクビュークラス {
+  編集モード切り替え(モード: Int)
   @objc なぞった部分に線を引く(sender: UIPanGestureRecognizer)
-  顔を円形にマスクする(認識された顔のbounds: [CGRect])
 }
 
 class 顔認識クラス {
@@ -104,6 +109,7 @@ end note
 
 編集画面-->マスクビュークラス
 編集画面-->顔認識クラス
+顔選択ボタンクラス<--マスクビュークラス
 
 デバイスクラス-->画像形式
 メイン画面-->フィルタタイプ
