@@ -35,6 +35,7 @@ class MaskView: UIView {
     // MARK: - public
 
     func changeEditMode(mode: Int) {
+        // TOTO: enumにする
         switch mode {
         case 0:
             self.addGestureRecognizer(UIPanGestureRecognizer(target: self,
