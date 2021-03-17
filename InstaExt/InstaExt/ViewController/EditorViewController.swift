@@ -30,6 +30,10 @@ class EditorViewController: UIViewController {
             processFilter()
         }
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        faceDetection.delegate = nil
+    }
     
     // MARK: - @objc
 

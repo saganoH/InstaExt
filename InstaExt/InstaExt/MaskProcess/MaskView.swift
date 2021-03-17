@@ -5,7 +5,7 @@ class MaskView: UIView {
     private(set) var maskImageView = UIImageView()
     private var maskImage = UIImage()
     private var previousPosition: CGPoint = .zero
-    private var buttons: [UIButton] = []
+    private var buttons = [FaceButton]()
 
     private let drawLineWidth: CGFloat = 30
 
@@ -65,9 +65,7 @@ class MaskView: UIView {
     // MARK: - private
 
     private func removeFaceButtons() {
-        for button in buttons {
-            button.removeFromSuperview()
-        }
+        buttons.removeAll()
         buttons = []
     }
 
