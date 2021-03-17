@@ -18,6 +18,10 @@ class MaskView: UIView {
         fatalError("使用しないケースのため未実装")
     }
 
+    deinit {
+        buttons.removeAll()
+    }
+
     // MARK: - @objc
     
     @objc func panAction(_ sender: UIPanGestureRecognizer) {
@@ -70,18 +74,18 @@ class MaskView: UIView {
         }
         buttons.removeAll()
     }
-    
+
     private func drawFaceCircle(detection isOn: Bool, frame: CGRect) {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
         maskImage.draw(at: .zero)
-        
+
         let color = isOn ? UIColor.white.cgColor : UIColor.black.cgColor
         if let context = UIGraphicsGetCurrentContext() {
             context.setFillColor(color)
             context.fillEllipse(in: frame)
             maskImage = UIGraphicsGetImageFromCurrentImageContext()!
         }
-        
+
         UIGraphicsEndImageContext()
         maskImageView.image = maskToAlpha(maskImage)
     }
