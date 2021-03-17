@@ -5,9 +5,10 @@ class MaskView: UIView {
     private(set) var maskImageView = UIImageView()
     private var maskImage = UIImage()
     private var previousPosition: CGPoint = .zero
+    private var buttons: [UIButton] = []
 
     private let drawLineWidth: CGFloat = 30
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panAction)))
@@ -38,7 +39,8 @@ class MaskView: UIView {
         // TODO: enumにする
         switch mode {
         case 0:
-            self.addGestureRecognizer(UIPanGestureRecognizer(target: self,
+            removeFaceButtons()
+            addGestureRecognizer(UIPanGestureRecognizer(target: self,
                                                              action: #selector(panAction(_:))))
         case 1:
             self.gestureRecognizers?.removeAll()
@@ -47,23 +49,59 @@ class MaskView: UIView {
         }
     }
 
-    func maskFaces(faceBounds: [CGRect]) {
+    func maskAllFaces(faces: [CGRect]) {
+        for face in faces {
+            maskFaceOn(face: face)
+        }
+    }
+
+    func maskSelectFaces(faces: [CGRect]) {
+        for face in faces {
+            let button = FaceButton(frame: face)
+            button.delegate = self
+            
+            self.addSubview(button)
+            // 削除用にインスタンスを保存
+            buttons.append(button)
+        }
+    }
+
+    // MARK: - private
+
+    private func removeFaceButtons() {
+        for button in buttons {
+            button.removeFromSuperview()
+        }
+        buttons = []
+    }
+
+    private func maskFaceOn(face: CGRect) {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
         maskImage.draw(at: .zero)
-        
-        for faceBound in faceBounds {
-            if let context = UIGraphicsGetCurrentContext() {
-                context.setFillColor(UIColor.white.cgColor)
-                context.fillEllipse(in: faceBound)
-                maskImage = UIGraphicsGetImageFromCurrentImageContext()!
-            }
+
+        if let context = UIGraphicsGetCurrentContext() {
+            context.setFillColor(UIColor.white.cgColor)
+            context.fillEllipse(in: face)
+            maskImage = UIGraphicsGetImageFromCurrentImageContext()!
         }
 
         UIGraphicsEndImageContext()
         maskImageView.image = maskToAlpha(maskImage)
     }
-    
-    // MARK: - private
+
+    private func maskFaceOff(face: CGRect) {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
+        maskImage.draw(at: .zero)
+
+        if let context = UIGraphicsGetCurrentContext() {
+            context.setFillColor(UIColor.black.cgColor)
+            context.fillEllipse(in: face)
+            maskImage = UIGraphicsGetImageFromCurrentImageContext()!
+        }
+
+        UIGraphicsEndImageContext()
+        maskImageView.image = maskToAlpha(maskImage)
+    }
     
     private func drawLine(from: CGPoint, to: CGPoint){
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
@@ -97,5 +135,16 @@ class MaskView: UIView {
             fatalError("CIImageの生成に失敗")
         }
         return UIImage(ciImage: resultImage)
+    }
+}
+
+extension MaskView: FaceButtonDelegate {
+    func didTapFace(isOn: Bool, face: CGRect) {
+        switch isOn {
+        case true:
+            maskFaceOn(face: face)
+        case false:
+            maskFaceOff(face: face)
+        }
     }
 }

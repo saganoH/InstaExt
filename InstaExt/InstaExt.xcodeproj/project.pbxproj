@@ -26,6 +26,7 @@
 		C6DAD62425EDCB7700BAFB1E /* Mosaic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DAD62325EDCB7700BAFB1E /* Mosaic.swift */; };
 		C6E018E625EF106000303459 /* ImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E018E525EF106000303459 /* ImageType.swift */; };
 		C6EB24D025F6FD3400514EC1 /* FaceDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EB24CF25F6FD3400514EC1 /* FaceDetection.swift */; };
+		C6EE21EC260179DC00A0C05C /* FaceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE21EB260179DC00A0C05C /* FaceButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		C6DAD62325EDCB7700BAFB1E /* Mosaic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mosaic.swift; sourceTree = "<group>"; };
 		C6E018E525EF106000303459 /* ImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageType.swift; sourceTree = "<group>"; };
 		C6EB24CF25F6FD3400514EC1 /* FaceDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetection.swift; sourceTree = "<group>"; };
+		C6EE21EB260179DC00A0C05C /* FaceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				C6EB24CF25F6FD3400514EC1 /* FaceDetection.swift */,
+				C6EE21EB260179DC00A0C05C /* FaceButton.swift */,
 			);
 			path = Vision;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				C6C6505725D3A3DA008603C9 /* ImageComposition.swift in Sources */,
 				C6E018E625EF106000303459 /* ImageType.swift in Sources */,
 				C6C8FA0D25ECC58B00760B2A /* Blur.swift in Sources */,
+				C6EE21EC260179DC00A0C05C /* FaceButton.swift in Sources */,
 				C6886FAE25B7B83200CA7781 /* MainViewController.swift in Sources */,
 				C6886FAA25B7B83200CA7781 /* AppDelegate.swift in Sources */,
 				C6886FAC25B7B83200CA7781 /* SceneDelegate.swift in Sources */,
