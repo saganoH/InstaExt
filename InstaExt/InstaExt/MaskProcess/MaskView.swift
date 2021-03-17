@@ -17,7 +17,7 @@ class MaskView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("使用しないケースのため未実装")
     }
-   
+
     // MARK: - @objc
     
     @objc func panAction(_ sender: UIPanGestureRecognizer) {
@@ -41,7 +41,7 @@ class MaskView: UIView {
         case 0:
             removeFaceButtons()
             addGestureRecognizer(UIPanGestureRecognizer(target: self,
-                                                             action: #selector(panAction(_:))))
+                                                        action: #selector(panAction(_:))))
         case 1:
             self.gestureRecognizers?.removeAll()
         default:
@@ -49,14 +49,10 @@ class MaskView: UIView {
         }
     }
 
-    func maskAllFaces(faces: [CGRect]) {
+    func maskFaces(faces: [CGRect]) {
         for face in faces {
-            maskFaceOn(face: face)
-        }
-    }
+            maskFaceOn(frame: face)
 
-    func maskSelectFaces(faces: [CGRect]) {
-        for face in faces {
             let button = FaceButton(frame: face)
             button.delegate = self
             
@@ -75,13 +71,13 @@ class MaskView: UIView {
         buttons = []
     }
 
-    private func maskFaceOn(face: CGRect) {
+    private func maskFaceOn(frame: CGRect) {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
         maskImage.draw(at: .zero)
 
         if let context = UIGraphicsGetCurrentContext() {
             context.setFillColor(UIColor.white.cgColor)
-            context.fillEllipse(in: face)
+            context.fillEllipse(in: frame)
             maskImage = UIGraphicsGetImageFromCurrentImageContext()!
         }
 
@@ -89,13 +85,13 @@ class MaskView: UIView {
         maskImageView.image = maskToAlpha(maskImage)
     }
 
-    private func maskFaceOff(face: CGRect) {
+    private func maskFaceOff(frame: CGRect) {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
         maskImage.draw(at: .zero)
 
         if let context = UIGraphicsGetCurrentContext() {
             context.setFillColor(UIColor.black.cgColor)
-            context.fillEllipse(in: face)
+            context.fillEllipse(in: frame)
             maskImage = UIGraphicsGetImageFromCurrentImageContext()!
         }
 
@@ -138,13 +134,15 @@ class MaskView: UIView {
     }
 }
 
+// MARK: - FaceButtonクラスのdelegate
+
 extension MaskView: FaceButtonDelegate {
-    func didTapFace(isOn: Bool, face: CGRect) {
+    func didTapFace(detection isOn: Bool, face: CGRect) {
         switch isOn {
         case true:
-            maskFaceOn(face: face)
+            maskFaceOn(frame: face)
         case false:
-            maskFaceOff(face: face)
+            maskFaceOff(frame: face)
         }
     }
 }

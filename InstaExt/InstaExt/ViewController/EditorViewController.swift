@@ -196,8 +196,8 @@ extension EditorViewController: FaceDetectionDelegate {
         }
 
         let faceRects = convertFaceScale(from: faces, to: sourceImageView.bounds)
-        maskView?.maskAllFaces(faces: faceRects)
-        maskView?.maskSelectFaces(faces: faceRects)
+
+        maskView?.maskFaces(faces: faceRects)
     }
 
     private func convertFaceScale(from normRects: [CGRect], to baseRect: CGRect) -> [CGRect] {
