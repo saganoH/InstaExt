@@ -65,8 +65,10 @@ class MaskView: UIView {
     // MARK: - private
 
     private func removeFaceButtons() {
+        for button in buttons {
+            button.removeFromSuperview()
+        }
         buttons.removeAll()
-        buttons = []
     }
 
     private func maskFaceOn(frame: CGRect) {
