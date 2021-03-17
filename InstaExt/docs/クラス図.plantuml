@@ -30,6 +30,7 @@ class 顔選択ボタンクラス {
 
 class マスクビュークラス {
   編集モード切り替え(モード: Int)
+  顔をマスクする(認識された顔: [CGRect])
   @objc なぞった部分に線を引く(sender: UIPanGestureRecognizer)
 }
 
