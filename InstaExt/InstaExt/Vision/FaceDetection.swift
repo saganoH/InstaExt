@@ -2,7 +2,7 @@ import UIKit
 import Vision
 
 class FaceDetection {
-    var delegate: FaceDetectionDelegate?
+    weak var delegate: FaceDetectionDelegate?
 
     lazy private var faceDetectionRequest = VNDetectFaceRectanglesRequest(completionHandler: self.handleDetectedFaces)
 
@@ -58,7 +58,7 @@ class FaceDetection {
 
 // MARK: - FaceDetectionDelegate protocol
 
-protocol FaceDetectionDelegate {
+protocol FaceDetectionDelegate: AnyObject {
     func showAlert(alert: UIAlertController)
     func didGetFaces(faces: [CGRect])
 }
