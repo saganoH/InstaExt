@@ -83,7 +83,7 @@ class EditorViewController: UIViewController {
               let selectedFilter = selectedFilter else {
             return
         }
-        let modeChanger = UISegmentedControl(items: ["描画", "顔認識"])
+        let modeChanger = UISegmentedControl(items: ["描画", "顔選択"])
 
         toolView.addSubview(toolSlider)
         toolView.addSubview(modeChanger)
