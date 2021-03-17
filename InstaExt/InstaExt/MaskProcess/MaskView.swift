@@ -51,7 +51,7 @@ class MaskView: UIView {
 
     func maskFaces(faces: [CGRect]) {
         for face in faces {
-            maskFaceOn(frame: face)
+            drawFaceCircle(detection: true, frame: face)
 
             let button = FaceButton(frame: face)
             button.delegate = self
@@ -70,31 +70,18 @@ class MaskView: UIView {
         }
         buttons.removeAll()
     }
-
-    private func maskFaceOn(frame: CGRect) {
+    
+    private func drawFaceCircle(detection isOn: Bool, frame: CGRect) {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
         maskImage.draw(at: .zero)
-
+        
+        let color = isOn ? UIColor.white.cgColor : UIColor.black.cgColor
         if let context = UIGraphicsGetCurrentContext() {
-            context.setFillColor(UIColor.white.cgColor)
+            context.setFillColor(color)
             context.fillEllipse(in: frame)
             maskImage = UIGraphicsGetImageFromCurrentImageContext()!
         }
-
-        UIGraphicsEndImageContext()
-        maskImageView.image = maskToAlpha(maskImage)
-    }
-
-    private func maskFaceOff(frame: CGRect) {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
-        maskImage.draw(at: .zero)
-
-        if let context = UIGraphicsGetCurrentContext() {
-            context.setFillColor(UIColor.black.cgColor)
-            context.fillEllipse(in: frame)
-            maskImage = UIGraphicsGetImageFromCurrentImageContext()!
-        }
-
+        
         UIGraphicsEndImageContext()
         maskImageView.image = maskToAlpha(maskImage)
     }
@@ -138,11 +125,6 @@ class MaskView: UIView {
 
 extension MaskView: FaceButtonDelegate {
     func didTapFace(detection isOn: Bool, face: CGRect) {
-        switch isOn {
-        case true:
-            maskFaceOn(frame: face)
-        case false:
-            maskFaceOff(frame: face)
-        }
+        drawFaceCircle(detection: isOn, frame: face)
     }
 }

@@ -18,14 +18,8 @@ class FaceButton: UIButton {
     }
 
     @objc func didTapButton() {
-        switch isOn {
-        case true:
-            isOn = false
-            layer.borderColor = UIColor.orange.cgColor
-        case false:
-            isOn = true
-            layer.borderColor = UIColor.green.cgColor
-        }
+        layer.borderColor = isOn ? UIColor.orange.cgColor : UIColor.green.cgColor
+        isOn.toggle()
 
         delegate?.didTapFace(detection: isOn, face: frame)
     }
