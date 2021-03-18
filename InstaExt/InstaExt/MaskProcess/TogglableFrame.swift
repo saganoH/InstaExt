@@ -1,8 +1,8 @@
 import UIKit
 
-class FaceButton: UIButton {
+class TogglableFrame: UIButton {
 
-    weak var delegate: FaceButtonDelegate?
+    weak var delegate: TogglableFrameDelegate?
 
     private var isOn: Bool = true
 
@@ -21,7 +21,7 @@ class FaceButton: UIButton {
         isOn.toggle()
         layer.borderColor = isOn ? UIColor.green.cgColor : UIColor.orange.cgColor
 
-        delegate?.didTapFace(detection: isOn, face: frame)
+        delegate?.didTapFrame(isOn, frame: frame)
     }
 
     private func setButtonAppearance() {
@@ -30,8 +30,8 @@ class FaceButton: UIButton {
     }
 }
 
-// MARK: - FaceButtonDelegate protocol
+// MARK: - TogglableFrameDelegate protocol
 
-protocol FaceButtonDelegate: AnyObject {
-    func didTapFace(detection isOn: Bool, face: CGRect)
+protocol TogglableFrameDelegate: AnyObject {
+    func didTapFrame(_ isOn: Bool, frame: CGRect)
 }

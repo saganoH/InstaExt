@@ -5,7 +5,7 @@ class MaskView: UIView {
     private(set) var maskImageView = UIImageView()
     private var maskImage = UIImage()
     private var previousPosition: CGPoint = .zero
-    private var buttons = [FaceButton]()
+    private var buttons = [TogglableFrame]()
 
     private let drawLineWidth: CGFloat = 30
 
@@ -57,7 +57,7 @@ class MaskView: UIView {
         for face in faces {
             drawFaceCircle(detection: true, frame: face)
 
-            let button = FaceButton(frame: face)
+            let button = TogglableFrame(frame: face)
             button.delegate = self
             
             self.addSubview(button)
@@ -128,8 +128,8 @@ class MaskView: UIView {
 
 // MARK: - FaceButtonクラスのdelegate
 
-extension MaskView: FaceButtonDelegate {
-    func didTapFace(detection isOn: Bool, face: CGRect) {
-        drawFaceCircle(detection: isOn, frame: face)
+extension MaskView: TogglableFrameDelegate {
+    func didTapFrame(_ isOn: Bool, frame: CGRect) {
+        drawFaceCircle(detection: isOn, frame: frame)
     }
 }
