@@ -31,6 +31,14 @@ class EditorViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if UserDefaults.standard.bool(forKey: "notFirst") == false {
+            showFirstOnly()
+        }
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         faceDetection.delegate = nil
     }
@@ -75,7 +83,19 @@ class EditorViewController: UIViewController {
     }
     
     // MARK: - private
-    
+
+    private func showFirstOnly() {
+        let alert = UIAlertController(title: "モード切り替え↓",
+                                      message: "・なぞる：指でなぞってフィルタをかける\n・顔認識：顔をタップしてフィルタのオンオフを変更",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: .default,
+                                      handler: { (action: UIAlertAction) -> Void in
+                                        UserDefaults.standard.set(true, forKey: "notFirst")
+                                      }))
+        self.present(alert, animated: true)
+    }
+
     private func prepareTool() {
         makeTools()
         setNavigationItem()
@@ -87,7 +107,7 @@ class EditorViewController: UIViewController {
               let selectedFilter = selectedFilter else {
             return
         }
-        let modeChanger = UISegmentedControl(items: ["描画", "顔選択"])
+        let modeChanger = UISegmentedControl(items: ["なぞる", "顔認識"])
 
         toolView.addSubview(toolSlider)
         toolView.addSubview(modeChanger)
