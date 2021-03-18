@@ -34,7 +34,7 @@ class EditorViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if UserDefaults.standard.bool(forKey: "notFirst") == false {
+        if UserDefaults.standard.bool(forKey: "skipEditorDescription") == false {
             showFirstOnly()
         }
     }
