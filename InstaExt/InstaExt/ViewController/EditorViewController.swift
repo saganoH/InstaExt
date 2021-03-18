@@ -15,6 +15,7 @@ class EditorViewController: UIViewController {
     private var toolSlider: UISlider?
 
     private let faceDetection = FaceDetection()
+    private let skipEditorDescription = "skipEditorDescription"
     private var maskView: MaskView? = nil
 
     // MARK: - Life cycle
@@ -34,7 +35,7 @@ class EditorViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if UserDefaults.standard.bool(forKey: "skipEditorDescription") == false {
+        if UserDefaults.standard.bool(forKey: skipEditorDescription) == false {
             showFirstOnly()
         }
     }
@@ -90,8 +91,9 @@ class EditorViewController: UIViewController {
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK",
                                       style: .default,
-                                      handler: { (action: UIAlertAction) -> Void in
-                                        UserDefaults.standard.set(true, forKey: "notFirst")
+                                      handler: { [weak self] (action: UIAlertAction) -> (Void) in
+                                        guard let self = self else { return }
+                                        UserDefaults.standard.set(true, forKey: self.skipEditorDescription)
                                       }))
         self.present(alert, animated: true)
     }
