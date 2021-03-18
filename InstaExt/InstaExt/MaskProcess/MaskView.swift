@@ -71,6 +71,7 @@ class MaskView: UIView {
     private func removeFaceButtons() {
         for button in buttons {
             button.removeFromSuperview()
+            button.delegate = nil
         }
         buttons.removeAll()
     }

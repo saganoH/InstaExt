@@ -172,6 +172,7 @@
 			children = (
 				C634C0C025CBBBB900AA0CF1 /* MaskView.swift */,
 				C6C6505625D3A3DA008603C9 /* ImageComposition.swift */,
+				C6EE21EB260179DC00A0C05C /* FaceButton.swift */,
 			);
 			path = MaskProcess;
 			sourceTree = "<group>";
@@ -199,7 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				C6EB24CF25F6FD3400514EC1 /* FaceDetection.swift */,
-				C6EE21EB260179DC00A0C05C /* FaceButton.swift */,
 			);
 			path = Vision;
 			sourceTree = "<group>";
