@@ -15,6 +15,7 @@ class EditorViewController: UIViewController {
     private var toolSlider: UISlider?
 
     private let faceDetection = FaceDetection()
+    private let skipEditorDescription = "skipEditorDescription"
     private var maskView: MaskView? = nil
 
     // MARK: - Life cycle
@@ -29,6 +30,18 @@ class EditorViewController: UIViewController {
             makeImageViews()
             processFilter()
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if UserDefaults.standard.bool(forKey: skipEditorDescription) == false {
+            showFirstOnly()
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        faceDetection.delegate = nil
     }
     
     // MARK: - @objc
@@ -71,7 +84,20 @@ class EditorViewController: UIViewController {
     }
     
     // MARK: - private
-    
+
+    private func showFirstOnly() {
+        let alert = UIAlertController(title: "モード切り替え↓",
+                                      message: "・なぞる：指でなぞってフィルタをかける\n・顔認識：顔をタップしてフィルタのオンオフを変更",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: .default,
+                                      handler: { [weak self] (action: UIAlertAction) -> (Void) in
+                                        guard let self = self else { return }
+                                        UserDefaults.standard.set(true, forKey: self.skipEditorDescription)
+                                      }))
+        self.present(alert, animated: true)
+    }
+
     private func prepareTool() {
         makeTools()
         setNavigationItem()
@@ -83,7 +109,7 @@ class EditorViewController: UIViewController {
               let selectedFilter = selectedFilter else {
             return
         }
-        let modeChanger = UISegmentedControl(items: ["描画", "顔認識"])
+        let modeChanger = UISegmentedControl(items: ["なぞる", "顔認識"])
 
         toolView.addSubview(toolSlider)
         toolView.addSubview(modeChanger)
@@ -197,7 +223,7 @@ extension EditorViewController: FaceDetectionDelegate {
 
         let faceRects = convertFaceScale(from: faces, to: sourceImageView.bounds)
 
-        maskView?.maskFaces(faceBounds: faceRects)
+        maskView?.maskFaces(faces: faceRects)
     }
 
     private func convertFaceScale(from normRects: [CGRect], to baseRect: CGRect) -> [CGRect] {

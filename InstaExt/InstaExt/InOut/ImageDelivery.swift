@@ -2,7 +2,7 @@ import PhotosUI
 
 class ImageDelivery: NSObject {
     
-    var delegate: ImageDeliveryDelegate?
+    weak var delegate: ImageDeliveryDelegate?
 
     private var imageType: ImageType = .jpg
 
@@ -113,7 +113,7 @@ extension ImageDelivery: PHPickerViewControllerDelegate {
 
 // MARK: - ImageDeliveryDelegate protocol
 
-protocol ImageDeliveryDelegate {
+protocol ImageDeliveryDelegate: AnyObject {
     func showPHPicker(phPicker: PHPickerViewController)
     func didGetImage(image: UIImage)
     func showAlert(alert: UIAlertController)
