@@ -3,7 +3,7 @@ import Photos
 
 class InstaLinker: NSObject {
 
-    var delegate: InstaLinkerDelegate?
+    weak var delegate: InstaLinkerDelegate?
     
     func link(image: UIImage) {
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(afterSave(_:didFinishSavingWithError:contextInfo:)), nil)
@@ -36,7 +36,7 @@ class InstaLinker: NSObject {
 
 // MARK: - InstaLinkerDelegate protocol
 
-protocol InstaLinkerDelegate {
+protocol InstaLinkerDelegate: AnyObject {
     func failedToLink(with alert: UIAlertController)
 }
 

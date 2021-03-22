@@ -8,7 +8,7 @@ enum FilterType: String, CaseIterable {
     func max() -> Float {
         switch self {
         case .blur:
-            return 20
+            return 40
         case .mosaic:
             return 70
         case .monochrome:

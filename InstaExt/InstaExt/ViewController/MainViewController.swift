@@ -27,6 +27,11 @@ class MainViewController: UIViewController {
             instaButton.isEnabled = false
         }
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        imageDelivery.delegate = nil
+        instaLinker.delegate = nil
+    }
     
     // MARK: - @IBAction
     

@@ -25,6 +25,8 @@
 		C6C8FA1225ECC5C200760B2A /* Monochrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C8FA1125ECC5C200760B2A /* Monochrome.swift */; };
 		C6DAD62425EDCB7700BAFB1E /* Mosaic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DAD62325EDCB7700BAFB1E /* Mosaic.swift */; };
 		C6E018E625EF106000303459 /* ImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E018E525EF106000303459 /* ImageType.swift */; };
+		C6EB24D025F6FD3400514EC1 /* FaceDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EB24CF25F6FD3400514EC1 /* FaceDetection.swift */; };
+		C6EE21EC260179DC00A0C05C /* TogglableFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE21EB260179DC00A0C05C /* TogglableFrame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		C6C8FA1125ECC5C200760B2A /* Monochrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monochrome.swift; sourceTree = "<group>"; };
 		C6DAD62325EDCB7700BAFB1E /* Mosaic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mosaic.swift; sourceTree = "<group>"; };
 		C6E018E525EF106000303459 /* ImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageType.swift; sourceTree = "<group>"; };
+		C6EB24CF25F6FD3400514EC1 /* FaceDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetection.swift; sourceTree = "<group>"; };
+		C6EE21EB260179DC00A0C05C /* TogglableFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglableFrame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,7 @@
 				C6E018F925EF186300303459 /* InOut */,
 				C6E018F125EF17F800303459 /* Filter */,
 				C6E018F525EF184200303459 /* MaskProcess */,
+				C6EB24D425F6FD3C00514EC1 /* Vision */,
 			);
 			path = InstaExt;
 			sourceTree = "<group>";
@@ -167,6 +172,7 @@
 			children = (
 				C634C0C025CBBBB900AA0CF1 /* MaskView.swift */,
 				C6C6505625D3A3DA008603C9 /* ImageComposition.swift */,
+				C6EE21EB260179DC00A0C05C /* TogglableFrame.swift */,
 			);
 			path = MaskProcess;
 			sourceTree = "<group>";
@@ -188,6 +194,14 @@
 				C6886FE225B7C4F900CA7781 /* EditorViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		C6EB24D425F6FD3C00514EC1 /* Vision */ = {
+			isa = PBXGroup;
+			children = (
+				C6EB24CF25F6FD3400514EC1 /* FaceDetection.swift */,
+			);
+			path = Vision;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,10 +338,12 @@
 				C6C6505725D3A3DA008603C9 /* ImageComposition.swift in Sources */,
 				C6E018E625EF106000303459 /* ImageType.swift in Sources */,
 				C6C8FA0D25ECC58B00760B2A /* Blur.swift in Sources */,
+				C6EE21EC260179DC00A0C05C /* TogglableFrame.swift in Sources */,
 				C6886FAE25B7B83200CA7781 /* MainViewController.swift in Sources */,
 				C6886FAA25B7B83200CA7781 /* AppDelegate.swift in Sources */,
 				C6886FAC25B7B83200CA7781 /* SceneDelegate.swift in Sources */,
 				C6BC134725C8F57A00FD789D /* Filter.swift in Sources */,
+				C6EB24D025F6FD3400514EC1 /* FaceDetection.swift in Sources */,
 				C6DAD62425EDCB7700BAFB1E /* Mosaic.swift in Sources */,
 				C6886FE325B7C4F900CA7781 /* EditorViewController.swift in Sources */,
 				C634C0C125CBBBB900AA0CF1 /* MaskView.swift in Sources */,
